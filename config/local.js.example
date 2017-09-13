@@ -1,0 +1,77 @@
+/**
+ * Installation specific application configuration
+ */
+const path = require('path');
+
+module.exports = {
+    // Server instance name (alphanumeric)
+    instance: 'server1',
+
+    // Official URL
+    official_url: 'http://localhost:3000',
+
+    // Environment
+    env: process.env.NODE_ENV || (!!process.env.DEBUG ? 'development' : 'production'),
+
+    // Loaded modules
+    modules: [
+        'index',
+    ],
+
+    // Servers
+    servers: {
+        bot: {
+            class: 'servers.bot',
+            token: 'token_here',
+        },
+    },
+
+    // SMTP servers
+    smtp: {
+        main: {
+            host: 'localhost',
+            port: 25,
+            ssl: false,
+            //user: 'username',
+            //password: 'password',
+        },
+    },
+
+    session: {
+        expire_timeout: 14 * 24 * 60 * 60,  // seconds, delete inactive sessions
+        secret: 'some unique secret here',  // could be "pwgen 32 1" output
+    },
+
+    email: {
+        from: 'root@localhost',
+        log: {
+            enable: false,                  // email logger messages or not
+            level: 'error',
+            to: 'debug@example.com',
+        },
+        crash: {
+            enable: false,                  // email program crash or not
+            to: 'debug@example.com',
+        },
+    },
+
+    logs: {
+        main: {
+            level: 'info',
+            default: true,
+            name: 'error.log',
+            path: path.join(__dirname, '..', 'logs'),
+            interval: '1d',
+            mode: 0o640,
+            maxFiles: 3,
+            history: path.join(__dirname, '..', 'logs', 'error.log.history'),
+        },
+    },
+
+/*
+    user: { // Drop privileges, otherwise comment out this section
+        uid: 'www',
+        gid: 'www',
+    },
+*/
+};

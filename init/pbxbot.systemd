@@ -1,0 +1,18 @@
+[Unit]
+Description=Aesthetics Telegram Bot
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/node /path/to/aesthetics-bot/bin/daemon /var/run/aesthetics-bot.pid bot
+ExecStopPost=-/bin/rm /var/run/aesthetics-bot.pid
+PIDFile=/var/run/aesthetics-bot.pid
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=aesthetics-bot
+User=root
+Group=root
+#PermissionsStartOnly=true
+
+[Install]
+WantedBy=multi-user.target

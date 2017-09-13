@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const App = require('arpen').App;
+const Console = require('arpen').Console;
+
+let argv = process.argv.slice(2);
+if (!argv.length)
+    argv = [ 'help' ];
+
+const console = new Console(path.join(__dirname, '..'), argv);
+console
+    .run()
+    .catch(error => {
+        console.error(error.stack || error.message || error);
+        process.exit(App.fatalExitCode);
+    });

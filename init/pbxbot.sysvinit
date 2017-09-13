@@ -1,0 +1,48 @@
+#!/bin/sh
+# Start/stop the Aesthetics Telegram Bot
+#
+### BEGIN INIT INFO
+# Provides:          arpen-seed-web
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Aesthetics Telegram Bot
+# Description:       Aesthetics Telegram Bot
+### END INIT INFO
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin
+DESC="Aesthetics Telegram Bot"
+NAME=aesthetics-bot
+DAEMON=/path/to/aesthetics-bot/bin/daemon
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/"$NAME"
+EXTRA_OPTS="$PIDFILE bot"
+
+test -f $DAEMON || exit 0
+
+. /lib/lsb/init-functions
+
+case "$1" in
+start)	log_daemon_msg "Starting $NAME" "$NAME"
+        start_daemon -p $PIDFILE $DAEMON $EXTRA_OPTS
+        log_end_msg $?
+	;;
+stop)	log_daemon_msg "Stopping $NAME" "$NAME"
+        killproc -p $PIDFILE $DAEMON
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && [ -e "$PIDFILE" ] && rm -f $PIDFILE
+        log_end_msg $RETVAL
+        ;;
+restart) log_daemon_msg "Restarting $NAME" "$NAME"
+        $0 stop
+        $0 start
+        ;;
+status)
+        status_of_proc -p $PIDFILE $DAEMON $NAME && exit 0 || exit $?
+        ;;
+*)	log_action_msg "Usage: /etc/init.d/$NAME {start|stop|restart|status}"
+        exit 2
+        ;;
+esac
+exit 0
