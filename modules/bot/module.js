@@ -12,11 +12,17 @@ class Bot {
      * @param {App} app                                     The application
      * @param {object} config                               Configuration
      * @param {StartScene} startScene                       Start scene
+     * @param {MissedScene} missedScene                     Missed scene
+     * @param {TodayScene} todayScene                       Today scene
+     * @param {YesterdayScene} yesterdayScene               Yesterday scene
      */
-    constructor(app, config, startScene) {
+    constructor(app, config, startScene, missedScene, todayScene, yesterdayScene) {
         this._app = app;
         this._config = config;
         this._startScene = startScene;
+        this._missedScene = missedScene;
+        this._todayScene = todayScene;
+        this._yesterdayScene = yesterdayScene;
     }
 
     /**
@@ -36,6 +42,9 @@ class Bot {
             'app',
             'config',
             'modules.bot.scenes.start',
+            'modules.bot.scenes.missed',
+            'modules.bot.scenes.today',
+            'modules.bot.scenes.yesterday',
         ];
     }
 
@@ -49,6 +58,9 @@ class Bot {
             return;
 
         server.registerScene(this._startScene);
+        server.registerScene(this._missedScene);
+        server.registerScene(this._todayScene);
+        server.registerScene(this._yesterdayScene);
     }
 }
 
