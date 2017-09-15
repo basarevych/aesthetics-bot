@@ -12,6 +12,6 @@ const console = new Console(path.join(__dirname, '..'), argv);
 console
     .run()
     .catch(error => {
-        console.error(error.stack || error.message || error);
+        process.stderr.write((error.fullStack || error.stack || error.message || error) + '\n');
         process.exit(App.fatalExitCode);
     });

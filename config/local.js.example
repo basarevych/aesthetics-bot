@@ -15,13 +15,14 @@ module.exports = {
 
     // Loaded modules
     modules: [
-        'index',
+        'telegram',
+        'bot',
     ],
 
     // Servers
     servers: {
         bot: {
-            class: 'servers.bot',
+            class: 'servers.telegram',
             token: 'token_here',
         },
     },
@@ -38,8 +39,8 @@ module.exports = {
     },
 
     session: {
+        file: path.join(__dirname, '..', 'sessions', 'aesthetics.db'),
         expire_timeout: 14 * 24 * 60 * 60,  // seconds, delete inactive sessions
-        secret: 'some unique secret here',  // could be "pwgen 32 1" output
     },
 
     email: {

@@ -6,7 +6,7 @@ const Server = require('arpen').Server;
 
 let argv = process.argv.slice(2);
 if (!argv.length) {
-    console.error('Usage:\trun <server-name> [... <server-name>]');
+    process.stderr.write('Usage:\trun <server-name> [... <server-name>]\n');
     process.exit(1);
 }
 
@@ -14,6 +14,6 @@ const server = new Server(path.join(__dirname, '..'), argv);
 server
     .run({}, ...argv)
     .catch(error => {
-        console.error(error.stack || error.message || error);
+        process.stderr.write((error.fullStack || error.stack || error.message || error) + '\n');
         process.exit(App.fatalExitCode);
     });

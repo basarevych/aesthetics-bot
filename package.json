@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "argv": "~0.0.2",
-    "arpen": "~0.1.6",
+    "arpen": "~0.1.12",
     "daemon": "~1.1.0",
     "emailjs": "~1.0.12",
     "format-message": "~5.2.0",
@@ -21,6 +21,9 @@
     "nerror": "~1.0.0",
     "pty.js": "~0.3.1",
     "strip-ansi": "~4.0.0",
+    "telegraf": "~3.10.1",
+    "telegraf-flow": "~8.2.2",
+    "telegraf-session-local": "~0.0.4",
     "validator": "~8.2.0"
   },
   "devDependencies": {

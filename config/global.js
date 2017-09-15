@@ -12,7 +12,6 @@ module.exports = {
         '!arpen/src/services',
         'models',
         'repositories',
-        'services',
         'commands',
     ],
 };
