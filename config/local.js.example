@@ -24,6 +24,9 @@ module.exports = {
         bot: {
             class: 'servers.telegram',
             token: 'token_here',
+            pin_code: '0000',
+            self: [],
+            msg_pause: 2000,
         },
     },
 
@@ -36,6 +39,8 @@ module.exports = {
             password: 'password',
             db_name: 'dbname',
             max_pool: 10,
+            connect_timeout: 10000,
+            acquire_timeout: 3000,
         },
     },
 
@@ -76,7 +81,7 @@ module.exports = {
             path: path.join(__dirname, '..', 'logs'),
             interval: '1d',
             mode: 0o640,
-            maxFiles: 3,
+            max_files: 3,
             history: path.join(__dirname, '..', 'logs', 'error.log.history'),
         },
     },

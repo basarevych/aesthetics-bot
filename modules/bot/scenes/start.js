@@ -61,7 +61,7 @@ class StartScene {
         server.flow.register(scene);
     }
 
-    onEnter(ctx) {
+    async onEnter(ctx) {
         if (!ctx.session.authorized) {
             if (!ctx.session.greeted) {
                 ctx.reply(`Привет, ${ctx.from.first_name}!`);
@@ -70,23 +70,23 @@ class StartScene {
             return ctx.reply('Пожалуйста, введите пинкод');
         }
 
-        this.sendMenu(ctx);
+        return this.sendMenu(ctx);
     }
 
-    onMessage(ctx) {
+    async onMessage(ctx) {
         if (ctx.session.authorized) {
-            this.sendMenu(ctx, ctx.message.text === '/start' ? false : 'Неправильная команда');
+            await this.sendMenu(ctx, ctx.message.text === '/start' ? false : 'Неправильная команда');
         } else {
-            if (ctx.message.text === '9908') {
+            if (ctx.message.text === this._config.get('servers.bot.pin_code')) {
                 ctx.session.authorized = true;
-                this.sendMenu(ctx);
+                await this.sendMenu(ctx);
             } else {
                 ctx.reply('Неправильный пинкод\nПожалуйста, введите пинкод');
             }
         }
     }
 
-    sendMenu(ctx, message) {
+    async sendMenu(ctx, message) {
         let msg = `/${this._missedScene.name} - Пропущенные сегодня звонки
 /${this._todayScene.name} - Все звонки за сегодня
 /${this._yesterdayScene.name} - Все звонки за вчера`;
