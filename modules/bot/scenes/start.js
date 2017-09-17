@@ -63,18 +63,22 @@ class StartScene {
      */
     async register(server) {
         server.bot.use((ctx, next) => {
-            if (!ctx.session.authorized)
+            if (!ctx.session.authorized && ctx.session._flow.id !== 'start')
                 ctx.flow.enter('start');
             next(ctx);
         });
 
-        server.bot.command(this.name, ctx => ctx.flow.enter(this.name));
-
         let scene = new server.constructor.Scene(this.name);
         scene.enter(this.onEnter.bind(this));
-        scene.command(this._missedScene.name, ctx => ctx.flow.enter(this._missedScene.name));
-        scene.command(this._todayScene.name, ctx => ctx.flow.enter(this._todayScene.name));
-        scene.command(this._yesterdayScene.name, ctx => ctx.flow.enter(this._yesterdayScene.name));
+        scene.command(this._missedScene.name, ctx => {
+            return ctx.session.authorized ? ctx.flow.enter(this._missedScene.name) : this.onMessage(ctx);
+        });
+        scene.command(this._todayScene.name, ctx => {
+            return ctx.session.authorized ? ctx.flow.enter(this._todayScene.name) : this.onMessage(ctx);
+        });
+        scene.command(this._yesterdayScene.name, ctx => {
+            return ctx.session.authorized ? ctx.flow.enter(this._yesterdayScene.name) : this.onMessage(ctx);
+        });
         scene.on('message', this.onMessage.bind(this));
         server.flow.register(scene);
     }
