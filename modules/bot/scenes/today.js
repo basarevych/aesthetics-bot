@@ -4,6 +4,7 @@
  */
 const path = require('path');
 const moment = require('moment-timezone');
+const NError = require('nerror');
 
 /**
  * Today calls scene class
@@ -136,28 +137,22 @@ class TodayScene {
         try {
             let match = /^\/(\d+)$/.exec(ctx.message.text);
             if (match && ctx.session.files[match[1]]) {
-                let name = ctx.session.files[match[1]];
-                let fullPath = null;
+                let file = ctx.session.files[match[1]];
+                let buffer = null;
                 await this._filer.process(
                     this._config.get('servers.bot.records_path'),
-                    filename => {
-                        if (path.basename(filename) === name)
-                            fullPath = filename;
+                    async filename => {
+                        if (path.basename(filename) === file.name)
+                            buffer = await this._filer.lockReadBuffer(filename);
+                        return !buffer;
                     },
-                    () => {
-                        return !fullPath;
+                    async () => {
+                        return !buffer;
                     }
                 );
-                if (fullPath) {
-                    try {
-                        let buffer = await this._filer.lockReadBuffer(fullPath);
-                        await ctx.replyWithAudio({ source: buffer });
-                    } catch (error) {
-                        await ctx.replyWithHTML(`<i>Не удалось прочитать файл: ${error.messages || error.message}</i>`);
-                    }
-                } else {
-                    await ctx.replyWithHTML(`<i>Файл не найден</i>`);
-                }
+                if (!buffer)
+                    throw new NError({ file }, 'Файл не найден');
+                await ctx.replyWithAudio({ source: buffer}, { performer: file.performer, title: file.title });
             } else {
                 await this.sendMenu(ctx, 'Неправильная команда');
             }
@@ -223,6 +218,8 @@ class TodayScene {
         } else {
             await ctx.reply('Сегодня еще не было звонков');
         }
+
+        await ctx.reply(`Повторить меню: /${this.name}\nГлавное меню: /start`);
     }
 
     /**
@@ -240,7 +237,15 @@ class TodayScene {
             dst: calls[index].dst,
             dur: calls[index].duration,
         };
-        return { call, file: calls[index].recordingfile }
+        let file = null;
+        if (calls[index].recordingfile.trim()) {
+            file = {
+                name: calls[index].recordingfile,
+                performer: calls[index].src,
+                title: calls[index].calldate.format('YYYY-MM-DD HH:mm:ss'),
+            };
+        }
+        return { call, file };
     }
 }
 

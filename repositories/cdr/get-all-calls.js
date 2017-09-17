@@ -18,15 +18,18 @@ const NError = require('nerror');
 module.exports = async function (daysAgo = 1, mysql) {
     let client;
 
+    let where = 'WHERE date(calldate) = date(now())';
+    if (daysAgo)
+        where = `date(date_sub(now(), INTERVAL ${daysAgo} DAY))`;
+
     try {
         client = typeof mysql === 'object' ? mysql : await this._mysql.connect(mysql);
         let rows = await client.query(
             `SELECT * 
-               FROM ${this.constructor.table} 
+               FROM ${this.constructor.table}
+              WHERE ${where} 
            ORDER BY calldate`
         );
-//              WHERE date(calldate) = date(now())
-        // date(date_sub(now(), INTERVAL 1 DAY))
 
         if (typeof mysql !== 'object')
             client.done();

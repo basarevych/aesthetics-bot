@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "argv": "~0.0.2",
-    "arpen": "~0.1.15",
+    "arpen": "~0.1.17",
+    "arpen-telegram": "~0.0.1",
     "daemon": "~1.1.0",
     "emailjs": "~1.0.12",
     "format-message": "~5.2.0",

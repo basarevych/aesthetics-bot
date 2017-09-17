@@ -22,10 +22,10 @@ module.exports = async function (mysql) {
         let rows = await client.query(
             `SELECT * 
                FROM ${this.constructor.table} 
-                    WHERE disposition != 'ANSWERED'
+              WHERE date(calldate) = date(now())
+                    AND disposition != 'ANSWERED'
            ORDER BY calldate`
         );
-//              WHERE date(calldate) = date(now())
 
         if (typeof mysql !== 'object')
             client.done();
