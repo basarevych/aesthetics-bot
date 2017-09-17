@@ -65,6 +65,14 @@ class TodayScene {
     }
 
     /**
+     * Message if zero calls
+     * @type {string}
+     */
+    get noCallsMessage() {
+        return 'Сегодня еще не было звонков';
+    }
+
+    /**
      * Register with the bot server
      * @param {Telegram} server                             Telegram server
      * @return {Promise}
@@ -216,7 +224,7 @@ class TodayScene {
             }
             await ctx.reply('[Конец] ' + date.format('YYYY-MM-DD'));
         } else {
-            await ctx.reply('Сегодня еще не было звонков');
+            await ctx.reply(this.noCallsMessage);
         }
 
         await ctx.reply(`Повторить меню: /${this.name}\nГлавное меню: /start`);

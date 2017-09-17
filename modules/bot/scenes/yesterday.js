@@ -31,6 +31,14 @@ class YesterdayScene extends TodayScence {
     get daysAgo() {
         return 1;
     }
+
+    /**
+     * Message if zero calls
+     * @type {string}
+     */
+    get noCallsMessage() {
+        return 'Вчера не было звонков';
+    }
 }
 
 module.exports = YesterdayScene;

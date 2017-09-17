@@ -18,9 +18,9 @@ const NError = require('nerror');
 module.exports = async function (daysAgo = 1, mysql) {
     let client;
 
-    let where = 'WHERE date(calldate) = date(now())';
+    let where = 'date(calldate) = date(now())';
     if (daysAgo)
-        where = `date(date_sub(now(), INTERVAL ${daysAgo} DAY))`;
+        where = `date(calldate) = date(date_sub(now(), INTERVAL ${daysAgo} DAY))`;
 
     try {
         client = typeof mysql === 'object' ? mysql : await this._mysql.connect(mysql);

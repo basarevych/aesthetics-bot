@@ -64,7 +64,7 @@ class StartScene {
     async register(server) {
         server.bot.use((ctx, next) => {
             if (!ctx.session.authorized)
-                ctx.flow.leave();
+                ctx.flow.enter('start');
             next(ctx);
         });
 
