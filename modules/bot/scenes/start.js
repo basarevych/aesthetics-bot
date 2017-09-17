@@ -11,13 +11,15 @@ class StartScene {
      * Create the module
      * @param {App} app                                     The application
      * @param {object} config                               Configuration
+     * @param {Logger} logger                               Logger service
      * @param {MissedScene} missedScene                     Missed scene
      * @param {TodayScene} todayScene                       Today scene
      * @param {YesterdayScene} yesterdayScene               Yesterday scene
      */
-    constructor(app, config, missedScene, todayScene, yesterdayScene) {
+    constructor(app, config, logger, missedScene, todayScene, yesterdayScene) {
         this._app = app;
         this._config = config;
+        this._logger = logger;
         this._missedScene = missedScene;
         this._todayScene = todayScene;
         this._yesterdayScene = yesterdayScene;
@@ -39,17 +41,33 @@ class StartScene {
         return [
             'app',
             'config',
+            'logger',
             'modules.bot.scenes.missed',
             'modules.bot.scenes.today',
             'modules.bot.scenes.yesterday',
         ];
     }
 
+    /**
+     * Scene name
+     * @type {string}
+     */
     get name() {
         return 'start';
     }
 
-    register(server) {
+    /**
+     * Register with the bot server
+     * @param {Telegram} server                             Telegram server
+     * @return {Promise}
+     */
+    async register(server) {
+        server.bot.use((ctx, next) => {
+            if (!ctx.session.authorized)
+                ctx.flow.leave();
+            next(ctx);
+        });
+
         server.bot.command(this.name, ctx => ctx.flow.enter(this.name));
 
         let scene = new server.constructor.Scene(this.name);
@@ -61,38 +79,74 @@ class StartScene {
         server.flow.register(scene);
     }
 
+    /**
+     * Entering the scene
+     * @param {object} ctx                                  Context object
+     * @return {Promise}
+     */
     async onEnter(ctx) {
-        if (!ctx.session.authorized) {
-            if (!ctx.session.greeted) {
-                ctx.reply(`Привет, ${ctx.from.first_name}!`);
-                ctx.session.greeted = true;
-            }
-            return ctx.reply('Пожалуйста, введите пинкод');
-        }
-
-        return this.sendMenu(ctx);
-    }
-
-    async onMessage(ctx) {
-        if (ctx.session.authorized) {
-            await this.sendMenu(ctx, ctx.message.text === '/start' ? false : 'Неправильная команда');
-        } else {
-            if (ctx.message.text === this._config.get('servers.bot.pin_code')) {
-                ctx.session.authorized = true;
+        try {
+            if (ctx.session.authorized) {
                 await this.sendMenu(ctx);
             } else {
-                ctx.reply('Неправильный пинкод\nПожалуйста, введите пинкод');
+                if (!ctx.session.greeted) {
+                    await ctx.reply(`Привет, ${ctx.from.first_name}!`);
+                    ctx.session.greeted = true;
+                }
+                await ctx.reply('Пожалуйста, введите пинкод');
+            }
+        } catch (error) {
+            try {
+                this._logger.error(error, 'StartScene.onEnter()');
+                await ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
+            } catch (error) {
+                // do nothing
             }
         }
     }
 
+    /**
+     * Generic message
+     * @param {object} ctx                                  Context object
+     * @return {Promise}
+     */
+    async onMessage(ctx) {
+        try {
+            if (ctx.session.authorized) {
+                await this.sendMenu(ctx, ctx.message.text === '/start' ? false : 'Неправильная команда');
+            } else {
+                if (ctx.message.text === this._config.get('servers.bot.pin_code')) {
+                    ctx.session.authorized = true;
+                    await this.sendMenu(ctx);
+                } else {
+                    await ctx.reply('Неправильный пинкод\nПожалуйста, введите пинкод');
+                }
+            }
+        } catch (error) {
+            try {
+                this._logger.error(error, 'StartScene.onMessage()');
+                await ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
+            } catch (error) {
+                // do nothing
+            }
+        }
+    }
+
+    /**
+     * Send menu
+     * @param {object} ctx                                  Context object
+     * @param {string} [message]                            Prepend message
+     * @return {Promise}
+     */
     async sendMenu(ctx, message) {
-        let msg = `/${this._missedScene.name} - Пропущенные сегодня звонки
+        let msg = `Пожалуйста, выберите:
+
+/${this._missedScene.name} - Пропущенные сегодня звонки
 /${this._todayScene.name} - Все звонки за сегодня
 /${this._yesterdayScene.name} - Все звонки за вчера`;
         if (message)
             msg = message + '\n\n' + msg;
-        ctx.reply(msg);
+        return ctx.reply(msg);
     }
 }
 

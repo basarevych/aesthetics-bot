@@ -26,7 +26,7 @@ module.exports = {
             token: 'token_here',
             pin_code: '0000',
             self: [],
-            msg_pause: 2000,
+            records_path: '/var/spool/asterisk/monitor',
         },
     },
 

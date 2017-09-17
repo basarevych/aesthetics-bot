@@ -2,6 +2,7 @@
  * Today calls scene
  * @module bot/scenes/missed
  */
+const path = require('path');
 const moment = require('moment-timezone');
 
 /**
@@ -13,12 +14,14 @@ class TodayScene {
      * @param {App} app                                     The application
      * @param {object} config                               Configuration
      * @param {Logger} logger                               Logger service
+     * @param {Filer} filer                                 Filer service
      * @param {CDRRepository} cdrRepo                       CDR repository
      */
-    constructor(app, config, logger, cdrRepo) {
+    constructor(app, config, logger, filer, cdrRepo) {
         this._app = app;
         this._config = config;
         this._logger = logger;
+        this._filer = filer;
         this._cdrRepo = cdrRepo;
     }
 
@@ -39,102 +42,205 @@ class TodayScene {
             'app',
             'config',
             'logger',
+            'filer',
             'repositories.cdr',
         ];
     }
 
+    /**
+     * Scene name
+     * @type {string}
+     */
     get name() {
         return 'today';
     }
 
-    register(server) {
+    /**
+     * How many days ago
+     * @type {number}
+     */
+    get daysAgo() {
+        return 0;
+    }
+
+    /**
+     * Register with the bot server
+     * @param {Telegram} server                             Telegram server
+     * @return {Promise}
+     */
+    async register(server) {
         let scene = new server.constructor.Scene(this.name);
         scene.enter(this.onEnter.bind(this));
+        scene.command(this.name, ctx => ctx.flow.enter(this.name));
+        scene.command('start', ctx => ctx.flow.enter('start'));
         scene.on('message', this.onMessage.bind(this));
         server.flow.register(scene);
     }
 
+    /**
+     * Entering the scene
+     * @param {object} ctx                                  Context object
+     * @return {Promise}
+     */
     async onEnter(ctx) {
         try {
-            let rows = await this._cdrRepo.getAllCalls();
+            let rows = await this._cdrRepo.getAllCalls(this.daysAgo);
             let processed = new Set();
             ctx.session.calls = [];
+            ctx.session.files = {};
 
             for (let i = 0; i < rows.length; i++) {
                 if (processed.has(i) || (rows[i].src.length <= 3 && rows[i].dst.length <= 3))
                     continue;
 
+                let calls = [];
+
+                let { call, file } = this._getCall(rows, i);
+                calls.push(call);
+                if (file)
+                    ctx.session.files[call.index.toString()] = file;
                 processed.add(i);
 
-                let calls = [];
-                calls.push(this._getCall(rows, i));
-                if (rows[i].src.length > 3 || !this._config.get('servers.bot.self').includes(rows[i].src)) {
+                if (rows[i].src.length > 3 && !this._config.get('servers.bot.self').includes(rows[i].src)) {
                     for (let j = i + 1; j < rows.length; j++) {
                         if (rows[j].src === rows[i].src || rows[j].dst === rows[i].src) {
-                            calls.push(this._getCall(rows, j));
+                            let { call, file } = this._getCall(rows, j);
+                            calls.push(call);
+                            if (file)
+                                ctx.session.files[call.index.toString()] = file;
                             processed.add(j);
                         }
                     }
                 }
+
                 ctx.session.calls.push(calls);
             }
 
             await this.sendMenu(ctx);
         } catch (error) {
-            this._logger.error(error, 'TodayScene.onEnter()');
-            ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
+            try {
+                this._logger.error(error, 'TodayScene.onMessage()');
+                await ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
+            } catch (error) {
+                // do nothing
+            }
         }
-        setTimeout(() => ctx.flow.enter('start'), parseInt(this._config.get('servers.bot.msg_pause')));
     }
 
+    /**
+     * Generic message
+     * @param {object} ctx                                  Context object
+     * @return {Promise}
+     */
     async onMessage(ctx) {
-        ctx.flow.enter('start');
+        try {
+            let match = /^\/(\d+)$/.exec(ctx.message.text);
+            if (match && ctx.session.files[match[1]]) {
+                let name = ctx.session.files[match[1]];
+                let fullPath = null;
+                await this._filer.process(
+                    this._config.get('servers.bot.records_path'),
+                    filename => {
+                        if (path.basename(filename) === name)
+                            fullPath = filename;
+                    },
+                    () => {
+                        return !fullPath;
+                    }
+                );
+                if (fullPath) {
+                    try {
+                        let buffer = await this._filer.lockReadBuffer(fullPath);
+                        await ctx.replyWithAudio({ source: buffer });
+                    } catch (error) {
+                        await ctx.replyWithHTML(`<i>Не удалось прочитать файл: ${error.messages || error.message}</i>`);
+                    }
+                } else {
+                    await ctx.replyWithHTML(`<i>Файл не найден</i>`);
+                }
+            } else {
+                await this.sendMenu(ctx, 'Неправильная команда');
+            }
+        } catch (error) {
+            try {
+                this._logger.error(error, 'TodayScene.onMessage()');
+                await ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
+            } catch (error) {
+                // do nothing
+            }
+        }
     }
 
-    async sendMenu(ctx) {
+    /**
+     * Send menu
+     * @param {object} ctx                                  Context object
+     * @param {string} [message]                            Prepend message
+     * @return {Promise}
+     */
+    async sendMenu(ctx, message) {
+        if (message)
+            return ctx.reply(message + `\n\nПовторить меню: /${this.name}\nГлавное меню: /start`);
+
         let result;
+        let date = moment();
+        if (this.daysAgo)
+            date.subtract(this.daysAgo, 'days');
+
         if (ctx.session.calls && ctx.session.calls.length) {
-            ctx.reply(moment().format('YYYY-MM-DD') + ' Начало');
-            await new Promise(resolve => {
-                setTimeout(resolve, parseInt(this._config.get('servers.bot.msg_pause')));
-            });
+            await ctx.reply('[Начало] ' + date.format('YYYY-MM-DD'));
             for (let i = 0; i < ctx.session.calls.length; i++) {
+                if (!ctx.session.calls[i].length)
+                    continue;
+
                 result = '';
-                for (let call of ctx.session.calls[i]) {
-                    result += call.time;
+                let highlight = ctx.session.calls[i][0].src;
+                for (let j = 0; j < ctx.session.calls[i].length; j++) {
+                    result += ctx.session.calls[i][j].time;
                     result += ': ';
-                    result += call.src;
+                    if (ctx.session.calls[i][j].src === highlight)
+                        result += '<b>';
+                    result += ctx.session.calls[i][j].src;
+                    if (ctx.session.calls[i][j].src === highlight)
+                        result += '</b>';
                     result += ' → ';
-                    result += call.dst;
+                    if (ctx.session.calls[i][j].dst === highlight)
+                        result += '<b>';
+                    result += ctx.session.calls[i][j].dst;
+                    if (ctx.session.calls[i][j].dst === highlight)
+                        result += '</b>';
                     result += ', ';
-                    result += call.disp === 'ANSWERED' ? `${call.dur} сек.` : call.disp.toLowerCase();
+                    result += ctx.session.calls[i][j].disp === 'ANSWERED'
+                        ? `${ctx.session.calls[i][j].dur} сек.`
+                        : ctx.session.calls[i][j].disp.toLowerCase();
                     result += ' ';
-                    if (call.disp === 'ANSWERED')
-                        result += `/${call.index}`;
+                    if (ctx.session.calls[i][j].disp === 'ANSWERED' && ctx.session.files[ctx.session.calls[i][j].index.toString()])
+                        result += `/${ctx.session.calls[i][j].index}`;
                     result += '\n';
                 }
-                ctx.replyWithHTML(result.trim());
-                await new Promise(resolve => {
-                    setTimeout(resolve, parseInt(this._config.get('servers.bot.msg_pause')));
-                });
+                await ctx.replyWithHTML(result.trim());
             }
-            result = moment().format('YYYY-MM-DD') + ' Конец';
+            await ctx.reply('[Конец] ' + date.format('YYYY-MM-DD'));
         } else {
-            result = 'Сегодня еще не было звонков';
+            await ctx.reply('Сегодня еще не было звонков');
         }
-        ctx.replyWithHTML(result.trim());
     }
 
+    /**
+     * Serialize call model
+     * @param {CDRModel[]} calls                            Array of models
+     * @param {number} index                                Target index in the array
+     * @return {object}
+     */
     _getCall(calls, index) {
-        return {
+        let call = {
             index: index + 1,
             time: calls[index].calldate.format('HH:mm'),
             disp: calls[index].disposition,
             src: calls[index].src,
             dst: calls[index].dst,
             dur: calls[index].duration,
-            file: calls[index].recordingfile,
         };
+        return { call, file: calls[index].recordingfile }
     }
 }
 

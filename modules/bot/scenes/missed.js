@@ -42,17 +42,31 @@ class MissedScene {
         ];
     }
 
+    /**
+     * Scene name
+     * @type {string}
+     */
     get name() {
         return 'missed';
     }
 
-    register(server) {
+    /**
+     * Register with the bot server
+     * @param {Telegram} server                             Telegram server
+     * @return {Promise}
+     */
+    async register(server) {
         let scene = new server.constructor.Scene(this.name);
         scene.enter(this.onEnter.bind(this));
         scene.on('message', this.onMessage.bind(this));
         server.flow.register(scene);
     }
 
+    /**
+     * Entering the scene
+     * @param {object} ctx                                  Context object
+     * @return {Promise}
+     */
     async onEnter(ctx) {
         try {
             let calls = await this._cdrRepo.getMissedCalls();
@@ -71,28 +85,34 @@ class MissedScene {
                     result += ', ';
                     result += calls[i].disposition.toLowerCase();
                     result += '</pre>';
-                    if (result.split('\n').length >= 20 && i < calls.length - 1) {
-                        ctx.reply(result.trim());
+                    if (result.split('\n').length >= 30 && i < calls.length - 1) {
+                        await ctx.replyWithHTML(result.trim());
                         result = '';
-                        await new Promise(resolve => {
-                            setTimeout(resolve, parseInt(this._config.get('servers.bot.msg_pause')));
-                        });
                     }
                     result += '\n';
                 }
             } else {
                 result = 'Сегодня еще не было пропущенных звонков';
             }
-            ctx.replyWithHTML(result.trim());
+            await ctx.replyWithHTML(result.trim());
         } catch (error) {
-            this._logger.error(error, 'MissedScene.onEnter()');
-            ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
+            try {
+                this._logger.error(error, 'MissedScene.onMessage()');
+                await ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
+            } catch (error) {
+                // do nothing
+            }
         }
-        setTimeout(() => ctx.flow.enter('start'), parseInt(this._config.get('servers.bot.msg_pause')));
+        await ctx.flow.enter('start');
     }
 
+    /**
+     * Generic message
+     * @param {object} ctx                                  Context object
+     * @return {Promise}
+     */
     async onMessage(ctx) {
-        ctx.flow.enter('start');
+        await ctx.flow.enter('start');
     }
 }
 
