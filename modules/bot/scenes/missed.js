@@ -2,6 +2,7 @@
  * Missed calls scene
  * @module bot/scenes/missed
  */
+const Scene = require('arpen-telegram').Scene;
 
 /**
  * Missed calls scene class
@@ -22,11 +23,11 @@ class MissedScene {
     }
 
     /**
-     * Service name is 'modules.bot.scenes.missed'
+     * Service name is 'bot.scenes.missed'
      * @type {string}
      */
     static get provides() {
-        return 'modules.bot.scenes.missed';
+        return 'bot.scenes.missed';
     }
 
     /**
@@ -56,7 +57,7 @@ class MissedScene {
      * @return {Promise}
      */
     async register(server) {
-        let scene = new server.constructor.Scene(this.name);
+        let scene = new Scene(this.name);
         scene.enter(this.onEnter.bind(this));
         scene.on('message', this.onMessage.bind(this));
         server.flow.register(scene);

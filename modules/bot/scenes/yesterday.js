@@ -2,18 +2,18 @@
  * Yesterday calls scene
  * @module bot/scenes/yesterday
  */
-const TodayScence = require('./today');
+const TodayScene = require('./today');
 
 /**
  * Yesterday calls scene class
  */
-class YesterdayScene extends TodayScence {
+class YesterdayScene extends TodayScene {
     /**
-     * Service name is 'modules.bot.scenes.yesterday'
+     * Service name is 'bot.scenes.yesterday'
      * @type {string}
      */
     static get provides() {
-        return 'modules.bot.scenes.yesterday';
+        return 'bot.scenes.yesterday';
     }
 
     /**

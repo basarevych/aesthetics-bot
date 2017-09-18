@@ -41,10 +41,10 @@ class Bot {
         return [
             'app',
             'config',
-            'modules.bot.scenes.start',
-            'modules.bot.scenes.missed',
-            'modules.bot.scenes.today',
-            'modules.bot.scenes.yesterday',
+            'bot.scenes.start',
+            'bot.scenes.missed',
+            'bot.scenes.today',
+            'bot.scenes.yesterday',
         ];
     }
 

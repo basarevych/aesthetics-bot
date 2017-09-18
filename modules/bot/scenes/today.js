@@ -5,6 +5,7 @@
 const path = require('path');
 const moment = require('moment-timezone');
 const NError = require('nerror');
+const Scene = require('arpen-telegram').Scene;
 
 /**
  * Today calls scene class
@@ -27,11 +28,11 @@ class TodayScene {
     }
 
     /**
-     * Service name is 'modules.bot.scenes.today'
+     * Service name is 'bot.scenes.today'
      * @type {string}
      */
     static get provides() {
-        return 'modules.bot.scenes.today';
+        return 'bot.scenes.today';
     }
 
     /**
@@ -78,7 +79,7 @@ class TodayScene {
      * @return {Promise}
      */
     async register(server) {
-        let scene = new server.constructor.Scene(this.name);
+        let scene = new Scene(this.name);
         scene.enter(this.onEnter.bind(this));
         scene.command(this.name, ctx => ctx.flow.enter(this.name));
         scene.command('start', ctx => ctx.flow.enter('start'));
@@ -160,7 +161,7 @@ class TodayScene {
                 );
                 if (!buffer)
                     throw new NError({ file }, 'Файл не найден');
-                await ctx.replyWithAudio({ source: buffer}, { performer: file.performer, title: file.title });
+                await ctx.replyWithAudio({ source: buffer }, { performer: file.performer, title: file.title });
             } else {
                 await this.sendMenu(ctx, 'Неправильная команда');
             }

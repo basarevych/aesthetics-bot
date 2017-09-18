@@ -15,7 +15,7 @@ module.exports = {
 
     // Loaded modules
     modules: [
-        'telegram',
+        '!arpen-telegram/src',
         'bot',
     ],
 

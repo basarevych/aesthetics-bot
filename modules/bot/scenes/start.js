@@ -2,6 +2,7 @@
  * Start scene
  * @module bot/scenes/start
  */
+const Scene = require('arpen-telegram').Scene;
 
 /**
  * Start scene class
@@ -26,11 +27,11 @@ class StartScene {
     }
 
     /**
-     * Service name is 'modules.bot.scenes.start'
+     * Service name is 'bot.scenes.start'
      * @type {string}
      */
     static get provides() {
-        return 'modules.bot.scenes.start';
+        return 'bot.scenes.start';
     }
 
     /**
@@ -42,9 +43,9 @@ class StartScene {
             'app',
             'config',
             'logger',
-            'modules.bot.scenes.missed',
-            'modules.bot.scenes.today',
-            'modules.bot.scenes.yesterday',
+            'bot.scenes.missed',
+            'bot.scenes.today',
+            'bot.scenes.yesterday',
         ];
     }
 
@@ -68,7 +69,7 @@ class StartScene {
             next(ctx);
         });
 
-        let scene = new server.constructor.Scene(this.name);
+        let scene = new Scene(this.name);
         scene.enter(this.onEnter.bind(this));
         scene.command(this._missedScene.name, ctx => {
             return ctx.session.authorized ? ctx.flow.enter(this._missedScene.name) : this.onMessage(ctx);
