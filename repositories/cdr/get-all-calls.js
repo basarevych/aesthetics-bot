@@ -11,7 +11,7 @@ const NError = require('nerror');
  * @instance
  * @method getAllCalls
  * @memberOf module:repositories/cdr~CDRRepository
- * @param {number} [daysAgo=1]              Subtract number of days
+ * @param {number} [daysAgo=0]              Subtract number of days
  * @param {MySQLClient|string} [mysql]      Will reuse the MySQL client provided, or if it is a string then will
  *                                          connect to this instance of MySQL.
  * @return {Promise}                        Resolves to array of models
@@ -19,9 +19,10 @@ const NError = require('nerror');
 module.exports = async function (daysAgo = 0, mysql) {
     let client;
 
-    let date = daysAgo ? moment().subtract(daysAgo, 'days') : moment();
-
     try {
+        let date = daysAgo ? moment().subtract(daysAgo, 'days') : moment();
+        let start = moment(date.format('YYYY-MM-DD') + ' 00:00:00.000');
+        let end = moment(date.format('YYYY-MM-DD') + ' 23:59:59.999');
         client = typeof mysql === 'object' ? mysql : await this._mysql.connect(mysql);
         let rows = await client.query(
             `SELECT * 
@@ -29,8 +30,8 @@ module.exports = async function (daysAgo = 0, mysql) {
               WHERE calldate >= ? AND calldate <= ? 
            ORDER BY calldate`,
             [
-                date.startOf('day').tz('UTC').format(this._mysql.constructor.datetimeFormat),
-                date.endOf('day').tz('UTC').format(this._mysql.constructor.datetimeFormat),
+                start.tz('UTC').format(this._mysql.constructor.datetimeFormat),
+                end.tz('UTC').format(this._mysql.constructor.datetimeFormat),
             ]
         );
 //        rows = await client.query(`SELECT * FROM ${this.constructor.table} ORDER BY calldate`);

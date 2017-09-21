@@ -20,6 +20,8 @@ module.exports = async function (mysql) {
 
     try {
         let date = moment();
+        let start = moment(date.format('YYYY-MM-DD') + ' 00:00:00.000');
+        let end = moment(date.format('YYYY-MM-DD') + ' 23:59:59.999');
         client = typeof mysql === 'object' ? mysql : await this._mysql.connect(mysql);
         let rows = await client.query(
             `SELECT * 
@@ -27,8 +29,8 @@ module.exports = async function (mysql) {
               WHERE calldate >= ? AND calldate <= ? AND disposition != ?
            ORDER BY calldate`,
             [
-                date.startOf('day').tz('UTC').format(this._mysql.constructor.datetimeFormat),
-                date.endOf('day').tz('UTC').format(this._mysql.constructor.datetimeFormat),
+                start.tz('UTC').format(this._mysql.constructor.datetimeFormat),
+                end.tz('UTC').format(this._mysql.constructor.datetimeFormat),
                 'ANSWERED'
             ]
         );
