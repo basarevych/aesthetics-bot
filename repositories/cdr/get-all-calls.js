@@ -16,7 +16,7 @@ const NError = require('nerror');
  *                                          connect to this instance of MySQL.
  * @return {Promise}                        Resolves to array of models
  */
-module.exports = async function (daysAgo = 1, mysql) {
+module.exports = async function (daysAgo = 0, mysql) {
     let client;
 
     let date = daysAgo ? moment().subtract(daysAgo, 'days') : moment();
@@ -29,8 +29,8 @@ module.exports = async function (daysAgo = 1, mysql) {
               WHERE calldate >= ? AND calldate <= ? 
            ORDER BY calldate`,
             [
-                date.tz('UTC').format('YYYY-MM-DD') + ' 00:00:00',
-                date.tz('UTC').format('YYYY-MM-DD') + ' 23:59:59',
+                date.startOf('day').tz('UTC').format(this._mysql.constructor.datetimeFormat),
+                date.endOf('day').tz('UTC').format(this._mysql.constructor.datetimeFormat),
             ]
         );
 //        rows = await client.query(`SELECT * FROM ${this.constructor.table} ORDER BY calldate`);

@@ -27,8 +27,8 @@ module.exports = async function (mysql) {
               WHERE calldate >= ? AND calldate <= ? AND disposition != ?
            ORDER BY calldate`,
             [
-                date.tz('UTC').format('YYYY-MM-DD') + ' 00:00:00',
-                date.tz('UTC').format('YYYY-MM-DD') + ' 23:59:59',
+                date.startOf('day').tz('UTC').format(this._mysql.constructor.datetimeFormat),
+                date.endOf('day').tz('UTC').format(this._mysql.constructor.datetimeFormat),
                 'ANSWERED'
             ]
         );
