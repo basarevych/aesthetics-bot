@@ -39,6 +39,14 @@ class YesterdayScene extends TodayScene {
     get noCallsMessage() {
         return 'Вчера не было звонков';
     }
+
+    /**
+     * Menu message
+     * @type {string}
+     */
+    get menuEntry() {
+        return 'все звонки за вчера';
+    }
 }
 
 module.exports = YesterdayScene;

@@ -1,13 +1,14 @@
 /**
- * Missed calls scene
- * @module bot/scenes/missed
+ * /missed
+ * @module bot/commands/missed
  */
-const Scene = require('arpen-telegram').Scene;
+const NError = require('nerror');
+const { Markup } = require('arpen-telegram').Telegraf;
 
 /**
- * Missed calls scene class
+ * Missed command class
  */
-class MissedScene {
+class MissedCommand {
     /**
      * Create the module
      * @param {App} app                                     The application
@@ -23,11 +24,11 @@ class MissedScene {
     }
 
     /**
-     * Service name is 'bot.scenes.missed'
+     * Service name is 'bot.commands.missed'
      * @type {string}
      */
     static get provides() {
-        return 'bot.scenes.missed';
+        return 'bot.commands.missed';
     }
 
     /**
@@ -44,32 +45,29 @@ class MissedScene {
     }
 
     /**
-     * Scene name
+     * Command name
      * @type {string}
      */
     get name() {
         return 'missed';
     }
 
-    /**
-     * Register with the bot server
-     * @param {Telegram} server                             Telegram server
-     * @return {Promise}
-     */
-    async register(server) {
-        let scene = new Scene(this.name);
-        scene.enter(this.onEnter.bind(this));
-        scene.on('message', this.onMessage.bind(this));
-        server.flow.register(scene);
+    get syntax() {
+        return [
+            [/^\/missed$/i],
+            [/пропущенные/i, /звонки/i],
+        ];
     }
 
-    /**
-     * Entering the scene
-     * @param {object} ctx                                  Context object
-     * @return {Promise}
-     */
-    async onEnter(ctx) {
+    async process(ctx, match, scene) {
         try {
+            this._logger.debug(this.name, 'Processing');
+
+            if (!ctx.session.authorized) {
+                await ctx.reply('В доступе отказано');
+                return scene.sendMenu(ctx);
+            }
+
             let calls = await this._cdrRepo.getMissedCalls();
             let result;
             if (calls.length) {
@@ -97,24 +95,38 @@ class MissedScene {
             }
             await ctx.replyWithHTML(result.trim());
         } catch (error) {
-            try {
-                this._logger.error(error, 'MissedScene.onMessage()');
-                await ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
-            } catch (error) {
-                // do nothing
-            }
+            await this.onError(ctx, 'MissedCommand.process()', error);
         }
-        await ctx.flow.enter('start');
+        return scene.sendMenu(ctx);
     }
 
     /**
-     * Generic message
-     * @param {object} ctx                                  Context object
+     * Register with the bot server
+     * @param {Telegram} server                             Telegram server
      * @return {Promise}
      */
-    async onMessage(ctx) {
-        await ctx.flow.enter('start');
+    async register(server) {
+        server.commander.add(this);
+    }
+
+    /**
+     * Log error
+     * @param {object} ctx                                  Context object
+     * @param {string} where                                Error location
+     * @param {Error} error                                 The error
+     * @return {Promise}
+     */
+    async onError(ctx, where, error) {
+        try {
+            this._logger.error(new NError(error, where));
+            await ctx.replyWithHTML(
+                `<i>Произошла ошибка. Пожалуйста, попробуйте повторить позднее.</i>`,
+                Markup.removeKeyboard().extra()
+            );
+        } catch (error) {
+            // do nothing
+        }
     }
 }
 
-module.exports = MissedScene;
+module.exports = MissedCommand;

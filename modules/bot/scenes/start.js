@@ -2,7 +2,9 @@
  * Start scene
  * @module bot/scenes/start
  */
-const Scene = require('arpen-telegram').Scene;
+const NError = require('nerror');
+const { Markup } = require('arpen-telegram').Telegraf;
+const { Scene } = require('arpen-telegram').Flow;
 
 /**
  * Start scene class
@@ -13,17 +15,11 @@ class StartScene {
      * @param {App} app                                     The application
      * @param {object} config                               Configuration
      * @param {Logger} logger                               Logger service
-     * @param {MissedScene} missedScene                     Missed scene
-     * @param {TodayScene} todayScene                       Today scene
-     * @param {YesterdayScene} yesterdayScene               Yesterday scene
      */
-    constructor(app, config, logger, missedScene, todayScene, yesterdayScene) {
+    constructor(app, config, logger) {
         this._app = app;
         this._config = config;
         this._logger = logger;
-        this._missedScene = missedScene;
-        this._todayScene = todayScene;
-        this._yesterdayScene = yesterdayScene;
     }
 
     /**
@@ -43,9 +39,6 @@ class StartScene {
             'app',
             'config',
             'logger',
-            'bot.scenes.missed',
-            'bot.scenes.today',
-            'bot.scenes.yesterday',
         ];
     }
 
@@ -63,23 +56,8 @@ class StartScene {
      * @return {Promise}
      */
     async register(server) {
-        server.bot.use((ctx, next) => {
-            if (!ctx.session.authorized && ctx.session._flow.id !== 'start')
-                ctx.flow.enter('start');
-            next(ctx);
-        });
-
         let scene = new Scene(this.name);
         scene.enter(this.onEnter.bind(this));
-        scene.command(this._missedScene.name, ctx => {
-            return ctx.session.authorized ? ctx.flow.enter(this._missedScene.name) : this.onMessage(ctx);
-        });
-        scene.command(this._todayScene.name, ctx => {
-            return ctx.session.authorized ? ctx.flow.enter(this._todayScene.name) : this.onMessage(ctx);
-        });
-        scene.command(this._yesterdayScene.name, ctx => {
-            return ctx.session.authorized ? ctx.flow.enter(this._yesterdayScene.name) : this.onMessage(ctx);
-        });
         scene.on('message', this.onMessage.bind(this));
         server.flow.register(scene);
     }
@@ -98,15 +76,13 @@ class StartScene {
                     await ctx.reply(`Привет, ${ctx.from.first_name}!`);
                     ctx.session.greeted = true;
                 }
-                await ctx.reply('Пожалуйста, введите пинкод');
+                await ctx.reply(
+                    'Пожалуйста, введите пинкод',
+                    Markup.removeKeyboard().extra()
+                );
             }
         } catch (error) {
-            try {
-                this._logger.error(error, 'StartScene.onEnter()');
-                await ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
-            } catch (error) {
-                // do nothing
-            }
+            await this.onError(ctx, 'StartScene.onEnter()', error);
         }
     }
 
@@ -118,22 +94,43 @@ class StartScene {
     async onMessage(ctx) {
         try {
             if (ctx.session.authorized) {
-                await this.sendMenu(ctx, ctx.message.text === '/start' ? false : 'Неправильная команда');
-            } else {
-                if (ctx.message.text === this._config.get('servers.bot.pin_code')) {
-                    ctx.session.authorized = true;
-                    await this.sendMenu(ctx);
-                } else {
-                    await ctx.reply('Неправильный пинкод\nПожалуйста, введите пинкод');
-                }
+                if (await ctx.commander.process(this))
+                    return;
+
+                return await this.sendMenu(ctx, 'Неправильная команда');
             }
+
+            let pinCode = ctx.message.text.replace(/\s+/g, '');
+            if (pinCode !== this._config.get('servers.bot.pin_code')) {
+                return await ctx.reply(
+                    'Неправильный пин-код, попробуйте еще раз',
+                    Markup.removeKeyboard().extra()
+                );
+            }
+
+            ctx.session.authorized = true;
+            return this.sendMenu(ctx);
         } catch (error) {
-            try {
-                this._logger.error(error, 'StartScene.onMessage()');
-                await ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
-            } catch (error) {
-                // do nothing
-            }
+            await this.onError(ctx, 'StartScene.onMessage()', error);
+        }
+    }
+
+    /**
+     * Log error
+     * @param {object} ctx                                  Context object
+     * @param {string} where                                Error location
+     * @param {Error} error                                 The error
+     * @return {Promise}
+     */
+    async onError(ctx, where, error) {
+        try {
+            this._logger.error(new NError(error, where));
+            await ctx.replyWithHTML(
+                `<i>Произошла ошибка. Пожалуйста, попробуйте повторить позднее.</i>`,
+                Markup.removeKeyboard().extra()
+            );
+        } catch (error) {
+            // do nothing
         }
     }
 
@@ -144,14 +141,24 @@ class StartScene {
      * @return {Promise}
      */
     async sendMenu(ctx, message) {
-        let msg = `Пожалуйста, выберите:
+        try {
+            let msg = `Пожалуйста, выберите действие`;
+            if (message)
+                msg = message + '\n\n' + msg;
 
-/${this._missedScene.name} - Пропущенные сегодня звонки
-/${this._todayScene.name} - Все звонки за сегодня
-/${this._yesterdayScene.name} - Все звонки за вчера`;
-        if (message)
-            msg = message + '\n\n' + msg;
-        return ctx.reply(msg);
+            let keyboard = Markup
+                .keyboard([
+                    ['Пропущенные сегодня звонки'],
+                    ['Все звонки за сегодня'],
+                    ['Все звонки за вчера']
+                ])
+                .resize()
+                .extra();
+
+            await ctx.reply(msg, keyboard);
+        } catch (error) {
+            await this.onError(ctx, 'StartScene.sendMenu()', error);
+        }
     }
 }
 

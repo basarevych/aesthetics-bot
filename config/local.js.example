@@ -27,6 +27,14 @@ module.exports = {
             pin_code: '0000',
             self: [],
             records_path: '/var/spool/asterisk/monitor',
+            session_file: path.join(__dirname, '..', 'sessions', 'aesthetics.db'),
+            middleware: [
+                'telegram.localSession',
+                'telegram.auth',
+                'telegram.commander',
+                'telegram.flow',
+                'telegram.start',
+            ],
         },
     },
 
@@ -53,11 +61,6 @@ module.exports = {
             //user: 'username',
             //password: 'password',
         },
-    },
-
-    session: {
-        file: path.join(__dirname, '..', 'sessions', 'aesthetics.db'),
-        expire_timeout: 14 * 24 * 60 * 60,  // seconds, delete inactive sessions
     },
 
     email: {

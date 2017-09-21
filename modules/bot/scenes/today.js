@@ -5,7 +5,8 @@
 const path = require('path');
 const moment = require('moment-timezone');
 const NError = require('nerror');
-const Scene = require('arpen-telegram').Scene;
+const { Markup } = require('arpen-telegram').Telegraf;
+const { Scene } = require('arpen-telegram').Flow;
 
 /**
  * Today calls scene class
@@ -74,6 +75,14 @@ class TodayScene {
     }
 
     /**
+     * Menu message
+     * @type {string}
+     */
+    get menuEntry() {
+        return 'все звонки за сегодня';
+    }
+
+    /**
      * Register with the bot server
      * @param {Telegram} server                             Telegram server
      * @return {Promise}
@@ -81,8 +90,6 @@ class TodayScene {
     async register(server) {
         let scene = new Scene(this.name);
         scene.enter(this.onEnter.bind(this));
-        scene.command(this.name, ctx => ctx.flow.enter(this.name));
-        scene.command('start', ctx => ctx.flow.enter('start'));
         scene.on('message', this.onMessage.bind(this));
         server.flow.register(scene);
     }
@@ -94,6 +101,9 @@ class TodayScene {
      */
     async onEnter(ctx) {
         try {
+            if (!ctx.session.authorized)
+                return ctx.flow.enter('start');
+
             let rows = await this._cdrRepo.getAllCalls(this.daysAgo);
             let processed = new Set();
             ctx.session.calls = [];
@@ -125,16 +135,10 @@ class TodayScene {
 
                 ctx.session.calls.push(calls);
             }
-
-            await this.sendMenu(ctx);
         } catch (error) {
-            try {
-                this._logger.error(error, 'TodayScene.onMessage()');
-                await ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
-            } catch (error) {
-                // do nothing
-            }
+            await this.onError(ctx, 'TodayScene.onEnter()', error);
         }
+        return this.sendMenu(ctx);
     }
 
     /**
@@ -144,6 +148,12 @@ class TodayScene {
      */
     async onMessage(ctx) {
         try {
+            if (!ctx.session.authorized)
+                await ctx.flow.enter('start');
+
+            if (await ctx.commander.process(this))
+                return;
+
             let match = /^\/(\d+)$/.exec(ctx.message.text);
             if (match && ctx.session.files[match[1]]) {
                 let file = ctx.session.files[match[1]];
@@ -163,15 +173,30 @@ class TodayScene {
                     throw new NError({ file }, 'Файл не найден');
                 await ctx.replyWithAudio({ source: buffer }, { performer: file.performer, title: file.title });
             } else {
-                await this.sendMenu(ctx, 'Неправильная команда');
+                return this.sendMenu(ctx, 'Неправильная команда');
             }
         } catch (error) {
-            try {
-                this._logger.error(error, 'TodayScene.onMessage()');
-                await ctx.replyWithHTML(`<i>${error.messages || error.message}</i>`);
-            } catch (error) {
-                // do nothing
-            }
+            await this.onError(ctx, 'TodayScene.onMessage()', error);
+        }
+        return this.sendMenu(ctx);
+    }
+
+    /**
+     * Log error
+     * @param {object} ctx                                  Context object
+     * @param {string} where                                Error location
+     * @param {Error} error                                 The error
+     * @return {Promise}
+     */
+    async onError(ctx, where, error) {
+        try {
+            this._logger.error(new NError(error, where));
+            await ctx.replyWithHTML(
+                `<i>Произошла ошибка. Пожалуйста, попробуйте повторить позднее.</i>`,
+                Markup.removeKeyboard().extra()
+            );
+        } catch (error) {
+            // do nothing
         }
     }
 
@@ -182,53 +207,66 @@ class TodayScene {
      * @return {Promise}
      */
     async sendMenu(ctx, message) {
-        if (message)
-            return ctx.reply(message + `\n\nПовторить меню: /${this.name}\nГлавное меню: /start`);
+        try {
+            let result;
+            let date = moment();
+            if (this.daysAgo)
+                date.subtract(this.daysAgo, 'days');
 
-        let result;
-        let date = moment();
-        if (this.daysAgo)
-            date.subtract(this.daysAgo, 'days');
+            if (ctx.session.calls && ctx.session.calls.length) {
+                await ctx.reply('[Начало] ' + date.format('YYYY-MM-DD'));
+                for (let i = 0; i < ctx.session.calls.length; i++) {
+                    if (!ctx.session.calls[i].length)
+                        continue;
 
-        if (ctx.session.calls && ctx.session.calls.length) {
-            await ctx.reply('[Начало] ' + date.format('YYYY-MM-DD'));
-            for (let i = 0; i < ctx.session.calls.length; i++) {
-                if (!ctx.session.calls[i].length)
-                    continue;
-
-                result = '';
-                let highlight = ctx.session.calls[i][0].src;
-                for (let j = 0; j < ctx.session.calls[i].length; j++) {
-                    result += ctx.session.calls[i][j].time;
-                    result += ': ';
-                    if (ctx.session.calls[i][j].src === highlight)
-                        result += '<b>';
-                    result += ctx.session.calls[i][j].src;
-                    if (ctx.session.calls[i][j].src === highlight)
-                        result += '</b>';
-                    result += ' → ';
-                    if (ctx.session.calls[i][j].dst === highlight)
-                        result += '<b>';
-                    result += ctx.session.calls[i][j].dst;
-                    if (ctx.session.calls[i][j].dst === highlight)
-                        result += '</b>';
-                    result += ', ';
-                    result += ctx.session.calls[i][j].disp === 'ANSWERED'
-                        ? `${ctx.session.calls[i][j].dur} сек.`
-                        : ctx.session.calls[i][j].disp.toLowerCase();
-                    result += ' ';
-                    if (ctx.session.calls[i][j].disp === 'ANSWERED' && ctx.session.files[ctx.session.calls[i][j].index.toString()])
-                        result += `/${ctx.session.calls[i][j].index}`;
-                    result += '\n';
+                    result = '';
+                    let highlight = ctx.session.calls[i][0].src;
+                    for (let j = 0; j < ctx.session.calls[i].length; j++) {
+                        result += ctx.session.calls[i][j].time;
+                        result += ': ';
+                        if (ctx.session.calls[i][j].src === highlight)
+                            result += '<b>';
+                        result += ctx.session.calls[i][j].src;
+                        if (ctx.session.calls[i][j].src === highlight)
+                            result += '</b>';
+                        result += ' → ';
+                        if (ctx.session.calls[i][j].dst === highlight)
+                            result += '<b>';
+                        result += ctx.session.calls[i][j].dst;
+                        if (ctx.session.calls[i][j].dst === highlight)
+                            result += '</b>';
+                        result += ', ';
+                        result += ctx.session.calls[i][j].disp === 'ANSWERED'
+                            ? `${ctx.session.calls[i][j].dur} сек.`
+                            : ctx.session.calls[i][j].disp.toLowerCase();
+                        result += ' ';
+                        if (ctx.session.calls[i][j].disp === 'ANSWERED' && ctx.session.files[ctx.session.calls[i][j].index.toString()])
+                            result += `/${ctx.session.calls[i][j].index}`;
+                        result += '\n';
+                    }
+                    await ctx.replyWithHTML(result.trim());
                 }
-                await ctx.replyWithHTML(result.trim());
+                await ctx.reply('[Конец] ' + date.format('YYYY-MM-DD'));
+            } else {
+                await ctx.reply(this.noCallsMessage);
             }
-            await ctx.reply('[Конец] ' + date.format('YYYY-MM-DD'));
-        } else {
-            await ctx.reply(this.noCallsMessage);
-        }
 
-        await ctx.reply(`Повторить меню: /${this.name}\nГлавное меню: /start`);
+            let msg = `Пожалуйста, выберите действие`;
+            if (message)
+                msg = message + '\n\n' + msg;
+
+            let keyboard = Markup
+                .keyboard([
+                    [`Повторить ${this.menuEntry}`],
+                    ['Главное меню']
+                ])
+                .resize()
+                .extra();
+
+            await ctx.reply(msg, keyboard);
+        } catch (error) {
+            await this.onError(ctx, 'TodayScene.sendMenu()', error);
+        }
     }
 
     /**

@@ -3,6 +3,7 @@
  */
 'use strict';
 
+const moment = require('moment-timezone');
 const NError = require('nerror');
 
 /**
@@ -18,14 +19,20 @@ module.exports = async function (mysql) {
     let client;
 
     try {
+        let date = moment();
         client = typeof mysql === 'object' ? mysql : await this._mysql.connect(mysql);
         let rows = await client.query(
             `SELECT * 
                FROM ${this.constructor.table} 
-              WHERE date(calldate) = date(now())
-                    AND disposition != 'ANSWERED'
-           ORDER BY calldate`
+              WHERE calldate >= ? AND calldate <= ? AND disposition != ?
+           ORDER BY calldate`,
+            [
+                date.tz('UTC').format('YYYY-MM-DD') + ' 00:00:00',
+                date.tz('UTC').format('YYYY-MM-DD') + ' 23:59:59',
+                'ANSWERED'
+            ]
         );
+//        rows = await client.query(`SELECT * FROM ${this.constructor.table} WHERE disposition != 'ANSWERED' ORDER BY calldate`);
 
         if (typeof mysql !== 'object')
             client.done();

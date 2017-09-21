@@ -11,18 +11,10 @@ class Bot {
      * Create the module
      * @param {App} app                                     The application
      * @param {object} config                               Configuration
-     * @param {StartScene} startScene                       Start scene
-     * @param {MissedScene} missedScene                     Missed scene
-     * @param {TodayScene} todayScene                       Today scene
-     * @param {YesterdayScene} yesterdayScene               Yesterday scene
      */
-    constructor(app, config, startScene, missedScene, todayScene, yesterdayScene) {
+    constructor(app, config) {
         this._app = app;
         this._config = config;
-        this._startScene = startScene;
-        this._missedScene = missedScene;
-        this._todayScene = todayScene;
-        this._yesterdayScene = yesterdayScene;
     }
 
     /**
@@ -41,11 +33,16 @@ class Bot {
         return [
             'app',
             'config',
-            'bot.scenes.start',
-            'bot.scenes.missed',
-            'bot.scenes.today',
-            'bot.scenes.yesterday',
         ];
+    }
+
+    /**
+     * Bootstrap module
+     * @return {Promise}
+     */
+    async bootstrap() {
+        this.scenes = this._app.get(/^bot.scenes.[^.]+$/);
+        this.commands = this._app.get(/^bot.commands.[^.]+$/);
     }
 
     /**
@@ -57,10 +54,21 @@ class Bot {
         if (server.constructor.provides !== 'servers.telegram')
             return;
 
-        server.registerScene(this._startScene);
-        server.registerScene(this._missedScene);
-        server.registerScene(this._todayScene);
-        server.registerScene(this._yesterdayScene);
+        await Array.from(this.scenes.values()).reduce(
+            async (prev, cur) => {
+                await prev;
+                return cur.register(server);
+            },
+            Promise.resolve()
+        );
+
+        await Array.from(this.commands.values()).reduce(
+            async (prev, cur) => {
+                await prev;
+                return cur.register(server);
+            },
+            Promise.resolve()
+        );
     }
 }
 
