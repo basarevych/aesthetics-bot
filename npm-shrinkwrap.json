@@ -1,6 +1,6 @@
 {
   "name": "aesthetics-bot",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -82,9 +82,9 @@
       "integrity": "sha1-7L0W+JSbFXGDcRsb2jNPN4QBhas="
     },
     "arpen": {
-      "version": "0.2.3",
-      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.3.tgz",
-      "integrity": "sha512-uVqAMt6jigSauSr6wJUPVRxnEikHO878qFn+d1rKvuJd2Qv3NW2s6gJkoCye3N2X3wYot+0hel2nV2IOkQjjSA==",
+      "version": "0.2.4",
+      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.4.tgz",
+      "integrity": "sha512-5q9oCwNzTpw9+rvtry2wfEI47LIq+upcSgMu8hqASWz/vTxGGr3ywomrmCyivM7YtHuAXT2cRwkTWjAT8Rc8FA==",
       "requires": {
         "debug": "3.0.1",
         "emailjs": "1.0.12",
