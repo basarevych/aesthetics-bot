@@ -97,7 +97,7 @@ class TodayScene {
     async onEnter(ctx) {
         try {
             if (!ctx.session.authorized)
-                return ctx.flow.enter('start');
+                return await ctx.flow.enter('start');
 
             let rows = await this._cdrRepo.getAllCalls(this.daysAgo);
             let processed = new Set();
@@ -130,10 +130,10 @@ class TodayScene {
 
                 ctx.session.calls.push(calls);
             }
+            await this.sendMenu(ctx);
         } catch (error) {
             await this.onError(ctx, 'TodayScene.onEnter()', error);
         }
-        return this.sendMenu(ctx);
     }
 
     /**
@@ -144,7 +144,7 @@ class TodayScene {
     async onMessage(ctx) {
         try {
             if (!ctx.session.authorized)
-                await ctx.flow.enter('start');
+                return await ctx.flow.enter('start');
 
             if (await ctx.commander.process(this))
                 return;
