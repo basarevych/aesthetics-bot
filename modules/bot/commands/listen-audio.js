@@ -63,10 +63,14 @@ class ListenAudioCommand {
         try {
             this._logger.debug(this.name, 'Processing');
 
-            if (!ctx.session.authorized)
+            if (!ctx.session.authorized || !ctx.session.files)
                 return false;
 
-            let file = match[0][0][1];
+            let index = match[0][0][1];
+            let file = ctx.session.files[index];
+            if (!file)
+                return false;
+
             let buffer = null;
             await this._filer.process(
                 this._config.get('servers.bot.records_path'),
