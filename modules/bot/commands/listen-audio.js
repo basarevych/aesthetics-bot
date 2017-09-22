@@ -50,7 +50,7 @@ class ListenAudioCommand {
      * @type {string}
      */
     get name() {
-        return 'missed';
+        return 'listen-audio';
     }
 
     get syntax() {
