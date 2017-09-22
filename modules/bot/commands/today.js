@@ -60,17 +60,17 @@ class TodayCommand {
         try {
             this._logger.debug(this.name, 'Processing');
 
-            if (!ctx.session.authorized) {
-                await ctx.reply('В доступе отказано');
-                return scene.sendMenu(ctx);
-            }
+            if (!ctx.session.authorized)
+                return false;
 
             if (scene.name !== 'today')
-                return ctx.flow.enter('today');
+                await ctx.flow.enter('today');
+            else
+                await scene.sendMenu(ctx);
         } catch (error) {
             await this.onError(ctx, 'TodayCommand.process()', error);
         }
-        return scene.sendMenu(ctx);
+        return true;
     }
 
     /**

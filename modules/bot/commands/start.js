@@ -61,11 +61,13 @@ class StartCommand {
             this._logger.debug(this.name, 'Processing');
 
             if (scene.name !== 'start')
-                return await ctx.flow.enter('start');
+                await ctx.flow.enter('start');
+            else
+                await scene.sendMenu(ctx);
         } catch (error) {
             await this.onError(ctx, 'StartCommand.process()', error);
         }
-        return scene.sendMenu(ctx);
+        return true;
     }
 
     /**

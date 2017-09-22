@@ -63,10 +63,8 @@ class MissedCommand {
         try {
             this._logger.debug(this.name, 'Processing');
 
-            if (!ctx.session.authorized) {
-                await ctx.reply('В доступе отказано');
-                return scene.sendMenu(ctx);
-            }
+            if (!ctx.session.authorized)
+                return false;
 
             let calls = await this._cdrRepo.getMissedCalls();
             let result;
@@ -94,10 +92,11 @@ class MissedCommand {
                 result = 'Сегодня еще не было пропущенных звонков';
             }
             await ctx.replyWithHTML(result.trim());
+            await scene.sendMenu(ctx);
         } catch (error) {
             await this.onError(ctx, 'MissedCommand.process()', error);
         }
-        return scene.sendMenu(ctx);
+        return true;
     }
 
     /**

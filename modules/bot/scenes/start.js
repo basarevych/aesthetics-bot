@@ -109,7 +109,7 @@ class StartScene {
             }
 
             ctx.session.authorized = true;
-            return this.sendMenu(ctx);
+            await this.sendMenu(ctx);
         } catch (error) {
             await this.onError(ctx, 'StartScene.onMessage()', error);
         }

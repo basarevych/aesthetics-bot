@@ -1,32 +1,35 @@
 /**
- * /yesterday
- * @module bot/commands/yesterday
+ * /listen_audio_N
+ * @module bot/commands/listen-audio
  */
+const path = require('path');
 const NError = require('nerror');
 const { Markup } = require('arpen-telegram').Telegraf;
 
 /**
- * Yesterday command class
+ * Listen audio command class
  */
-class YesterdayCommand {
+class ListenAudioCommand {
     /**
      * Create the module
      * @param {App} app                                     The application
      * @param {object} config                               Configuration
      * @param {Logger} logger                               Logger service
+     * @param {Filer} filer                                 Filer service
      */
-    constructor(app, config, logger) {
+    constructor(app, config, logger, filer) {
         this._app = app;
         this._config = config;
         this._logger = logger;
+        this._filer = filer;
     }
 
     /**
-     * Service name is 'bot.commands.yesterday'
+     * Service name is 'bot.commands.listenAudio'
      * @type {string}
      */
     static get provides() {
-        return 'bot.commands.yesterday';
+        return 'bot.commands.listenAudio';
     }
 
     /**
@@ -38,6 +41,7 @@ class YesterdayCommand {
             'app',
             'config',
             'logger',
+            'filer',
         ];
     }
 
@@ -46,13 +50,12 @@ class YesterdayCommand {
      * @type {string}
      */
     get name() {
-        return 'yesterday';
+        return 'missed';
     }
 
     get syntax() {
         return [
-            [/^\/today/i],
-            [/все/i, /звонки/i, /за +вчера/i]
+            [/^\/listen_audio_(\d+)$/i],
         ];
     }
 
@@ -63,12 +66,26 @@ class YesterdayCommand {
             if (!ctx.session.authorized)
                 return false;
 
-            if (scene.name !== 'yesterday')
-                await ctx.flow.enter('yesterday');
+            let file = match[0][0][1];
+            let buffer = null;
+            await this._filer.process(
+                this._config.get('servers.bot.records_path'),
+                async filename => {
+                    if (path.basename(filename) === file.name)
+                        buffer = await this._filer.lockReadBuffer(filename);
+                    return !buffer;
+                },
+                async () => {
+                    return !buffer;
+                }
+            );
+            if (!buffer)
+                await ctx.reply('Файл не найден');
             else
-                await scene.sendMenu(ctx);
+                await ctx.replyWithAudio({ source: buffer }, { performer: file.performer, title: file.title });
+            await scene.sendMenu(ctx);
         } catch (error) {
-            await this.onError(ctx, 'YesterdayCommand.process()', error);
+            await this.onError(ctx, 'ListenAudioCommand.process()', error);
         }
         return true;
     }
@@ -102,4 +119,4 @@ class YesterdayCommand {
     }
 }
 
-module.exports = YesterdayCommand;
+module.exports = ListenAudioCommand;

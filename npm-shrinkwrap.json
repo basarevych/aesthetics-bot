@@ -112,9 +112,9 @@
       }
     },
     "arpen-telegram": {
-      "version": "0.0.6",
-      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.6.tgz",
-      "integrity": "sha512-QBNTlSTizbS4UG/qbZYnmTgaOAHoLNtinKThgjIGs2dzGVfjzyplUmBUq44CzIO6XmdvEqfJSTT377NAvaVxyw==",
+      "version": "0.0.7",
+      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.7.tgz",
+      "integrity": "sha512-XDEkB5v3Mo31lf10Ix1uhG22BtN8/HTUkdcwXyjVpDtTj1mTZglC4Z+RQgbitp8daEN6uTYS6BCH++o9Yb/AZQ==",
       "requires": {
         "debug": "3.0.1",
         "merge": "1.2.0",

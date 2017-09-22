@@ -2,8 +2,6 @@
  * Today calls scene
  * @module bot/scenes/missed
  */
-const path = require('path');
-const moment = require('moment-timezone');
 const NError = require('nerror');
 const { Markup } = require('arpen-telegram').Telegraf;
 const { Scene } = require('arpen-telegram').Flow;
@@ -17,14 +15,12 @@ class TodayScene {
      * @param {App} app                                     The application
      * @param {object} config                               Configuration
      * @param {Logger} logger                               Logger service
-     * @param {Filer} filer                                 Filer service
      * @param {CDRRepository} cdrRepo                       CDR repository
      */
-    constructor(app, config, logger, filer, cdrRepo) {
+    constructor(app, config, logger, cdrRepo) {
         this._app = app;
         this._config = config;
         this._logger = logger;
-        this._filer = filer;
         this._cdrRepo = cdrRepo;
     }
 
@@ -45,7 +41,6 @@ class TodayScene {
             'app',
             'config',
             'logger',
-            'filer',
             'repositories.cdr',
         ];
     }
@@ -154,31 +149,10 @@ class TodayScene {
             if (await ctx.commander.process(this))
                 return;
 
-            let match = /^\/(\d+)$/.exec(ctx.message.text);
-            if (match && ctx.session.files[match[1]]) {
-                let file = ctx.session.files[match[1]];
-                let buffer = null;
-                await this._filer.process(
-                    this._config.get('servers.bot.records_path'),
-                    async filename => {
-                        if (path.basename(filename) === file.name)
-                            buffer = await this._filer.lockReadBuffer(filename);
-                        return !buffer;
-                    },
-                    async () => {
-                        return !buffer;
-                    }
-                );
-                if (!buffer)
-                    throw new NError({ file }, 'Файл не найден');
-                await ctx.replyWithAudio({ source: buffer }, { performer: file.performer, title: file.title });
-            } else {
-                return this.sendMenu(ctx, 'Неправильная команда');
-            }
+            await this.sendMenu(ctx, 'Неправильная команда');
         } catch (error) {
             await this.onError(ctx, 'TodayScene.onMessage()', error);
         }
-        return this.sendMenu(ctx);
     }
 
     /**
@@ -208,18 +182,12 @@ class TodayScene {
      */
     async sendMenu(ctx, message) {
         try {
-            let result;
-            let date = moment();
-            if (this.daysAgo)
-                date.subtract(this.daysAgo, 'days');
-
             if (ctx.session.calls && ctx.session.calls.length) {
-                await ctx.reply('[Начало] ' + date.format('YYYY-MM-DD'));
                 for (let i = 0; i < ctx.session.calls.length; i++) {
                     if (!ctx.session.calls[i].length)
                         continue;
 
-                    result = '';
+                    let result = '';
                     let highlight = ctx.session.calls[i][0].src;
                     for (let j = 0; j < ctx.session.calls[i].length; j++) {
                         result += ctx.session.calls[i][j].time;
@@ -241,12 +209,11 @@ class TodayScene {
                             : ctx.session.calls[i][j].disp.toLowerCase();
                         result += ' ';
                         if (ctx.session.calls[i][j].disp === 'ANSWERED' && ctx.session.files[ctx.session.calls[i][j].index.toString()])
-                            result += `/${ctx.session.calls[i][j].index}`;
+                            result += `/listen_audio_${ctx.session.calls[i][j].index}`;
                         result += '\n';
                     }
                     await ctx.replyWithHTML(result.trim());
                 }
-                await ctx.reply('[Конец] ' + date.format('YYYY-MM-DD'));
             } else {
                 await ctx.reply(this.noCallsMessage);
             }
