@@ -1,6 +1,6 @@
 {
   "name": "aesthetics-bot",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -82,9 +82,9 @@
       "integrity": "sha1-7L0W+JSbFXGDcRsb2jNPN4QBhas="
     },
     "arpen": {
-      "version": "0.2.5",
-      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.5.tgz",
-      "integrity": "sha512-tLpHxv5Fm7nIsBLMJLL7stX5vJbfI2Ot0El8L5Sa742AcaUlC6qCN+QwTHDeRT49FvKatSF1SJja/CgMJLtk5g==",
+      "version": "0.2.6",
+      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.6.tgz",
+      "integrity": "sha512-2SZlv/+L/pr1M+Jdre8IuLHtf74q+202qSRE7zooquXkb7XL/Rnx0Dbhnam1denE8yBSgZZfRybVOAhUSj/VIQ==",
       "requires": {
         "debug": "3.0.1",
         "emailjs": "1.0.12",
@@ -503,7 +503,7 @@
         "chalk": "2.1.0",
         "concat-stream": "1.6.0",
         "cross-spawn": "5.1.0",
-        "debug": "2.6.8",
+        "debug": "2.6.9",
         "doctrine": "2.0.0",
         "eslint-scope": "3.7.1",
         "espree": "3.5.1",
@@ -538,9 +538,9 @@
       },
       "dependencies": {
         "debug": {
-          "version": "2.6.8",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
-          "integrity": "sha1-5zFTHKLt4n0YgiJCfaF4IdaP9Pw=",
+          "version": "2.6.9",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
+          "integrity": "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==",
           "dev": true,
           "requires": {
             "ms": "2.0.0"
@@ -560,14 +560,14 @@
       "integrity": "sha512-yUtXS15gIcij68NmXmP9Ni77AQuCN0itXbCc/jWd8C6/yKZaSNXicpC8cgvjnxVdmfsosIXrjpzFq7GcDryb6A==",
       "dev": true,
       "requires": {
-        "debug": "2.6.8",
+        "debug": "2.6.9",
         "resolve": "1.4.0"
       },
       "dependencies": {
         "debug": {
-          "version": "2.6.8",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
-          "integrity": "sha1-5zFTHKLt4n0YgiJCfaF4IdaP9Pw=",
+          "version": "2.6.9",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
+          "integrity": "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==",
           "dev": true,
           "requires": {
             "ms": "2.0.0"
@@ -581,14 +581,14 @@
       "integrity": "sha512-jDI/X5l/6D1rRD/3T43q8Qgbls2nq5km5KSqiwlyUbGo5+04fXhMKdCPhjwbqAa6HXWaMxj8Q4hQDIh7IadJQw==",
       "dev": true,
       "requires": {
-        "debug": "2.6.8",
+        "debug": "2.6.9",
         "pkg-dir": "1.0.0"
       },
       "dependencies": {
         "debug": {
-          "version": "2.6.8",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
-          "integrity": "sha1-5zFTHKLt4n0YgiJCfaF4IdaP9Pw=",
+          "version": "2.6.9",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
+          "integrity": "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==",
           "dev": true,
           "requires": {
             "ms": "2.0.0"
@@ -604,7 +604,7 @@
       "requires": {
         "builtin-modules": "1.1.1",
         "contains-path": "0.1.0",
-        "debug": "2.6.8",
+        "debug": "2.6.9",
         "doctrine": "1.5.0",
         "eslint-import-resolver-node": "0.3.1",
         "eslint-module-utils": "2.1.1",
@@ -615,9 +615,9 @@
       },
       "dependencies": {
         "debug": {
-          "version": "2.6.8",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
-          "integrity": "sha1-5zFTHKLt4n0YgiJCfaF4IdaP9Pw=",
+          "version": "2.6.9",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
+          "integrity": "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==",
           "dev": true,
           "requires": {
             "ms": "2.0.0"
