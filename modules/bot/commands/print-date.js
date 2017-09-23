@@ -1,15 +1,15 @@
 /**
- * Today calls scene
- * @module bot/scenes/missed
+ * /print_date
+ * @module bot/commands/print-date
  */
+const moment = require('moment-timezone');
 const NError = require('nerror');
-const { Markup } = require('arpen-telegram').Telegraf;
-const { Scene } = require('arpen-telegram').Flow;
+const { Markup } = require('telegraf');
 
 /**
- * Today calls scene class
+ * PrintDate command class
  */
-class TodayScene {
+class PrintDateCommand {
     /**
      * Create the module
      * @param {App} app                                     The application
@@ -25,11 +25,11 @@ class TodayScene {
     }
 
     /**
-     * Service name is 'bot.scenes.today'
+     * Service name is 'bot.commands.printDate'
      * @type {string}
      */
     static get provides() {
-        return 'bot.scenes.today';
+        return 'bot.commands.printDate';
     }
 
     /**
@@ -46,60 +46,25 @@ class TodayScene {
     }
 
     /**
-     * Scene name
+     * Command name
      * @type {string}
      */
     get name() {
-        return 'today';
+        return 'print_date';
     }
 
-    /**
-     * How many days ago
-     * @type {number}
-     */
-    get daysAgo() {
-        return 0;
+    get syntax() {
+        return [
+            [/^\/print_date(.*)$/i],
+            [/все/i, /звонки/i, /за +сегодня/i],
+            [/все/i, /звонки/i, /за +вчера/i],
+            [/все/i, /звонки/i, /за +дату/i]
+        ];
     }
 
-    /**
-     * Message if zero calls
-     * @type {string}
-     */
-    get noCallsMessage() {
-        return 'Сегодня еще не было звонков';
-    }
-
-    /**
-     * Menu message
-     * @type {string}
-     */
-    get menuEntry() {
-        return 'все звонки за сегодня';
-    }
-
-    /**
-     * Register with the bot server
-     * @param {Telegram} server                             Telegram server
-     * @return {Promise}
-     */
-    async register(server) {
-        let scene = new Scene(this.name);
-        scene.enter(this.onEnter.bind(this));
-        scene.on('message', this.onMessage.bind(this));
-        server.flow.register(scene);
-    }
-
-    /**
-     * Entering the scene
-     * @param {object} ctx                                  Context object
-     * @return {Promise}
-     */
-    async onEnter(ctx) {
+    async print(ctx, when, date) {
         try {
-            if (!ctx.session.authorized)
-                return await ctx.flow.enter('start');
-
-            let rows = await this._cdrRepo.getAllCalls(this.daysAgo);
+            let rows = await this._cdrRepo.getAllCalls(date);
             let processed = new Set();
             ctx.session.calls = [];
             ctx.session.files = {};
@@ -110,7 +75,7 @@ class TodayScene {
 
                 let calls = [];
 
-                let { call, file } = this._getCall(rows, i);
+                let {call, file} = this._getCall(rows, i);
                 calls.push(call);
                 if (file)
                     ctx.session.files[call.index.toString()] = file;
@@ -119,7 +84,7 @@ class TodayScene {
                 if (rows[i].src.length > 3 && !this._config.get('servers.bot.self').includes(rows[i].src)) {
                     for (let j = i + 1; j < rows.length; j++) {
                         if (rows[j].src === rows[i].src || rows[j].dst === rows[i].src) {
-                            let { call, file } = this._getCall(rows, j);
+                            let {call, file} = this._getCall(rows, j);
                             calls.push(call);
                             if (file)
                                 ctx.session.files[call.index.toString()] = file;
@@ -130,58 +95,7 @@ class TodayScene {
 
                 ctx.session.calls.push(calls);
             }
-            await this.sendMenu(ctx);
-        } catch (error) {
-            await this.onError(ctx, 'TodayScene.onEnter()', error);
-        }
-    }
 
-    /**
-     * Generic message
-     * @param {object} ctx                                  Context object
-     * @return {Promise}
-     */
-    async onMessage(ctx) {
-        try {
-            if (!ctx.session.authorized)
-                return await ctx.flow.enter('start');
-
-            if (await ctx.commander.process(this))
-                return;
-
-            await this.sendMenu(ctx, 'Неправильная команда');
-        } catch (error) {
-            await this.onError(ctx, 'TodayScene.onMessage()', error);
-        }
-    }
-
-    /**
-     * Log error
-     * @param {object} ctx                                  Context object
-     * @param {string} where                                Error location
-     * @param {Error} error                                 The error
-     * @return {Promise}
-     */
-    async onError(ctx, where, error) {
-        try {
-            this._logger.error(new NError(error, where));
-            await ctx.replyWithHTML(
-                `<i>Произошла ошибка. Пожалуйста, попробуйте повторить позднее.</i>`,
-                Markup.removeKeyboard().extra()
-            );
-        } catch (error) {
-            // do nothing
-        }
-    }
-
-    /**
-     * Send menu
-     * @param {object} ctx                                  Context object
-     * @param {string} [message]                            Prepend message
-     * @return {Promise}
-     */
-    async sendMenu(ctx, message) {
-        try {
             if (ctx.session.calls && ctx.session.calls.length) {
                 for (let i = 0; i < ctx.session.calls.length; i++) {
                     if (!ctx.session.calls[i].length)
@@ -215,24 +129,84 @@ class TodayScene {
                     await ctx.replyWithHTML(result.trim());
                 }
             } else {
-                await ctx.reply(this.noCallsMessage);
+                await ctx.reply(when + ' звонков не было');
             }
-
-            let msg = `Пожалуйста, выберите действие`;
-            if (message)
-                msg = message + '\n\n' + msg;
-
-            let keyboard = Markup
-                .keyboard([
-                    [`Повторить ${this.menuEntry}`],
-                    ['Главное меню']
-                ])
-                .resize()
-                .extra();
-
-            await ctx.reply(msg, keyboard);
         } catch (error) {
-            await this.onError(ctx, 'TodayScene.sendMenu()', error);
+            await this.onError(ctx, 'PrintDateCommand.print()', error);
+        }
+    }
+
+    async process(ctx, match, scene) {
+        try {
+            this._logger.debug(this.name, 'Processing');
+
+            if (!ctx.session.authorized)
+                return false;
+
+            let when, date;
+            if ((match[0] && !match[0][0][1].trim()) || match[3]) {
+                ctx.calendar.setDateListener(async (ctx, date) => {
+                    when = date;
+                    date = moment(date + ' 00:00:00');
+                    if (moment.isMoment(date))
+                        await this.print(ctx, when, date);
+                });
+                ctx.reply('Выберите дату', ctx.calendar.getCalendar());
+            } else {
+                if (match[0]) {
+                    date = match[0][0][1].trim();
+                    if (date === 'today') {
+                        when = 'Сегодня';
+                        date = moment();
+                    } else if (date === 'yesterday') {
+                        when = 'Вчера';
+                        date = moment().subtract(1, 'days');
+                    } else if (date.length) {
+                        when = date;
+                        date = moment(date + ' 00:00:00');
+                        if (!moment.isMoment(date))
+                            return false;
+                    }
+                } else if (match[1]) {
+                    when = 'Сегодня';
+                    date = moment();
+                } else if (match[2]) {
+                    when = 'Вчера';
+                    date = moment().subtract(1, 'days');
+                }
+                await this.print(ctx, when, date);
+            }
+        } catch (error) {
+            await this.onError(ctx, 'PrintDateCommand.process()', error);
+        }
+        return true;
+    }
+
+    /**
+     * Register with the bot server
+     * @param {Telegram} server                             Telegram server
+     * @return {Promise}
+     */
+    async register(server) {
+        server.commander.add(this);
+    }
+
+    /**
+     * Log error
+     * @param {object} ctx                                  Context object
+     * @param {string} where                                Error location
+     * @param {Error} error                                 The error
+     * @return {Promise}
+     */
+    async onError(ctx, where, error) {
+        try {
+            this._logger.error(new NError(error, where));
+            await ctx.replyWithHTML(
+                `<i>Произошла ошибка. Пожалуйста, попробуйте повторить позднее.</i>`,
+                Markup.removeKeyboard().extra()
+            );
+        } catch (error) {
+            // do nothing
         }
     }
 
@@ -263,4 +237,4 @@ class TodayScene {
     }
 }
 
-module.exports = TodayScene;
+module.exports = PrintDateCommand;

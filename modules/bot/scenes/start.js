@@ -3,8 +3,8 @@
  * @module bot/scenes/start
  */
 const NError = require('nerror');
-const { Markup } = require('arpen-telegram').Telegraf;
-const { Scene } = require('arpen-telegram').Flow;
+const { Markup } = require('telegraf');
+const { Scene } = require('telegraf-flow');
 
 /**
  * Start scene class
@@ -150,7 +150,8 @@ class StartScene {
                 .keyboard([
                     ['Пропущенные сегодня звонки'],
                     ['Все звонки за сегодня'],
-                    ['Все звонки за вчера']
+                    ['Все звонки за вчера'],
+                    ['Все звонки за дату'],
                 ])
                 .resize()
                 .extra();

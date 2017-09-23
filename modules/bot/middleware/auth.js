@@ -1,6 +1,6 @@
 /**
  * Authentication middleware
- * @module bit/middleware/auth
+ * @module bot/middleware/auth
  */
 
 /**
@@ -38,6 +38,7 @@ class Auth {
      */
     async register(server) {
         server.bot.use(async (ctx, next) => {
+            ctx.calendar = server.calendar;
             if (!ctx.session.authorized && ctx.session._flow && ctx.session._flow.id && ctx.session._flow.id !== 'start')
                 delete ctx.session._flow;
 

@@ -2,6 +2,7 @@
  * Bot module
  * @module bot/module
  */
+const TgCalendar = require('telegraf-calendar-telegram');
 
 /**
  * Module main class
@@ -53,6 +54,18 @@ class Bot {
     async register(server) {
         if (server.constructor.provides !== 'servers.telegram')
             return;
+
+        server.calendar = new TgCalendar(
+            server.bot,
+            {
+                startWeekDay: 1,
+                weekDayNames: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+                monthNames: [
+                    'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
+                    'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дес'
+                ]
+            }
+        );
 
         await Array.from(this.scenes.values()).reduce(
             async (prev, cur) => {

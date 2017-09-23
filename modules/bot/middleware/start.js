@@ -1,6 +1,6 @@
 /**
  * Start middleware
- * @module bit/middleware/start
+ * @module bot/middleware/start
  */
 
 /**

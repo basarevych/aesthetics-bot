@@ -1,6 +1,6 @@
 {
   "name": "aesthetics-bot",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -82,9 +82,9 @@
       "integrity": "sha1-7L0W+JSbFXGDcRsb2jNPN4QBhas="
     },
     "arpen": {
-      "version": "0.2.6",
-      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.6.tgz",
-      "integrity": "sha512-2SZlv/+L/pr1M+Jdre8IuLHtf74q+202qSRE7zooquXkb7XL/Rnx0Dbhnam1denE8yBSgZZfRybVOAhUSj/VIQ==",
+      "version": "0.2.7",
+      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.7.tgz",
+      "integrity": "sha512-RCFsBDEQOIheJNV2HnUJ1vHwWByuN76IEFKVwaQ415meZl/MO30qeCY1yor3I+CfCamUEx3/EZMvU+tNBzBusA==",
       "requires": {
         "debug": "3.0.1",
         "emailjs": "1.0.12",
@@ -112,15 +112,13 @@
       }
     },
     "arpen-telegram": {
-      "version": "0.0.7",
-      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.7.tgz",
-      "integrity": "sha512-XDEkB5v3Mo31lf10Ix1uhG22BtN8/HTUkdcwXyjVpDtTj1mTZglC4Z+RQgbitp8daEN6uTYS6BCH++o9Yb/AZQ==",
+      "version": "0.0.9",
+      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.9.tgz",
+      "integrity": "sha512-lj4dTCQU9ODFztqKM9O7G4q9KOL66HBqOgJ9Sw3mjZzEboU8fuGuDceeT2VUYqpaiD5DT1iel+CcyqCqr7jT/Q==",
       "requires": {
         "debug": "3.0.1",
         "merge": "1.2.0",
         "nerror": "1.0.0",
-        "telegraf": "3.10.1",
-        "telegraf-flow": "8.2.2",
         "telegraf-session-local": "0.0.4"
       }
     },
@@ -1901,6 +1899,14 @@
         "debug": "3.0.1",
         "node-fetch": "1.7.3",
         "sandwich-stream": "1.0.0"
+      }
+    },
+    "telegraf-calendar-telegram": {
+      "version": "1.5.2",
+      "resolved": "https://registry.npmjs.org/telegraf-calendar-telegram/-/telegraf-calendar-telegram-1.5.2.tgz",
+      "integrity": "sha1-GGFSk1tZ2xk4k4IbNn4nKo4dp2Y=",
+      "requires": {
+        "telegraf": "3.10.1"
       }
     },
     "telegraf-flow": {

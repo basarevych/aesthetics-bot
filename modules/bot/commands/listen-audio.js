@@ -4,7 +4,7 @@
  */
 const path = require('path');
 const NError = require('nerror');
-const { Markup } = require('arpen-telegram').Telegraf;
+const { Markup } = require('telegraf');
 
 /**
  * Listen audio command class
@@ -87,7 +87,6 @@ class ListenAudioCommand {
                 await ctx.reply('Файл не найден');
             else
                 await ctx.replyWithAudio({ source: buffer }, { performer: file.performer, title: file.title });
-            await scene.sendMenu(ctx);
         } catch (error) {
             await this.onError(ctx, 'ListenAudioCommand.process()', error);
         }

@@ -3,7 +3,7 @@
  * @module bot/commands/start
  */
 const NError = require('nerror');
-const { Markup } = require('arpen-telegram').Telegraf;
+const { Markup } = require('telegraf');
 
 /**
  * Start command class

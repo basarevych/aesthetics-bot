@@ -3,7 +3,7 @@
  * @module bot/commands/missed
  */
 const NError = require('nerror');
-const { Markup } = require('arpen-telegram').Telegraf;
+const { Markup } = require('telegraf');
 
 /**
  * Missed command class
@@ -92,7 +92,6 @@ class MissedCommand {
                 result = 'Сегодня еще не было пропущенных звонков';
             }
             await ctx.replyWithHTML(result.trim());
-            await scene.sendMenu(ctx);
         } catch (error) {
             await this.onError(ctx, 'MissedCommand.process()', error);
         }
