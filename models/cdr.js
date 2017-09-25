@@ -41,6 +41,38 @@ class CDRModel extends BaseModel {
     }
 
     /**
+     * ID setter
+     * @type {undefined|string}
+     */
+    set id(id) {
+        return this._setField('uniqueid', id);
+    }
+
+    /**
+     * ID getter
+     * @type {undefined|string}
+     */
+    get id() {
+        return this._getField('uniqueid');
+    }
+
+    /**
+     * ID alias setter
+     * @type {undefined|string}
+     */
+    set uniqueid(id) {
+        return this._setField('uniqueid', id);
+    }
+
+    /**
+     * ID alias getter
+     * @type {undefined|string}
+     */
+    get uniqueid() {
+        return this._getField('uniqueid');
+    }
+
+    /**
      * Call date setter
      * @type {undefined|object|null}
      */

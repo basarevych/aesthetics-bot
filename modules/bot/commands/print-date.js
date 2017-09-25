@@ -66,8 +66,7 @@ class PrintDateCommand {
         try {
             let rows = await this._cdrRepo.getAllCalls(date);
             let processed = new Set();
-            ctx.session.calls = [];
-            ctx.session.files = {};
+            let result = [];
 
             for (let i = 0; i < rows.length; i++) {
                 if (processed.has(i) || (rows[i].src.length <= 3 && rows[i].dst.length <= 3))
@@ -75,58 +74,54 @@ class PrintDateCommand {
 
                 let calls = [];
 
-                let {call, file} = this._getCall(rows, i);
+                let call = this._getCall(rows, i);
                 calls.push(call);
-                if (file)
-                    ctx.session.files[call.index.toString()] = file;
                 processed.add(i);
 
                 if (rows[i].src.length > 3 && !this._config.get('servers.bot.self').includes(rows[i].src)) {
                     for (let j = i + 1; j < rows.length; j++) {
                         if (rows[j].src === rows[i].src || rows[j].dst === rows[i].src) {
-                            let {call, file} = this._getCall(rows, j);
+                            let call = this._getCall(rows, j);
                             calls.push(call);
-                            if (file)
-                                ctx.session.files[call.index.toString()] = file;
                             processed.add(j);
                         }
                     }
                 }
 
-                ctx.session.calls.push(calls);
+                result.push(calls);
             }
 
-            if (ctx.session.calls && ctx.session.calls.length) {
-                for (let i = 0; i < ctx.session.calls.length; i++) {
-                    if (!ctx.session.calls[i].length)
+            if (result.length) {
+                for (let i = 0; i < result.length; i++) {
+                    if (!result[i].length)
                         continue;
 
-                    let result = '';
-                    let highlight = ctx.session.calls[i][0].src;
-                    for (let j = 0; j < ctx.session.calls[i].length; j++) {
-                        result += ctx.session.calls[i][j].time;
-                        result += ': ';
-                        if (ctx.session.calls[i][j].src === highlight)
-                            result += '<b>';
-                        result += ctx.session.calls[i][j].src;
-                        if (ctx.session.calls[i][j].src === highlight)
-                            result += '</b>';
-                        result += ' → ';
-                        if (ctx.session.calls[i][j].dst === highlight)
-                            result += '<b>';
-                        result += ctx.session.calls[i][j].dst;
-                        if (ctx.session.calls[i][j].dst === highlight)
-                            result += '</b>';
-                        result += ', ';
-                        result += ctx.session.calls[i][j].disp === 'ANSWERED'
-                            ? `${ctx.session.calls[i][j].dur} сек.`
-                            : ctx.session.calls[i][j].disp.toLowerCase();
-                        result += ' ';
-                        if (ctx.session.calls[i][j].disp === 'ANSWERED' && ctx.session.files[ctx.session.calls[i][j].index.toString()])
-                            result += `/listen_audio_${ctx.session.calls[i][j].index}`;
-                        result += '\n';
+                    let reply = '';
+                    let highlight = result[i][0].src;
+                    for (let j = 0; j < result[i].length; j++) {
+                        reply += result[i][j].time;
+                        reply += ': ';
+                        if (result[i][j].src === highlight)
+                            reply += '<b>';
+                        reply += result[i][j].src;
+                        if (result[i][j].src === highlight)
+                            reply += '</b>';
+                        reply += ' → ';
+                        if (result[i][j].dst === highlight)
+                            reply += '<b>';
+                        reply += result[i][j].dst;
+                        if (result[i][j].dst === highlight)
+                            reply += '</b>';
+                        reply += ', ';
+                        reply += result[i][j].disp === 'ANSWERED'
+                            ? `${result[i][j].dur} сек.`
+                            : result[i][j].disp.toLowerCase();
+                        reply += ' ';
+                        if (result[i][j].disp === 'ANSWERED')
+                            reply += `/listen_${result[i][j].id.replace('.', '_')}`;
+                        reply += '\n';
                     }
-                    await ctx.replyWithHTML(result.trim());
+                    await ctx.replyWithHTML(reply.trim());
                 }
             } else {
                 await ctx.reply(when + ' звонков не было');
@@ -217,23 +212,15 @@ class PrintDateCommand {
      * @return {object}
      */
     _getCall(calls, index) {
-        let call = {
+        return {
             index: index + 1,
+            id: calls[index].id,
             time: calls[index].calldate.format('HH:mm'),
             disp: calls[index].disposition,
             src: calls[index].src,
             dst: calls[index].dst,
             dur: calls[index].duration,
         };
-        let file = null;
-        if (calls[index].recordingfile.trim()) {
-            file = {
-                name: calls[index].recordingfile,
-                performer: calls[index].src,
-                title: calls[index].calldate.format('YYYY-MM-DD HH:mm:ss'),
-            };
-        }
-        return { call, file };
     }
 }
 

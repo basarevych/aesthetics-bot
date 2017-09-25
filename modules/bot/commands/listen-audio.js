@@ -16,12 +16,14 @@ class ListenAudioCommand {
      * @param {object} config                               Configuration
      * @param {Logger} logger                               Logger service
      * @param {Filer} filer                                 Filer service
+     * @param {CDRRepository} cdrRepo                       CDR repository
      */
-    constructor(app, config, logger, filer) {
+    constructor(app, config, logger, filer, cdrRepo) {
         this._app = app;
         this._config = config;
         this._logger = logger;
         this._filer = filer;
+        this._cdrRepo = cdrRepo;
     }
 
     /**
@@ -42,6 +44,7 @@ class ListenAudioCommand {
             'config',
             'logger',
             'filer',
+            'repositories.cdr',
         ];
     }
 
@@ -55,7 +58,7 @@ class ListenAudioCommand {
 
     get syntax() {
         return [
-            [/^\/listen_audio_(\d+)$/i],
+            [/^\/listen_([0-9_]+)$/i],
         ];
     }
 
@@ -66,16 +69,17 @@ class ListenAudioCommand {
             if (!ctx.session.authorized || !ctx.session.files)
                 return false;
 
-            let index = match[0][0][1];
-            let file = ctx.session.files[index];
-            if (!file)
+            let id = match[0][0][1].replace('_', '.');
+            let calls = await this._cdrRepo.find(id);
+            let call = calls.length && calls[0];
+            if (!call)
                 return false;
 
             let buffer = null;
             await this._filer.process(
                 this._config.get('servers.bot.records_path'),
                 async filename => {
-                    if (path.basename(filename) === file.name)
+                    if (path.basename(filename) === call.recordingfile)
                         buffer = await this._filer.lockReadBuffer(filename);
                     return !buffer;
                 },
@@ -83,10 +87,19 @@ class ListenAudioCommand {
                     return !buffer;
                 }
             );
-            if (!buffer)
+            if (!buffer) {
                 await ctx.reply('Файл не найден');
-            else
-                await ctx.replyWithAudio({ source: buffer }, { performer: file.performer, title: file.title });
+            } else {
+                await ctx.replyWithAudio(
+                    {
+                        source: buffer,
+                    },
+                    {
+                        performer: call.src,
+                        title: call.calldate.format('YYYY-MM-DD HH:mm:ss'),
+                    }
+                );
+            }
         } catch (error) {
             await this.onError(ctx, 'ListenAudioCommand.process()', error);
         }
