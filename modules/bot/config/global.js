@@ -11,7 +11,7 @@ module.exports = {
     ],
 
     // Translation directories
-    i18n: [
-        'i18n',
-    ],
+//    i18n: [
+//        'i18n',
+//    ],
 };

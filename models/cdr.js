@@ -8,7 +8,7 @@ const BaseModel = require('arpen/src/models/base');
 /**
  * CDR model class
  */
-class CDRModel extends BaseModel {
+class CdrModel extends BaseModel {
     /**
      * Create model
      * @param {MySQL} mysql             MySQL service
@@ -169,4 +169,4 @@ class CDRModel extends BaseModel {
     }
 }
 
-module.exports = CDRModel;
+module.exports = CdrModel;

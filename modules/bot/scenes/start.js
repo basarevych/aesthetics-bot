@@ -69,7 +69,7 @@ class StartScene {
      */
     async onEnter(ctx) {
         try {
-            if (ctx.session.authorized) {
+            if (ctx.user.authorized) {
                 await this.sendMenu(ctx);
             } else {
                 if (!ctx.session.greeted) {
@@ -93,7 +93,7 @@ class StartScene {
      */
     async onMessage(ctx) {
         try {
-            if (ctx.session.authorized) {
+            if (ctx.user.authorized) {
                 if (await ctx.commander.process(this))
                     return;
 
@@ -109,6 +109,7 @@ class StartScene {
             }
 
             ctx.session.authorized = true;
+            await ctx.user.load();
             await this.sendMenu(ctx);
         } catch (error) {
             await this.onError(ctx, 'StartScene.onMessage()', error);

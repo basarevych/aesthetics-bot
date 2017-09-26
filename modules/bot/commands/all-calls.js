@@ -1,15 +1,15 @@
 /**
- * /print_date
- * @module bot/commands/print-date
+ * All calls
+ * @module bot/commands/all-calls
  */
 const moment = require('moment-timezone');
 const NError = require('nerror');
 const { Markup } = require('telegraf');
 
 /**
- * PrintDate command class
+ * All calls command class
  */
-class PrintDateCommand {
+class AllCallsCommand {
     /**
      * Create the module
      * @param {App} app                                     The application
@@ -25,11 +25,11 @@ class PrintDateCommand {
     }
 
     /**
-     * Service name is 'bot.commands.printDate'
+     * Service name is 'bot.commands.allCalls'
      * @type {string}
      */
     static get provides() {
-        return 'bot.commands.printDate';
+        return 'bot.commands.allCalls';
     }
 
     /**
@@ -50,12 +50,12 @@ class PrintDateCommand {
      * @type {string}
      */
     get name() {
-        return 'print_date';
+        return 'all_calls';
     }
 
     get syntax() {
         return [
-            [/^\/print_date(.*)$/i],
+            [/^\/all_calls(.*)$/i],
             [/все/i, /звонки/i, /за +сегодня/i],
             [/все/i, /звонки/i, /за +вчера/i],
             [/все/i, /звонки/i, /за +дату/i]
@@ -78,7 +78,7 @@ class PrintDateCommand {
                 calls.push(call);
                 processed.add(i);
 
-                if (rows[i].src.length > 3 && !this._config.get('servers.bot.self').includes(rows[i].src)) {
+                if (rows[i].src.length > 3 && !this._config.get('servers.bot.my_numbers').includes(rows[i].src)) {
                     for (let j = i + 1; j < rows.length; j++) {
                         if (rows[j].src === rows[i].src || rows[j].dst === rows[i].src) {
                             let call = this._getCall(rows, j);
@@ -118,7 +118,7 @@ class PrintDateCommand {
                             : result[i][j].disp.toLowerCase();
                         reply += ' ';
                         if (result[i][j].disp === 'ANSWERED')
-                            reply += `/listen_${result[i][j].id.replace('.', '_')}`;
+                            reply += `/cdr_${result[i][j].id.replace('.', '_')}`;
                         reply += '\n';
                     }
                     await ctx.replyWithHTML(reply.trim());
@@ -127,16 +127,22 @@ class PrintDateCommand {
                 await ctx.reply(when + ' звонков не было');
             }
         } catch (error) {
-            await this.onError(ctx, 'PrintDateCommand.print()', error);
+            await this.onError(ctx, 'AllCallsCommand.print()', error);
         }
     }
 
-    async process(ctx, match, scene) {
+    async process(commander, ctx, match, scene) {
         try {
             this._logger.debug(this.name, 'Processing');
 
-            if (!ctx.session.authorized)
+            if (!ctx.user.authorized)
                 return false;
+
+            if (!ctx.user.isAllowed(2)) {
+                await ctx.reply('В доступе отказано');
+                await scene.sendMenu(ctx);
+                return true;
+            }
 
             let when, date;
             if ((match[0] && !match[0][0][1].trim()) || match[3]) {
@@ -172,7 +178,7 @@ class PrintDateCommand {
                 await this.print(ctx, when, date);
             }
         } catch (error) {
-            await this.onError(ctx, 'PrintDateCommand.process()', error);
+            await this.onError(ctx, 'AllCallsCommand.process()', error);
         }
         return true;
     }
@@ -224,4 +230,4 @@ class PrintDateCommand {
     }
 }
 
-module.exports = PrintDateCommand;
+module.exports = AllCallsCommand;

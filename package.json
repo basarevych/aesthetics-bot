@@ -1,6 +1,6 @@
 {
   "name": "aesthetics-bot",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Aesthetics Telegram bot",
   "license": "MIT",
   "author": "Ross Basarevych <basarevych@gmail.com>",
@@ -11,10 +11,11 @@
   "dependencies": {
     "argv": "~0.0.2",
     "arpen": "~0.2.7",
-    "arpen-i18n": "~0.0.2",
-    "arpen-telegram": "~0.0.9",
+    "arpen-i18n": "~0.0.5",
+    "arpen-telegram": "~0.0.11",
     "daemon": "~1.1.0",
     "emailjs": "~1.0.12",
+    "format-message": "~5.2.0",
     "fs-ext": "~0.6.0",
     "merge": "~1.2.0",
     "moment-timezone": "~0.5.13",

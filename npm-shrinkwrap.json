@@ -1,6 +1,6 @@
 {
   "name": "aesthetics-bot",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -33,9 +33,9 @@
       "integrity": "sha1-WYc/Nej89sc2HBAjkmHXbhU0i7I="
     },
     "ajv": {
-      "version": "5.2.2",
-      "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.2.2.tgz",
-      "integrity": "sha1-R8aNaehvXZUxA7AHSpQw3GPaXjk=",
+      "version": "5.2.3",
+      "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.2.3.tgz",
+      "integrity": "sha1-wG9Zh3jETGsWGrr+NGa4GtGBTtI=",
       "dev": true,
       "requires": {
         "co": "4.6.0",
@@ -101,20 +101,19 @@
       }
     },
     "arpen-i18n": {
-      "version": "0.0.2",
-      "resolved": "https://registry.npmjs.org/arpen-i18n/-/arpen-i18n-0.0.2.tgz",
-      "integrity": "sha512-YH5KucGwn7BDWWglmHdlilpezTsxMrktAYJooT+l13QY+rbDRYRISICMQtRTA6az+Sqy4226Ib5+nGRuXreq3g==",
+      "version": "0.0.5",
+      "resolved": "https://registry.npmjs.org/arpen-i18n/-/arpen-i18n-0.0.5.tgz",
+      "integrity": "sha512-4/TFEDz8CBDETcboMGX2uCIdQ+qeKVaCcYjRmxSewBafad7dvXkdCPt8E7qiCcxZ0soRA3WnY4rVE6i6mzzmkA==",
       "requires": {
         "debug": "3.0.1",
-        "format-message": "5.2.0",
         "merge": "1.2.0",
         "nerror": "1.0.0"
       }
     },
     "arpen-telegram": {
-      "version": "0.0.9",
-      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.9.tgz",
-      "integrity": "sha512-lj4dTCQU9ODFztqKM9O7G4q9KOL66HBqOgJ9Sw3mjZzEboU8fuGuDceeT2VUYqpaiD5DT1iel+CcyqCqr7jT/Q==",
+      "version": "0.0.11",
+      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.11.tgz",
+      "integrity": "sha512-hv3AwbD9u1z/2PArsqi+7UaHRsP7Uykx/34cQlZNzQNd2xC6JQAyGaN7z1H+9jqQsjfN4/kInLYm6HlKXwMfZA==",
       "requires": {
         "debug": "3.0.1",
         "merge": "1.2.0",
@@ -496,7 +495,7 @@
       "integrity": "sha1-3cf8f9cL+TIFsLNEm7FqHp59SVA=",
       "dev": true,
       "requires": {
-        "ajv": "5.2.2",
+        "ajv": "5.2.3",
         "babel-code-frame": "6.26.0",
         "chalk": "2.1.0",
         "concat-stream": "1.6.0",

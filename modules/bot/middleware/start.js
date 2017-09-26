@@ -38,7 +38,7 @@ class Start {
      */
     async register(server) {
         server.bot.use(async (ctx, next) => {
-            if (!ctx.session._flow || !ctx.session._flow.id || (!ctx.session.authorized && ctx.session._flow.id !== 'start'))
+            if (!ctx.session._flow || !ctx.session._flow.id || (!ctx.user.authorized && ctx.session._flow.id !== 'start'))
                 await ctx.flow.enter('start');
 
             return next(ctx);

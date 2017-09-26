@@ -25,12 +25,12 @@ module.exports = {
             class: 'servers.telegram',
             token: 'token_here',
             pin_code: '0000',
-            self: [],
+            my_numbers: [],
             records_path: '/var/spool/asterisk/monitor',
             session_file: path.join(__dirname, '..', 'sessions', 'aesthetics.db'),
             middleware: [
                 'telegram.localSession',
-                'telegram.auth',
+                'telegram.init',
                 'telegram.commander',
                 'telegram.flow',
                 'telegram.start',
@@ -40,13 +40,13 @@ module.exports = {
 
     // MySQL servers
     mysql: {
-        main: {
+        cdr: {
             host: 'localhost',
             port: 3306,
             user: 'user',
             password: 'password',
             database: 'dbname',
-            connectionLimit: 10,
+            connectionLimit: 100,
         },
     },
 

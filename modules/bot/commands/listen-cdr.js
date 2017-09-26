@@ -1,34 +1,37 @@
 /**
- * /missed
- * @module bot/commands/missed
+ * /cdr_N
+ * @module bot/commands/listen-cdr
  */
+const path = require('path');
 const NError = require('nerror');
 const { Markup } = require('telegraf');
 
 /**
- * Missed command class
+ * Listen CDR command class
  */
-class MissedCommand {
+class ListenCdrCommand {
     /**
      * Create the module
      * @param {App} app                                     The application
      * @param {object} config                               Configuration
      * @param {Logger} logger                               Logger service
+     * @param {Filer} filer                                 Filer service
      * @param {CDRRepository} cdrRepo                       CDR repository
      */
-    constructor(app, config, logger, cdrRepo) {
+    constructor(app, config, logger, filer, cdrRepo) {
         this._app = app;
         this._config = config;
         this._logger = logger;
+        this._filer = filer;
         this._cdrRepo = cdrRepo;
     }
 
     /**
-     * Service name is 'bot.commands.missed'
+     * Service name is 'bot.commands.listenCdr'
      * @type {string}
      */
     static get provides() {
-        return 'bot.commands.missed';
+        return 'bot.commands.listenCdr';
     }
 
     /**
@@ -40,6 +43,7 @@ class MissedCommand {
             'app',
             'config',
             'logger',
+            'filer',
             'repositories.cdr',
         ];
     }
@@ -49,51 +53,61 @@ class MissedCommand {
      * @type {string}
      */
     get name() {
-        return 'missed';
+        return 'cdr';
     }
 
     get syntax() {
         return [
-            [/^\/missed$/i],
-            [/пропущенные/i, /звонки/i],
+            [/^\/cdr_([0-9_]+)$/i],
         ];
     }
 
-    async process(ctx, match, scene) {
+    async process(commander, ctx, match, scene) {
         try {
             this._logger.debug(this.name, 'Processing');
 
-            if (!ctx.session.authorized)
+            if (!ctx.user.authorized)
                 return false;
 
-            let calls = await this._cdrRepo.getMissedCalls();
-            let result;
-            if (calls.length) {
-                result = 'Пропущенные сегодня:\n\n';
-                for (let i = 0; i < calls.length; i++) {
-                    result += '<pre>';
-                    result += String(i + 1).padStart(3, ' ');
-                    result += ': ';
-                    result += calls[i].calldate.format('HH:mm');
-                    result += ', ';
-                    result += calls[i].src;
-                    result += ' → ';
-                    result += calls[i].dst;
-                    result += ', ';
-                    result += calls[i].disposition.toLowerCase();
-                    result += '</pre>';
-                    if (result.split('\n').length >= 30 && i < calls.length - 1) {
-                        await ctx.replyWithHTML(result.trim());
-                        result = '';
-                    }
-                    result += '\n';
-                }
-            } else {
-                result = 'Сегодня еще не было пропущенных звонков';
+            if (!ctx.user.isAllowed(2)) {
+                await ctx.reply('В доступе отказано');
+                await scene.sendMenu(ctx);
+                return true;
             }
-            await ctx.replyWithHTML(result.trim());
+
+            let id = match[0][0][1].replace('_', '.');
+            let calls = await this._cdrRepo.find(id);
+            let call = calls.length && calls[0];
+            if (!call)
+                return false;
+
+            let buffer = null;
+            await this._filer.process(
+                this._config.get('servers.bot.records_path'),
+                async filename => {
+                    if (path.basename(filename) === call.recordingfile)
+                        buffer = await this._filer.lockReadBuffer(filename);
+                    return !buffer;
+                },
+                async () => {
+                    return !buffer;
+                }
+            );
+            if (!buffer) {
+                await ctx.reply('Файл не найден');
+            } else {
+                await ctx.replyWithAudio(
+                    {
+                        source: buffer,
+                    },
+                    {
+                        performer: call.src,
+                        title: call.calldate.format('YYYY-MM-DD HH:mm:ss'),
+                    }
+                );
+            }
         } catch (error) {
-            await this.onError(ctx, 'MissedCommand.process()', error);
+            await this.onError(ctx, 'ListenCdrCommand.process()', error);
         }
         return true;
     }
@@ -127,4 +141,4 @@ class MissedCommand {
     }
 }
 
-module.exports = MissedCommand;
+module.exports = ListenCdrCommand;

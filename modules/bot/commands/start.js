@@ -56,7 +56,7 @@ class StartCommand {
         ];
     }
 
-    async process(ctx, match, scene) {
+    async process(commander, ctx, match, scene) {
         try {
             this._logger.debug(this.name, 'Processing');
 

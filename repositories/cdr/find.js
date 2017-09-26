@@ -1,5 +1,5 @@
 /**
- * CDRRepository.find()
+ * CdrRepository.find()
  */
 'use strict';
 
@@ -9,7 +9,7 @@ const NError = require('nerror');
  * Find call
  * @instance
  * @method find
- * @memberOf module:repositories/cdr~CDRRepository
+ * @memberOf module:repositories/cdr~CdrRepository
  * @param {string} id                       Unique ID
  * @param {MySQLClient|string} [mysql]      Will reuse the MySQL client provided, or if it is a string then will
  *                                          connect to this instance of MySQL.
@@ -19,7 +19,7 @@ module.exports = async function (id, mysql) {
     let client;
 
     try {
-        client = typeof mysql === 'object' ? mysql : await this._mysql.connect(mysql);
+        client = typeof mysql === 'object' ? mysql : await this._mysql.connect(mysql || 'cdr');
         let rows = await client.query(
             `SELECT * 
                FROM ${this.constructor.table}
@@ -35,6 +35,6 @@ module.exports = async function (id, mysql) {
         if (client && typeof mysql !== 'object')
             client.done();
 
-        throw new NError(error, 'CDRRepository.find()');
+        throw new NError(error, 'CdrRepository.find()');
     }
 };

@@ -8,7 +8,7 @@ const BaseRepository = require('arpen/src/repositories/mysql');
 /**
  * CDR repository class
  */
-class CDRRepository extends BaseRepository {
+class CdrRepository extends BaseRepository {
     /**
      * Create repository
      * @param {App} app                             The application
@@ -45,4 +45,4 @@ class CDRRepository extends BaseRepository {
     }
 }
 
-module.exports = CDRRepository;
+module.exports = CdrRepository;
