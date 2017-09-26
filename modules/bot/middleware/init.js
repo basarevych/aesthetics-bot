@@ -47,7 +47,7 @@ class Init {
                 load: async () => {
                     if (ctx.session.authorized) {
                         ctx.user.authorized = true;
-                        ctx.user.acl = 2;
+                        ctx.user.acl = 0;
                     } else {
                         ctx.user.authorized = false;
                         ctx.user.acl = -1;

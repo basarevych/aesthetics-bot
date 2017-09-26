@@ -66,7 +66,7 @@ class MissedCallsCommand {
             if (!ctx.user.authorized)
                 return false;
 
-            if (!ctx.user.isAllowed(2)) {
+            if (!ctx.user.isAllowed(0)) {
                 await ctx.reply('В доступе отказано');
                 await scene.sendMenu(ctx);
                 return true;
