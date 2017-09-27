@@ -80,7 +80,7 @@ class MissedCallsCommand {
                     result += '<pre>';
                     result += String(i + 1).padStart(3, ' ');
                     result += ': ';
-                    result += calls[i].calldate.format('HH:mm');
+                    result += calls[i].calldate.format('HH:mm:ss');
                     result += ', ';
                     result += calls[i].src;
                     result += ' → ';

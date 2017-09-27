@@ -221,7 +221,7 @@ class AllCallsCommand {
         return {
             index: index + 1,
             id: calls[index].id,
-            time: calls[index].calldate.format('HH:mm'),
+            time: calls[index].calldate.format('HH:mm:ss'),
             disp: calls[index].disposition,
             src: calls[index].src,
             dst: calls[index].dst,
