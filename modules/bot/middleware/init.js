@@ -42,6 +42,8 @@ class Init {
                 authorized: false,
                 acl: -1,
                 isAllowed: acl => {
+                    if (!acl)
+                        acl = 0;
                     return acl === 0 ? (ctx.user.acl === 0) : (ctx.user.acl === 0 || ctx.user.acl >= acl);
                 },
                 load: async () => {

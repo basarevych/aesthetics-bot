@@ -42,6 +42,10 @@ class Bot {
      * @return {Promise}
      */
     async bootstrap() {
+        let acl = new Map();
+        acl.set('cdr', 0);
+        this._app.registerInstance(acl, 'acl');
+
         this.scenes = this._app.get(/^bot.scenes.[^.]+$/);
         this.commands = this._app.get(/^bot.commands.[^.]+$/);
     }
