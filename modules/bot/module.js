@@ -59,7 +59,7 @@ class Bot {
         if (server.constructor.provides !== 'servers.telegram')
             return;
 
-        server.calendar = new TgCalendar(
+        let allCallsCalendar = new TgCalendar(
             server.bot,
             {
                 startWeekDay: 1,
@@ -70,6 +70,17 @@ class Bot {
                 ]
             }
         );
+        this._app.registerInstance(allCallsCalendar, 'allCallsCalendar');
+
+        let missedCallsPager = this._app.get('modules.telegram.services.pager');
+        missedCallsPager.prefix = 'missed-calls';
+        missedCallsPager.install(server.bot);
+        this._app.registerInstance(missedCallsPager, 'missedCallsPager');
+
+        let allCallsPager = this._app.get('modules.telegram.services.pager');
+        allCallsPager.prefix = 'all-calls';
+        allCallsPager.install(server.bot);
+        this._app.registerInstance(allCallsPager, 'allCallsPager');
 
         await Array.from(this.scenes.values()).reduce(
             async (prev, cur) => {

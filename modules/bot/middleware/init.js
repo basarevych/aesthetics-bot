@@ -62,8 +62,6 @@ class Init {
             if (!ctx.user.authorized && ctx.session._flow && ctx.session._flow.id && ctx.session._flow.id !== 'start')
                 delete ctx.session._flow;
 
-            ctx.calendar = server.calendar;
-
             return next(ctx);
         });
     }

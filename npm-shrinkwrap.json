@@ -82,9 +82,9 @@
       "integrity": "sha1-7L0W+JSbFXGDcRsb2jNPN4QBhas="
     },
     "arpen": {
-      "version": "0.2.8",
-      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.8.tgz",
-      "integrity": "sha512-yQvgHd1NfsFAl0uGA/xP0iLSdBjTnqLZG5o8MGJiYPfMJxUsHmPEtBJ+XifVh09E59tJeiYwRo3pAWAILSMwdQ==",
+      "version": "0.2.9",
+      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.9.tgz",
+      "integrity": "sha512-QiJ8GJv0+cyDwp6jzhszzlG32WXGH1ZDKe9IW0kMYWv8Fu6jbfTlN+N3J6vPJS+zTQSNNzaIu8qa7tzJrdSyhA==",
       "requires": {
         "debug": "3.0.1",
         "emailjs": "1.0.12",
@@ -111,9 +111,9 @@
       }
     },
     "arpen-telegram": {
-      "version": "0.0.11",
-      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.11.tgz",
-      "integrity": "sha512-hv3AwbD9u1z/2PArsqi+7UaHRsP7Uykx/34cQlZNzQNd2xC6JQAyGaN7z1H+9jqQsjfN4/kInLYm6HlKXwMfZA==",
+      "version": "0.0.14",
+      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.14.tgz",
+      "integrity": "sha512-UbhsyazaPPn2CqC77Dn/8s6f+03R0QG6xpSRWdXWAyTS5JyowwtTOwG71EkslUAe87bJ1feJdup6TZf4LdMjwQ==",
       "requires": {
         "debug": "3.0.1",
         "merge": "1.2.0",

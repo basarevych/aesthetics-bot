@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: Ini</title>
+	<title>Documentation Class: Pager</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,20 +72,18 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Ini</h1>
+	<h1 class="page-title">Class: Pager</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-arpen_services_ini.html">arpen/services/ini</a>~</span>
+            <span class="ancestors"><a href="module-telegram_services_pager.html">telegram/services/pager</a>~</span>
         
-        Ini
+        Pager
         </h2>
         
-            <div class="class-description">INI file parser
-<br><br>
-ini module is required</div>
+            <div class="class-description">Service class</div>
         
     
 </header>
@@ -97,7 +95,7 @@ ini module is required</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="Ini"><span class="type-signature"></span>new Ini()</h4>
+    <h4 class="name" id="Pager"><span class="type-signature"></span>new Pager(app, logger)</h4>
     
     
 </dt>
@@ -114,6 +112,80 @@ ini module is required</div>
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>app</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">App</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Application</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>logger</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Logger</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Logger service</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -198,7 +270,7 @@ ini module is required</div>
 <dd>
     
     <div class="description">
-        Service name is 'ini'
+        Service name is 'modules.telegram.services.pager'
     </div>
     
 
@@ -329,6 +401,508 @@ ini module is required</div>
     
 </dd>
 
+        
+            
+<hr>
+<dt class="name" id="bot">
+    <h4 id="bot"><span class="type-signature"></span>bot<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Bot setter
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="bot">
+    <h4 id="bot"><span class="type-signature"></span>bot<span class="type-signature"> :object</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Bot getter
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="prefix">
+    <h4 id="prefix"><span class="type-signature"></span>prefix<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Action prefix setter
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="prefix">
+    <h4 id="prefix"><span class="type-signature"></span>prefix<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Action prefix getter
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="width">
+    <h4 id="width"><span class="type-signature"></span>width<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Pager width setter
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="width">
+    <h4 id="width"><span class="type-signature"></span>width<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Pager width getter
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="search">
+    <h4 id="search"><span class="type-signature"></span>search<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Search callback setter
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="search">
+    <h4 id="search"><span class="type-signature"></span>search<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Search callback getter
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
         </dl>
     
 
@@ -339,7 +913,7 @@ ini module is required</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="parse"><span class="type-signature"></span>parse(contents [, params])</h4>
+    <h4 class="name" id="install"><span class="type-signature"></span>install( [bot])</h4>
     
     
 </dt>
@@ -347,7 +921,7 @@ ini module is required</div>
 
     
     <div class="description">
-        Parse INI file
+        Install action handlers
     </div>
     
 
@@ -384,39 +958,7 @@ ini module is required</div>
 
         <tr>
             
-                <td class="name"><code>contents</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">INI file as string</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>bot</code></td>
             
 
             <td class="type">
@@ -443,9 +985,94 @@ ini module is required</div>
 
             
 
-            <td class="description last">
-                <h6 class="method-params-label method-subparams-label">Properties</h6>
-                
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="sendPage"><span class="type-signature">&lt;async> </span>sendPage(ctx, page [, extra])</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Send page of data to the chat
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
 
 <table class="params table table-striped">
     <thead>
@@ -461,8 +1088,6 @@ ini module is required</div>
         
 
         
-        <th>Default</th>
-        
 
         <th class="last">Description</th>
     </tr>
@@ -473,13 +1098,77 @@ ini module is required</div>
 
         <tr>
             
-                <td class="name"><code>simple</code></td>
+                <td class="name"><code>ctx</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>extra</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
 
 
 
@@ -499,21 +1188,8 @@ ini module is required</div>
             
 
             
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
 
-            <td class="description last">Dots in section names have no special meaning (see ini module)</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -584,7 +1260,7 @@ ini module is required</div>
     </dt>
     <dd>
         
-<span class="param-type">object</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -601,7 +1277,7 @@ ini module is required</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="stringify"><span class="type-signature"></span>stringify(obj [, params])</h4>
+    <h4 class="name" id="_getMarkup"><span class="type-signature"></span>_getMarkup(info [, extra])</h4>
     
     
 </dt>
@@ -609,7 +1285,7 @@ ini module is required</div>
 
     
     <div class="description">
-        Stringify INI object
+        Get pager markup
     </div>
     
 
@@ -646,7 +1322,7 @@ ini module is required</div>
 
         <tr>
             
-                <td class="name"><code>obj</code></td>
+                <td class="name"><code>info</code></td>
             
 
             <td class="type">
@@ -671,20 +1347,20 @@ ini module is required</div>
 
             
 
-            <td class="description last">INI as object</td>
+            <td class="description last"></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>extra</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">string</span>
 
 
 
@@ -705,77 +1381,7 @@ ini module is required</div>
 
             
 
-            <td class="description last">
-                <h6 class="method-params-label method-subparams-label">Properties</h6>
-                
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>simple</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-
-            <td class="description last">Dots in section names have no special meaning (see ini module)</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -846,7 +1452,7 @@ ini module is required</div>
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">*</span>
 
 
 
