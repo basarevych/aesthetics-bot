@@ -26,8 +26,10 @@ module.exports = {
             class: 'servers.telegram',
             token: 'token_here',
             pin_code: '0000',
-            my_numbers: [],
-            records_path: '/var/spool/asterisk/monitor',
+            cdr: {
+                records_path: '/var/spool/asterisk/monitor',
+                dst_limit: [],
+            },
             session_file: path.join(__dirname, '..', 'sessions', 'aesthetics.db'),
             middleware: [
                 'telegram.localSession',
