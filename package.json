@@ -23,6 +23,7 @@
     "mysql": "~2.14.1",
     "nerror": "~1.0.0",
     "pty.js": "~0.3.1",
+    "ssh2": "~0.5.5",
     "telegraf": "~3.10.1",
     "telegraf-flow": "~8.2.2",
     "telegraf-calendar-telegram": "~1.5.2"
