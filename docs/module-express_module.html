@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Documentation Module: express/module</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Documentation</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-arpen_app_base.html">arpen/app/base</a></li><li><a href="module-arpen_app_console.html">arpen/app/console</a></li><li><a href="module-arpen_app_daemon.html">arpen/app/daemon</a></li><li><a href="module-arpen_app_server.html">arpen/app/server</a></li><li><a href="module-arpen_models_base.html">arpen/models/base</a></li><li><a href="module-arpen_repositories_base.html">arpen/repositories/base</a></li><li><a href="module-arpen_repositories_mongo.html">arpen/repositories/mongo</a></li><li><a href="module-arpen_repositories_mysql.html">arpen/repositories/mysql</a></li><li><a href="module-arpen_repositories_postgres.html">arpen/repositories/postgres</a></li><li><a href="module-arpen_services_cacher.html">arpen/services/cacher</a></li><li><a href="module-arpen_services_emailer.html">arpen/services/emailer</a></li><li><a href="module-arpen_services_filer.html">arpen/services/filer</a></li><li><a href="module-arpen_services_ini.html">arpen/services/ini</a></li><li><a href="module-arpen_services_logger.html">arpen/services/logger</a></li><li><a href="module-arpen_services_mongo.html">arpen/services/mongo</a></li><li><a href="module-arpen_services_mysql.html">arpen/services/mysql</a></li><li><a href="module-arpen_services_postgres-pubsub.html">arpen/services/postgres-pubsub</a></li><li><a href="module-arpen_services_postgres.html">arpen/services/postgres</a></li><li><a href="module-arpen_services_pubsub.html">arpen/services/pubsub</a></li><li><a href="module-arpen_services_redis-pubsub.html">arpen/services/redis-pubsub</a></li><li><a href="module-arpen_services_redis.html">arpen/services/redis</a></li><li><a href="module-arpen_services_runner.html">arpen/services/runner</a></li><li><a href="module-arpen_services_util.html">arpen/services/util</a></li><li><a href="module-i18n_middleware_express.html">i18n/middleware/express</a></li><li><a href="module-i18n_middleware_telegram.html">i18n/middleware/telegram</a></li><li><a href="module-express_module.html">express/module</a></li><li><a href="module-i18n_services_i18n.html">i18n/services/i18n</a></li><li><a href="module-telegram_middleware_commander.html">telegram/middleware/commander</a></li><li><a href="module-telegram_middleware_flow.html">telegram/middleware/flow</a></li><li><a href="module-telegram_middleware_local-session.html">telegram/middleware/local-session</a></li><li><a href="module-telegram_module.html">telegram/module</a></li><li><a href="module-telegram_servers_telegram.html">telegram/servers/telegram</a></li><li><a href="module-telegram_services_commander.html">telegram/services/commander</a></li><li><a href="module-telegram_services_pager.html">telegram/services/pager</a></li><li><a href="module-bot_middleware_init.html">bot/middleware/init</a></li><li><a href="module-bot_middleware_start.html">bot/middleware/start</a></li><li><a href="module-bot_commands_start.html">bot/commands/start</a></li><li><a href="module-bot_scenes_start.html">bot/scenes/start</a></li><li><a href="module-bot_module.html">bot/module</a></li><li><a href="module-bot_commands_all-calls.html">bot/commands/all-calls</a></li><li><a href="module-bot_commands_cdr.html">bot/commands/cdr</a></li><li><a href="module-bot_commands_missed-calls.html">bot/commands/missed-calls</a></li><li><a href="module-models_cdr.html">models/cdr</a></li><li><a href="module-cdrbot_module.html">cdrbot/module</a></li><li><a href="module-repositories_cdr.html">repositories/cdr</a></li><li><a href="module-commands_help.html">commands/help</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-arpen_app_base-App.html">arpen/app/base~App</a></li><li><a href="module-arpen_app_console-Console.html">arpen/app/console~Console</a></li><li><a href="module-arpen_app_daemon-Daemon.html">arpen/app/daemon~Daemon</a></li><li><a href="module-arpen_app_server-Server.html">arpen/app/server~Server</a></li><li><a href="module-arpen_models_base-BaseModel.html">arpen/models/base~BaseModel</a></li><li><a href="module-arpen_repositories_base-BaseRepository.html">arpen/repositories/base~BaseRepository</a></li><li><a href="module-arpen_repositories_mongo-MongoRepository.html">arpen/repositories/mongo~MongoRepository</a></li><li><a href="module-arpen_repositories_mysql-MySQLRepository.html">arpen/repositories/mysql~MySQLRepository</a></li><li><a href="module-arpen_repositories_postgres-PostgresRepository.html">arpen/repositories/postgres~PostgresRepository</a></li><li><a href="module-arpen_services_cacher-Cacher.html">arpen/services/cacher~Cacher</a></li><li><a href="module-arpen_services_emailer-Emailer.html">arpen/services/emailer~Emailer</a></li><li><a href="module-arpen_services_filer-Filer.html">arpen/services/filer~Filer</a></li><li><a href="module-arpen_services_ini-Ini.html">arpen/services/ini~Ini</a></li><li><a href="module-arpen_services_logger-Logger.html">arpen/services/logger~Logger</a></li><li><a href="module-arpen_services_mongo-Mongo.html">arpen/services/mongo~Mongo</a></li><li><a href="module-arpen_services_mysql-MySQLClient.html">arpen/services/mysql~MySQLClient</a></li><li><a href="module-arpen_services_mysql-MySQL.html">arpen/services/mysql~MySQL</a></li><li><a href="module-arpen_services_postgres-pubsub-PostgresPubSubClient.html">arpen/services/postgres-pubsub~PostgresPubSubClient</a></li><li><a href="module-arpen_services_postgres-pubsub-PostgresPubSub.html">arpen/services/postgres-pubsub~PostgresPubSub</a></li><li><a href="module-arpen_services_postgres-PostgresClient.html">arpen/services/postgres~PostgresClient</a></li><li><a href="module-arpen_services_postgres-Postgres.html">arpen/services/postgres~Postgres</a></li><li><a href="module-arpen_services_pubsub-PubSubClient.html">arpen/services/pubsub~PubSubClient</a></li><li><a href="module-arpen_services_pubsub-PubSub.html">arpen/services/pubsub~PubSub</a></li><li><a href="module-arpen_services_redis-pubsub-RedisPubSubClient.html">arpen/services/redis-pubsub~RedisPubSubClient</a></li><li><a href="module-arpen_services_redis-pubsub-RedisPubSub.html">arpen/services/redis-pubsub~RedisPubSub</a></li><li><a href="module-arpen_services_redis-RedisQueue.html">arpen/services/redis~RedisQueue</a></li><li><a href="module-arpen_services_redis-RedisClient.html">arpen/services/redis~RedisClient</a></li><li><a href="module-arpen_services_redis-Redis.html">arpen/services/redis~Redis</a></li><li><a href="module-arpen_services_runner-Subprocess.html">arpen/services/runner~Subprocess</a></li><li><a href="module-arpen_services_runner-Runner.html">arpen/services/runner~Runner</a></li><li><a href="module-arpen_services_util-Util.html">arpen/services/util~Util</a></li><li><a href="module-i18n_middleware_express-ExpressI18n.html">i18n/middleware/express~ExpressI18n</a></li><li><a href="module-i18n_middleware_telegram-TelegramI18n.html">i18n/middleware/telegram~TelegramI18n</a></li><li><a href="module-express_module-ExpressModule.html">express/module~ExpressModule</a></li><li><a href="module-i18n_services_i18n-I18n.html">i18n/services/i18n~I18n</a></li><li><a href="module-telegram_middleware_commander-Commander.html">telegram/middleware/commander~Commander</a></li><li><a href="module-telegram_middleware_flow-Flow.html">telegram/middleware/flow~Flow</a></li><li><a href="module-telegram_middleware_local-session-LocalSession.html">telegram/middleware/local-session~LocalSession</a></li><li><a href="module-telegram_module-Telegram.html">telegram/module~Telegram</a></li><li><a href="module-telegram_servers_telegram-Telegram.html">telegram/servers/telegram~Telegram</a></li><li><a href="module-telegram_services_commander-Commander.html">telegram/services/commander~Commander</a></li><li><a href="module-telegram_services_pager-Pager.html">telegram/services/pager~Pager</a></li><li><a href="module-bot_middleware_init-Init.html">bot/middleware/init~Init</a></li><li><a href="module-bot_middleware_start-Start.html">bot/middleware/start~Start</a></li><li><a href="module-bot_commands_start-StartCommand.html">bot/commands/start~StartCommand</a></li><li><a href="module-bot_scenes_start-StartScene.html">bot/scenes/start~StartScene</a></li><li><a href="module-bot_module-Bot.html">bot/module~Bot</a></li><li><a href="module-bot_commands_all-calls-AllCallsCommand.html">bot/commands/all-calls~AllCallsCommand</a></li><li><a href="module-bot_commands_cdr-CdrCommand.html">bot/commands/cdr~CdrCommand</a></li><li><a href="module-bot_commands_missed-calls-MissedCallsCommand.html">bot/commands/missed-calls~MissedCallsCommand</a></li><li><a href="module-models_cdr-CdrModel.html">models/cdr~CdrModel</a></li><li><a href="module-cdrbot_module-CdrBot.html">cdrbot/module~CdrBot</a></li><li><a href="module-repositories_cdr-CdrRepository.html">repositories/cdr~CdrRepository</a></li><li><a href="module-commands_help-Help.html">commands/help~Help</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	<h1 class="page-title">Module: express/module</h1>
+<section>
+
+<header>
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Express module</div>
+        
+
+        
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="module-express_module-ExpressModule.html">ExpressModule</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	
+		on 2017-09-30T15:52:35+03:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : false,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>
