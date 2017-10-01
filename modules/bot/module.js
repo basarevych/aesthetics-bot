@@ -2,7 +2,6 @@
  * Bot module
  * @module bot/module
  */
-const TgCalendar = require('telegraf-calendar-telegram');
 
 /**
  * Module main class
@@ -59,8 +58,13 @@ class Bot {
         if (server.constructor.provides !== 'servers.telegram')
             return;
 
-        let allCallsCalendar = new TgCalendar(
-            server.bot,
+        let missedCallsPager = this._app.get('telegram.services.pager');
+        missedCallsPager.prefix = 'missed-calls';
+        missedCallsPager.install(server.bot);
+        this._app.registerInstance(missedCallsPager, 'missedCallsPager');
+
+        let allCallsCalendar = this._app.get(
+            'telegram.services.calendar',
             {
                 startWeekDay: 1,
                 weekDayNames: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
@@ -70,14 +74,11 @@ class Bot {
                 ]
             }
         );
+        allCallsCalendar.prefix = 'all-calls-calendar';
+        allCallsCalendar.install(server.bot);
         this._app.registerInstance(allCallsCalendar, 'allCallsCalendar');
 
-        let missedCallsPager = this._app.get('modules.telegram.services.pager');
-        missedCallsPager.prefix = 'missed-calls';
-        missedCallsPager.install(server.bot);
-        this._app.registerInstance(missedCallsPager, 'missedCallsPager');
-
-        let allCallsPager = this._app.get('modules.telegram.services.pager');
+        let allCallsPager = this._app.get('telegram.services.pager');
         allCallsPager.prefix = 'all-calls';
         allCallsPager.install(server.bot);
         this._app.registerInstance(allCallsPager, 'allCallsPager');
