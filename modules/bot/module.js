@@ -59,7 +59,7 @@ class Bot {
             return;
 
         let missedCallsPager = this._app.get('telegram.services.pager');
-        missedCallsPager.prefix = 'missed-calls';
+        missedCallsPager.prefix = 'missed-calls-pager';
         missedCallsPager.install(server.bot);
         this._app.registerInstance(missedCallsPager, 'missedCallsPager');
 
@@ -79,7 +79,7 @@ class Bot {
         this._app.registerInstance(allCallsCalendar, 'allCallsCalendar');
 
         let allCallsPager = this._app.get('telegram.services.pager');
-        allCallsPager.prefix = 'all-calls';
+        allCallsPager.prefix = 'all-calls-pager';
         allCallsPager.install(server.bot);
         this._app.registerInstance(allCallsPager, 'allCallsPager');
 
