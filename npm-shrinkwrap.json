@@ -1894,14 +1894,6 @@
         "sandwich-stream": "1.0.0"
       }
     },
-    "telegraf-calendar-telegram": {
-      "version": "1.5.2",
-      "resolved": "https://registry.npmjs.org/telegraf-calendar-telegram/-/telegraf-calendar-telegram-1.5.2.tgz",
-      "integrity": "sha1-GGFSk1tZ2xk4k4IbNn4nKo4dp2Y=",
-      "requires": {
-        "telegraf": "3.10.1"
-      }
-    },
     "telegraf-flow": {
       "version": "8.2.2",
       "resolved": "https://registry.npmjs.org/telegraf-flow/-/telegraf-flow-8.2.2.tgz",
