@@ -1,6 +1,6 @@
 {
   "name": "aesthetics-bot",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "private": true,
   "description": "Aesthetics Telegram bot",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "argv": "~0.0.2",
     "arpen": "~0.2.11",
     "arpen-i18n": "~0.0.5",
-    "arpen-telegram": "~0.0.14",
+    "arpen-telegram": "~0.0.15",
     "daemon": "~1.1.0",
     "emailjs": "~1.0.12",
     "format-message": "~5.2.0",

@@ -1,6 +1,6 @@
 {
   "name": "aesthetics-bot",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -108,9 +108,9 @@
       }
     },
     "arpen-telegram": {
-      "version": "0.0.14",
-      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.14.tgz",
-      "integrity": "sha512-UbhsyazaPPn2CqC77Dn/8s6f+03R0QG6xpSRWdXWAyTS5JyowwtTOwG71EkslUAe87bJ1feJdup6TZf4LdMjwQ==",
+      "version": "0.0.15",
+      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.15.tgz",
+      "integrity": "sha512-ie39wzvp2kTOuxTWUrdkge7j1JvYn7E4d/F+NMpMmswsY3GHOn0NZ/9YrA0sAQ8YC8yzjpIf4OgaOk+JU7+VoQ==",
       "requires": {
         "debug": "3.0.1",
         "merge": "1.2.0",
