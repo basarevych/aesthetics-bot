@@ -73,7 +73,7 @@ class StartScene {
                 await this.sendMenu(ctx);
             } else {
                 if (!ctx.session.greeted) {
-                    await ctx.reply(`Привет, ${ctx.from.first_name}!`);
+                    await ctx.reply(ctx.i18n('greeting', { name: ctx.from.first_name}));
                     ctx.session.greeted = true;
                 }
                 await ctx.reply(
@@ -120,10 +120,6 @@ class StartScene {
      */
     async sendMenu(ctx, message) {
         try {
-            let msg = ctx.i18n('choose_menu');
-            if (message)
-                msg = message + '\n\n' + msg;
-
             let keyboard = Markup
                 .keyboard([
                     [ctx.i18n('missed_calls_menu')],
@@ -134,7 +130,7 @@ class StartScene {
                 .resize()
                 .extra();
 
-            await ctx.reply(msg, keyboard);
+            await ctx.reply(message || ctx.i18n('choose_menu'), keyboard);
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'StartScene.sendMenu()'));
         }

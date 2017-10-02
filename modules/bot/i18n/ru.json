@@ -1,4 +1,8 @@
 {
+  "acl_denied": {
+    "message": "В доступе отказано",
+    "description": "ACL denied access"
+  },
   "choose_menu": {
     "message": "Пожалуйста, выберите действие",
     "description": "Ask user to choose a menu entry"
@@ -14,6 +18,10 @@
   "wrong_pin_code": {
     "message": "Неправильный пин-код, попробуйте еще раз",
     "description": "Notify that pin code is invalid and ask for another one"
+  },
+  "greeting": {
+    "message": "Привет, {name}",
+    "description": "Greeting message"
   },
   "missed_calls_menu": {
     "message": "Пропущенные сегодня звонки",
