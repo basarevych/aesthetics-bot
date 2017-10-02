@@ -11,10 +11,12 @@ class Bot {
      * Create the module
      * @param {App} app                                     The application
      * @param {object} config                               Configuration
+     * @param {I18n} i18n                                   I18n service
      */
-    constructor(app, config) {
+    constructor(app, config, i18n) {
         this._app = app;
         this._config = config;
+        this._i18n = i18n;
     }
 
     /**
@@ -33,6 +35,7 @@ class Bot {
         return [
             'app',
             'config',
+            'i18n',
         ];
     }
 
@@ -41,6 +44,8 @@ class Bot {
      * @return {Promise}
      */
     async bootstrap() {
+        this._i18n.defaultLocale = 'ru';
+
         let acl = new Map();
         acl.set('cdr', 0);
         this._app.registerInstance(acl, 'acl');

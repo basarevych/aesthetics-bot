@@ -77,7 +77,7 @@ class StartScene {
                     ctx.session.greeted = true;
                 }
                 await ctx.reply(
-                    'Пожалуйста, введите пинкод',
+                    ctx.i18n('enter_pin_code'),
                     Markup.removeKeyboard().extra()
                 );
             }
@@ -97,16 +97,12 @@ class StartScene {
                 if (await ctx.commander.process(this))
                     return;
 
-                return await this.sendMenu(ctx, 'Неправильная команда');
+                return await this.sendMenu(ctx, ctx.i18n('command_invalid'));
             }
 
             let pinCode = ctx.message.text.replace(/\s+/g, '');
-            if (pinCode !== this._config.get('servers.bot.pin_code')) {
-                return await ctx.reply(
-                    'Неправильный пин-код, попробуйте еще раз',
-                    Markup.removeKeyboard().extra()
-                );
-            }
+            if (pinCode !== this._config.get('servers.bot.pin_code'))
+                return await ctx.reply(ctx.i18n('wrong_pin_code'), Markup.removeKeyboard().extra());
 
             ctx.session.authorized = true;
             await ctx.user.load();
@@ -143,16 +139,16 @@ class StartScene {
      */
     async sendMenu(ctx, message) {
         try {
-            let msg = `Пожалуйста, выберите действие`;
+            let msg = ctx.i18n('choose_menu');
             if (message)
                 msg = message + '\n\n' + msg;
 
             let keyboard = Markup
                 .keyboard([
-                    ['Пропущенные сегодня звонки'],
-                    ['Все звонки за сегодня'],
-                    ['Все звонки за вчера'],
-                    ['Все звонки за дату'],
+                    [ctx.i18n('missed_calls_menu')],
+                    [ctx.i18n('today_calls_menu')],
+                    [ctx.i18n('yesterday_calls_menu')],
+                    [ctx.i18n('date_calls_menu')],
                 ])
                 .resize()
                 .extra();

@@ -1,0 +1,34 @@
+{
+  "choose_menu": {
+    "message": "Пожалуйста, выберите действие",
+    "description": "Ask user to choose a menu entry"
+  },
+  "command_invalid": {
+    "message": "Неправильная команда",
+    "description": "User sent an invalid command"
+  },
+  "enter_pin_code": {
+    "message": "Пожалуйста, введите пинкод",
+    "description": "Ask user to enter pin code"
+  },
+  "wrong_pin_code": {
+    "message": "Неправильный пин-код, попробуйте еще раз",
+    "description": "Notify that pin code is invalid and ask for another one"
+  },
+  "missed_calls_menu": {
+    "message": "Пропущенные сегодня звонки",
+    "description": "Menu entry for missed calls"
+  },
+  "today_calls_menu": {
+    "message": "Все звонки за сегодня",
+    "description": "Menu entry for today calls"
+  },
+  "yesterday_calls_menu": {
+    "message": "Все звонки за вчера",
+    "description": "Menu entry for yesterday calls"
+  },
+  "date_calls_menu": {
+    "message": "Все звонки за дату",
+    "description": "Menu entry for particular date calls"
+  }
+}
