@@ -3,7 +3,6 @@
  * @module bot/commands/start
  */
 const NError = require('nerror');
-const { Markup } = require('telegraf');
 
 /**
  * Start command class
@@ -49,25 +48,42 @@ class StartCommand {
         return 'start';
     }
 
+    /**
+     * Syntax getter
+     * @type {object}
+     */
     get syntax() {
-        return [
-            [/^\/start$/i],
-            [/главное/i, /меню/i]
-        ];
+        return {
+            start: {
+                main: /^\/start$/i,
+            }
+        };
     }
 
-    async process(commander, ctx, match, scene) {
+    /**
+     * Process command
+     * @param {Commander} commander
+     * @param {object} ctx
+     * @param {object} scene
+     * @return {Promise}
+     */
+    async process(commander, ctx, scene) {
         try {
             this._logger.debug(this.name, 'Processing');
+
+            let match = commander.match(ctx.message.text, this.syntax);
+            if (!match && !commander.hasAll(ctx.session.locale, ctx.message.text, 'главное меню'))
+                return false;
 
             if (scene.name !== 'start')
                 await ctx.flow.enter('start');
             else
                 await scene.sendMenu(ctx);
+            return true;
         } catch (error) {
-            await this.onError(ctx, 'StartCommand.process()', error);
+            this._logger.error(new NError(error, { ctx }, 'StartCommand.process()'));
         }
-        return true;
+        return false;
     }
 
     /**
@@ -77,25 +93,6 @@ class StartCommand {
      */
     async register(server) {
         server.commander.add(this);
-    }
-
-    /**
-     * Log error
-     * @param {object} ctx                                  Context object
-     * @param {string} where                                Error location
-     * @param {Error} error                                 The error
-     * @return {Promise}
-     */
-    async onError(ctx, where, error) {
-        try {
-            this._logger.error(new NError(error, where));
-            await ctx.replyWithHTML(
-                `<i>Произошла ошибка. Пожалуйста, попробуйте повторить позднее.</i>`,
-                Markup.removeKeyboard().extra()
-            );
-        } catch (error) {
-            // do nothing
-        }
     }
 }
 

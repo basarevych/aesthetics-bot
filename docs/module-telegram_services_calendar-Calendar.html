@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: Util</title>
+	<title>Documentation Class: Calendar</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,20 +72,18 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Util</h1>
+	<h1 class="page-title">Class: Calendar</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-arpen_services_util.html">arpen/services/util</a>~</span>
+            <span class="ancestors"><a href="module-telegram_services_calendar.html">telegram/services/calendar</a>~</span>
         
-        Util
+        Calendar
         </h2>
         
-            <div class="class-description">Util helper
-<br><br>
-bcrypt module is required for password methods</div>
+            <div class="class-description">Service class</div>
         
     
 </header>
@@ -97,19 +95,97 @@ bcrypt module is required for password methods</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="Util"><span class="type-signature"></span>new Util()</h4>
+    <h4 class="name" id="Calendar"><span class="type-signature"></span>new Calendar(app, logger)</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        Create the service
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>app</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">App</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Application</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>logger</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Logger</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Logger service</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -194,7 +270,7 @@ bcrypt module is required for password methods</div>
 <dd>
     
     <div class="description">
-        Service name is 'util'
+        Service name is 'telegram.services.calendar'
     </div>
     
 
@@ -325,6 +401,388 @@ bcrypt module is required for password methods</div>
     
 </dd>
 
+        
+            
+<hr>
+<dt class="name" id="bot">
+    <h4 id="bot"><span class="type-signature"></span>bot<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Bot setter
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="bot">
+    <h4 id="bot"><span class="type-signature"></span>bot<span class="type-signature"> :object</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Bot getter
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="prefix">
+    <h4 id="prefix"><span class="type-signature"></span>prefix<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Action prefix setter
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="prefix">
+    <h4 id="prefix"><span class="type-signature"></span>prefix<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Action prefix getter
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="handler">
+    <h4 id="handler"><span class="type-signature"></span>handler<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Handler callback setter
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="handler">
+    <h4 id="handler"><span class="type-signature"></span>handler<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Handler callback getter
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
         </dl>
     
 
@@ -335,7 +793,7 @@ bcrypt module is required for password methods</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="isUuid"><span class="type-signature"></span>isUuid(value)</h4>
+    <h4 class="name" id=".isSameMonth"><span class="type-signature">&lt;static> </span>isSameMonth(myDate, testDate)</h4>
     
     
 </dt>
@@ -343,7 +801,7 @@ bcrypt module is required for password methods</div>
 
     
     <div class="description">
-        Check if given string is UUID
+        Check if myDate is in same year and month as testDate
     </div>
     
 
@@ -378,13 +836,13 @@ bcrypt module is required for password methods</div>
 
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>myDate</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Date</span>
 
 
 
@@ -395,7 +853,31 @@ bcrypt module is required for password methods</div>
 
             
 
-            <td class="description last">The string to check</td>
+            <td class="description last">input date</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>testDate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">test date</td>
         </tr>
 
     
@@ -458,10 +940,6 @@ bcrypt module is required for password methods</div>
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    Returns null for all zeroes otherwise boolean
-</div>
-
 
 
 <dl>
@@ -471,9 +949,6 @@ bcrypt module is required for password methods</div>
     <dd>
         
 <span class="param-type">boolean</span>
-|
-
-<span class="param-type">null</span>
 
 
 
@@ -490,7 +965,7 @@ bcrypt module is required for password methods</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="trim"><span class="type-signature"></span>trim(value)</h4>
+    <h4 class="name" id=".strikethroughText"><span class="type-signature">&lt;static> </span>strikethroughText(text)</h4>
     
     
 </dt>
@@ -498,8 +973,7 @@ bcrypt module is required for password methods</div>
 
     
     <div class="description">
-        Convert value to a trimmed string<br>
-Accepts string or number and returns empty string for anything else
+        This uses unicode to draw strikethrough on text
     </div>
     
 
@@ -534,13 +1008,13 @@ Accepts string or number and returns empty string for anything else
 
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>text</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">string</span>
 
 
 
@@ -551,7 +1025,7 @@ Accepts string or number and returns empty string for anything else
 
             
 
-            <td class="description last">The value</td>
+            <td class="description last">text to modify</td>
         </tr>
 
     
@@ -614,10 +1088,6 @@ Accepts string or number and returns empty string for anything else
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    Returns trimmed string
-</div>
-
 
 
 <dl>
@@ -643,7 +1113,7 @@ Accepts string or number and returns empty string for anything else
             
 <hr>
 <dt>
-    <h4 class="name" id="getRandomInt"><span class="type-signature"></span>getRandomInt(min, max)</h4>
+    <h4 class="name" id=".toYyyymmdd"><span class="type-signature">&lt;static> </span>toYyyymmdd(date)</h4>
     
     
 </dt>
@@ -651,7 +1121,7 @@ Accepts string or number and returns empty string for anything else
 
     
     <div class="description">
-        Returns a random integer between min (inclusive) and max (inclusive)
+        Format date string
     </div>
     
 
@@ -686,13 +1156,13 @@ Accepts string or number and returns empty string for anything else
 
         <tr>
             
-                <td class="name"><code>min</code></td>
+                <td class="name"><code>date</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">date</span>
 
 
 
@@ -703,31 +1173,7 @@ Accepts string or number and returns empty string for anything else
 
             
 
-            <td class="description last">Minimum</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>max</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Maximum</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -790,10 +1236,6 @@ Accepts string or number and returns empty string for anything else
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    Returns random in range
-</div>
-
 
 
 <dl>
@@ -802,7 +1244,7 @@ Accepts string or number and returns empty string for anything else
     </dt>
     <dd>
         
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -819,7 +1261,7 @@ Accepts string or number and returns empty string for anything else
             
 <hr>
 <dt>
-    <h4 class="name" id="getRandomString"><span class="type-signature"></span>getRandomString(length [, params])</h4>
+    <h4 class="name" id="getOptions"><span class="type-signature"></span>getOptions(ctx)</h4>
     
     
 </dt>
@@ -827,7 +1269,155 @@ Accepts string or number and returns empty string for anything else
 
     
     <div class="description">
-        Get random string
+        Get options
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ctx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="install"><span class="type-signature"></span>install( [bot])</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Install action handlers
     </div>
     
 
@@ -864,39 +1454,7 @@ Accepts string or number and returns empty string for anything else
 
         <tr>
             
-                <td class="name"><code>length</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The length of a password</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>bot</code></td>
             
 
             <td class="type">
@@ -923,197 +1481,7 @@ Accepts string or number and returns empty string for anything else
 
             
 
-            <td class="description last">Parameters object
-                <h6 class="method-params-label method-subparams-label">Properties</h6>
-                
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>lower</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-
-            <td class="description last">Include lower latin letters</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>upper</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-
-            <td class="description last">Include upper latin letters</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>digits</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-
-            <td class="description last">Include digits</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>special</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last">Include some special characters</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -1173,30 +1541,6 @@ Accepts string or number and returns empty string for anything else
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Returns the string
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -1205,7 +1549,7 @@ Accepts string or number and returns empty string for anything else
             
 <hr>
 <dt>
-    <h4 class="name" id="generatePassword"><span class="type-signature"></span>generatePassword()</h4>
+    <h4 class="name" id="getCalendar"><span class="type-signature"></span>getCalendar(ctx)</h4>
     
     
 </dt>
@@ -1213,109 +1557,7 @@ Accepts string or number and returns empty string for anything else
 
     
     <div class="description">
-        Generate a password
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Returns the password
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="encryptPassword"><span class="type-signature"></span>encryptPassword(password)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Create hash of a password. Requires 'bcrypt' module.
+        Return Calendar Markup
     </div>
     
 
@@ -1350,13 +1592,13 @@ Accepts string or number and returns empty string for anything else
 
         <tr>
             
-                <td class="name"><code>password</code></td>
+                <td class="name"><code>ctx</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -1367,7 +1609,1351 @@ Accepts string or number and returns empty string for anything else
 
             
 
-            <td class="description last">The password</td>
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setMinDate"><span class="type-signature"></span>setMinDate(date)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        No dates before this
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setMaxDate"><span class="type-signature"></span>setMaxDate(date)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        No dates after this
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="_getMarkup"><span class="type-signature"></span>_getMarkup(ctx, date)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Retrieve markup
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ctx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="_getPage"><span class="type-signature"></span>_getPage(ctx, m, date)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Page of calendar
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ctx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>m</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="_addHeader"><span class="type-signature"></span>_addHeader(ctx, page, m, date)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Header of calendar
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ctx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>m</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="_addDays"><span class="type-signature"></span>_addDays(ctx, page, m, date)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Body of calendar
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ctx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>m</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="_normalizeWeekDay"><span class="type-signature"></span>_normalizeWeekDay(ctx, weekDay)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Normalize week day
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ctx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>weekDay</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="_getMinDay"><span class="type-signature"></span>_getMinDay(date)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Calculates min day depending on input date and minDate in options
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Test date</td>
         </tr>
 
     
@@ -1431,24 +3017,11 @@ Accepts string or number and returns empty string for anything else
     
             
 <div class="param-desc">
-    Returns the hash
+    int
 </div>
 
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
 
         
 
@@ -1459,7 +3032,7 @@ Accepts string or number and returns empty string for anything else
             
 <hr>
 <dt>
-    <h4 class="name" id="checkPassword"><span class="type-signature"></span>checkPassword(password, hash)</h4>
+    <h4 class="name" id="_getMaxDay"><span class="type-signature"></span>_getMaxDay(date)</h4>
     
     
 </dt>
@@ -1467,7 +3040,7 @@ Accepts string or number and returns empty string for anything else
 
     
     <div class="description">
-        Check if password matches the hash. Requires 'bcrypt' module.
+        Calculates max day depending on input date and maxDate in options
     </div>
     
 
@@ -1502,13 +3075,13 @@ Accepts string or number and returns empty string for anything else
 
         <tr>
             
-                <td class="name"><code>password</code></td>
+                <td class="name"><code>date</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Date</span>
 
 
 
@@ -1519,236 +3092,7 @@ Accepts string or number and returns empty string for anything else
 
             
 
-            <td class="description last">Password to check</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>hash</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Hash of the password</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="dashedToCamel"><span class="type-signature"></span>dashedToCamel(value [, upperFirst])</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Convert dashed name to camel case<br>
-example-name → exampleName
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Dashed name</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>upperFirst</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last">First letter is upper case</td>
+            <td class="description last">Test date</td>
         </tr>
 
     
@@ -1812,23 +3156,10 @@ example-name → exampleName
     
             
 <div class="param-desc">
-    Returns camel case variant
+    int
 </div>
 
 
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
 
 
         
@@ -1840,7 +3171,7 @@ example-name → exampleName
             
 <hr>
 <dt>
-    <h4 class="name" id="camelToDashed"><span class="type-signature"></span>camelToDashed(value)</h4>
+    <h4 class="name" id="_isInMinMonth"><span class="type-signature"></span>_isInMinMonth()</h4>
     
     
 </dt>
@@ -1848,8 +3179,7 @@ example-name → exampleName
 
     
     <div class="description">
-        Convert camel case name to dashed<br>
-exampleName → example-name
+        Check if input date is in same year and month as min date
     </div>
     
 
@@ -1858,56 +3188,6 @@ exampleName → example-name
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Camel case name</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -1961,30 +3241,6 @@ exampleName → example-name
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Returns dashed variant
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -1993,7 +3249,7 @@ exampleName → example-name
             
 <hr>
 <dt>
-    <h4 class="name" id="snakeToCamel"><span class="type-signature"></span>snakeToCamel(value [, upperFirst])</h4>
+    <h4 class="name" id="_isInMaxMonth"><span class="type-signature"></span>_isInMaxMonth()</h4>
     
     
 </dt>
@@ -2001,8 +3257,7 @@ exampleName → example-name
 
     
     <div class="description">
-        Convert snake case name to camel case<br>
-example_name → exampleName
+        Check if input date is in same year and month as max date
     </div>
     
 
@@ -2011,112 +3266,6 @@ example_name → exampleName
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Snake case name</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>upperFirst</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last">First letter is upper case</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -2170,183 +3319,6 @@ example_name → exampleName
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Returns camel case variant
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="camelToSnake"><span class="type-signature"></span>camelToSnake(value)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Convert camel case name to snake case<br>
-exampleName → example_name
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Camel case name</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Returns snake case variant
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>

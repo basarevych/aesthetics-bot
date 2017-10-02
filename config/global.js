@@ -11,5 +11,6 @@ module.exports = {
         'models',
         'repositories',
         'commands',
+        'services',
     ],
 };

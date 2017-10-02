@@ -68,17 +68,7 @@ class Bot {
         missedCallsPager.install(server.bot);
         this._app.registerInstance(missedCallsPager, 'missedCallsPager');
 
-        let allCallsCalendar = this._app.get(
-            'telegram.services.calendar',
-            {
-                startWeekDay: 1,
-                weekDayNames: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
-                monthNames: [
-                    'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
-                    'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дес'
-                ]
-            }
-        );
+        let allCallsCalendar = this._app.get('telegram.services.calendar');
         allCallsCalendar.prefix = 'all-calls-calendar';
         allCallsCalendar.install(server.bot);
         this._app.registerInstance(allCallsCalendar, 'allCallsCalendar');

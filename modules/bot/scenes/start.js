@@ -82,7 +82,7 @@ class StartScene {
                 );
             }
         } catch (error) {
-            await this.onError(ctx, 'StartScene.onEnter()', error);
+            this._logger.error(new NError(error, { ctx }, 'StartScene.onEnter()'));
         }
     }
 
@@ -108,26 +108,7 @@ class StartScene {
             await ctx.user.load();
             await this.sendMenu(ctx);
         } catch (error) {
-            await this.onError(ctx, 'StartScene.onMessage()', error);
-        }
-    }
-
-    /**
-     * Log error
-     * @param {object} ctx                                  Context object
-     * @param {string} where                                Error location
-     * @param {Error} error                                 The error
-     * @return {Promise}
-     */
-    async onError(ctx, where, error) {
-        try {
-            this._logger.error(new NError(error, where));
-            await ctx.replyWithHTML(
-                `<i>Произошла ошибка. Пожалуйста, попробуйте повторить позднее.</i>`,
-                Markup.removeKeyboard().extra()
-            );
-        } catch (error) {
-            // do nothing
+            this._logger.error(new NError(error, { ctx }, 'StartScene.onMessage()'));
         }
     }
 
@@ -155,7 +136,7 @@ class StartScene {
 
             await ctx.reply(msg, keyboard);
         } catch (error) {
-            await this.onError(ctx, 'StartScene.sendMenu()', error);
+            this._logger.error(new NError(error, { ctx }, 'StartScene.sendMenu()'));
         }
     }
 }

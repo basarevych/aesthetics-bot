@@ -1,6 +1,6 @@
 {
   "name": "aesthetics-bot",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -67,6 +67,14 @@
       "integrity": "sha1-tDLdM1i2NM914eRmQ2gkBTPB3b4=",
       "dev": true
     },
+    "apparatus": {
+      "version": "0.0.9",
+      "resolved": "https://registry.npmjs.org/apparatus/-/apparatus-0.0.9.tgz",
+      "integrity": "sha1-N9zSWDStC2UQdllikduCPusZCL0=",
+      "requires": {
+        "sylvester": "0.0.21"
+      }
+    },
     "argparse": {
       "version": "1.0.9",
       "resolved": "https://registry.npmjs.org/argparse/-/argparse-1.0.9.tgz",
@@ -82,9 +90,9 @@
       "integrity": "sha1-7L0W+JSbFXGDcRsb2jNPN4QBhas="
     },
     "arpen": {
-      "version": "0.2.11",
-      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.11.tgz",
-      "integrity": "sha512-GFfgbOjv7JtVpSMn3r53got/Pd26ggKT5kTTaUnL6INDgkRdJL/c3q0ip8fo4+DpOJHMjuooivHu+tAmfK48Jw==",
+      "version": "0.2.12",
+      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.12.tgz",
+      "integrity": "sha512-AR0M5B5q3JCBQQWsE6KsUamuql6ggVCp8Pxqz70uGkMIQ8htuZ/Irj6wwO2nHJL7kMGL+vDxqGSwyalz3un9Nw==",
       "requires": {
         "debug": "3.0.1",
         "fs-ext": "0.6.0",
@@ -98,9 +106,9 @@
       }
     },
     "arpen-i18n": {
-      "version": "0.0.5",
-      "resolved": "https://registry.npmjs.org/arpen-i18n/-/arpen-i18n-0.0.5.tgz",
-      "integrity": "sha512-4/TFEDz8CBDETcboMGX2uCIdQ+qeKVaCcYjRmxSewBafad7dvXkdCPt8E7qiCcxZ0soRA3WnY4rVE6i6mzzmkA==",
+      "version": "0.0.6",
+      "resolved": "https://registry.npmjs.org/arpen-i18n/-/arpen-i18n-0.0.6.tgz",
+      "integrity": "sha512-t1+Csaf8LkQeHwHs2zhMLV1BNxWNKaxiL4gSIcyGdyCwo+60JKAYoXGVhRg6yubc7i4Vmno6XFNMJk15dI04Fw==",
       "requires": {
         "debug": "3.0.1",
         "merge": "1.2.0",
@@ -108,12 +116,13 @@
       }
     },
     "arpen-telegram": {
-      "version": "0.0.15",
-      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.15.tgz",
-      "integrity": "sha512-ie39wzvp2kTOuxTWUrdkge7j1JvYn7E4d/F+NMpMmswsY3GHOn0NZ/9YrA0sAQ8YC8yzjpIf4OgaOk+JU7+VoQ==",
+      "version": "0.0.16",
+      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.16.tgz",
+      "integrity": "sha512-jmfCYOPWol1nm+q6zLC+JcTjvcumys8hTv4CsnY+eCBAwypkwhLF0mH+neMmOoNV+6QLJdwuc1dWYVdOnEu48Q==",
       "requires": {
         "debug": "3.0.1",
         "merge": "1.2.0",
+        "natural": "0.5.4",
         "nerror": "1.0.0",
         "telegraf-session-local": "0.0.4"
       }
@@ -200,6 +209,12 @@
       "version": "4.0.2",
       "resolved": "https://registry.npmjs.org/bignumber.js/-/bignumber.js-4.0.2.tgz",
       "integrity": "sha1-LR3DfuWWiGfs6pC22k0W5oYI0h0="
+    },
+    "bindings": {
+      "version": "1.3.0",
+      "resolved": "https://registry.npmjs.org/bindings/-/bindings-1.3.0.tgz",
+      "integrity": "sha512-DpLh5EzMR2kzvX1KIlVC0VkC3iZtHKTgdtZ0a3pglBZdaQFjt5S9g9xd1lE+YvXyfd6mtCeRnrUfOLYiTMlNSw==",
+      "optional": true
     },
     "bluebird": {
       "version": "3.5.0",
@@ -1347,6 +1362,17 @@
       "resolved": "https://registry.npmjs.org/nan/-/nan-2.7.0.tgz",
       "integrity": "sha1-2Vv3IeyHfgjbJ27T/G63j5CDrUY="
     },
+    "natural": {
+      "version": "0.5.4",
+      "resolved": "https://registry.npmjs.org/natural/-/natural-0.5.4.tgz",
+      "integrity": "sha1-rOQcFlXayikS37+ZrXsFMU4gX1Q=",
+      "requires": {
+        "apparatus": "0.0.9",
+        "sylvester": "0.0.21",
+        "underscore": "1.8.3",
+        "webworker-threads": "0.7.13"
+      }
+    },
     "natural-compare": {
       "version": "1.4.0",
       "resolved": "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz",
@@ -1864,6 +1890,11 @@
       "integrity": "sha1-U10EXOa2Nj+kARcIRimZXp3zJMc=",
       "dev": true
     },
+    "sylvester": {
+      "version": "0.0.21",
+      "resolved": "https://registry.npmjs.org/sylvester/-/sylvester-0.0.21.tgz",
+      "integrity": "sha1-KYexzivS84sNzio0OIiEv6RADqc="
+    },
     "table": {
       "version": "4.0.2",
       "resolved": "https://registry.npmjs.org/table/-/table-4.0.2.tgz",
@@ -1957,8 +1988,7 @@
     "underscore": {
       "version": "1.8.3",
       "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.8.3.tgz",
-      "integrity": "sha1-Tz+1OxBuYJf8+ctBCfKl6b36UCI=",
-      "dev": true
+      "integrity": "sha1-Tz+1OxBuYJf8+ctBCfKl6b36UCI="
     },
     "underscore-contrib": {
       "version": "0.3.0",
@@ -1990,6 +2020,16 @@
       "requires": {
         "spdx-correct": "1.0.2",
         "spdx-expression-parse": "1.0.4"
+      }
+    },
+    "webworker-threads": {
+      "version": "0.7.13",
+      "resolved": "https://registry.npmjs.org/webworker-threads/-/webworker-threads-0.7.13.tgz",
+      "integrity": "sha1-yEsYtrokElu503NC5E3rgVFi+4M=",
+      "optional": true,
+      "requires": {
+        "bindings": "1.3.0",
+        "nan": "2.7.0"
       }
     },
     "which": {
