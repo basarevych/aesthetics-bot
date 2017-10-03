@@ -106,9 +106,9 @@
       }
     },
     "arpen-i18n": {
-      "version": "0.0.6",
-      "resolved": "https://registry.npmjs.org/arpen-i18n/-/arpen-i18n-0.0.6.tgz",
-      "integrity": "sha512-t1+Csaf8LkQeHwHs2zhMLV1BNxWNKaxiL4gSIcyGdyCwo+60JKAYoXGVhRg6yubc7i4Vmno6XFNMJk15dI04Fw==",
+      "version": "0.0.7",
+      "resolved": "https://registry.npmjs.org/arpen-i18n/-/arpen-i18n-0.0.7.tgz",
+      "integrity": "sha512-GGNQynoJ2Qax72yUO8L+nLwAPDPbLoBrnvOidFtKkIeM84tbwmOFhmHFfZXRRavy7tput+OQmftw13eKU5XmWg==",
       "requires": {
         "debug": "3.0.1",
         "merge": "1.2.0",
@@ -116,9 +116,9 @@
       }
     },
     "arpen-telegram": {
-      "version": "0.0.16",
-      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.16.tgz",
-      "integrity": "sha512-jmfCYOPWol1nm+q6zLC+JcTjvcumys8hTv4CsnY+eCBAwypkwhLF0mH+neMmOoNV+6QLJdwuc1dWYVdOnEu48Q==",
+      "version": "0.0.17",
+      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.17.tgz",
+      "integrity": "sha512-i1BOFmC55aHlnA4tcoae9g+Jjohy1e6SUkKH5MbYwQhEgraUcS4+BzBLz1BrHFSJ74SpLfFTs9tHvdYcEmrC4w==",
       "requires": {
         "debug": "3.0.1",
         "merge": "1.2.0",
