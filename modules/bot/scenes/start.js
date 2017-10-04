@@ -2,26 +2,14 @@
  * Start scene
  * @module bot/scenes/start
  */
+const BaseScene = require('./base');
 const NError = require('nerror');
 const { Markup } = require('telegraf');
-const { Scene } = require('telegraf-flow');
 
 /**
  * Start scene class
  */
-class StartScene {
-    /**
-     * Create the module
-     * @param {App} app                                     The application
-     * @param {object} config                               Configuration
-     * @param {Logger} logger                               Logger service
-     */
-    constructor(app, config, logger) {
-        this._app = app;
-        this._config = config;
-        this._logger = logger;
-    }
-
+class StartScene extends BaseScene {
     /**
      * Service name is 'bot.scenes.start'
      * @type {string}
@@ -31,35 +19,11 @@ class StartScene {
     }
 
     /**
-     * Dependencies as constructor arguments
-     * @type {string[]}
-     */
-    static get requires() {
-        return [
-            'app',
-            'config',
-            'logger',
-        ];
-    }
-
-    /**
      * Scene name
      * @type {string}
      */
     get name() {
         return 'start';
-    }
-
-    /**
-     * Register with the bot server
-     * @param {Telegram} server                             Telegram server
-     * @return {Promise}
-     */
-    async register(server) {
-        let scene = new Scene(this.name);
-        scene.enter(this.onEnter.bind(this));
-        scene.on('message', this.onMessage.bind(this));
-        server.flow.register(scene);
     }
 
     /**
@@ -76,10 +40,7 @@ class StartScene {
                     await ctx.reply(ctx.i18n('greeting', { name: ctx.from.first_name}));
                     ctx.session.greeted = true;
                 }
-                await ctx.reply(
-                    ctx.i18n('enter_pin_code'),
-                    Markup.removeKeyboard().extra()
-                );
+                await ctx.reply(ctx.i18n('enter_pin_code'), Markup.removeKeyboard().extra());
             }
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'StartScene.onEnter()'));

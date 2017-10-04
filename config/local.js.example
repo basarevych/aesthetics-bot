@@ -40,6 +40,15 @@ module.exports = {
                 'telegram.flow',
                 'telegram.start',
             ],
+            webhook: {
+                enable: false,
+                //path: 'secret-string-here', // random if commented out
+                host: '1.2.3.4',
+                port: 8443,
+                key: path.join(__dirname, '..', 'certs', '1.2.3.4.key'),
+                cert: path.join(__dirname, '..', 'certs', '1.2.3.4.cert'),
+                max_connections: 40,
+            },
         },
     },
 
