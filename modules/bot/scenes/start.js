@@ -37,7 +37,7 @@ class StartScene extends BaseScene {
                 await this.sendMenu(ctx);
             } else {
                 if (!ctx.session.greeted) {
-                    await ctx.reply(ctx.i18n('greeting', { name: ctx.from.first_name}));
+                    await ctx.reply(ctx.i18n('greeting', { name: ctx.from.first_name }));
                     ctx.session.greeted = true;
                 }
                 await ctx.reply(ctx.i18n('enter_pin_code'), Markup.removeKeyboard().extra());

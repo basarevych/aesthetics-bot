@@ -2,7 +2,6 @@
  * Base scene
  * @module bot/scenes/base
  */
-const moment = require('moment-timezone');
 const NError = require('nerror');
 const { Scene } = require('telegraf-flow');
 
