@@ -4,7 +4,7 @@
  */
 const BaseScene = require('./base');
 const NError = require('nerror');
-const { Markup } = require('telegraf');
+const { Markup, Extra } = require('telegraf');
 
 /**
  * Start scene class
@@ -19,11 +19,41 @@ class StartScene extends BaseScene {
     }
 
     /**
-     * Scene name
+     * Scene name [_a-z0-9]
      * @type {string}
      */
     get name() {
         return 'start';
+    }
+
+    /**
+     * Bottom keyboard
+     * @param {object} ctx
+     * @return {object}
+     */
+    getBottomKeyboard(ctx) {
+        return Markup
+            .keyboard([
+                [ctx.i18n('show_menu')],
+            ])
+            .resize()
+            .extra();
+    }
+
+    /**
+     * Inline keyboard
+     * @param {object} ctx
+     * @return {object}
+     */
+    getInlineKeyboard(ctx) {
+        return Extra.HTML().markup((m) => {
+            return m.inlineKeyboard([
+                [m.callbackButton(ctx.i18n('missed_calls'), `commander-missed_calls-today`)],
+                [m.callbackButton(ctx.i18n('today_calls'), `commander-all_calls-today`)],
+                [m.callbackButton(ctx.i18n('yesterday_calls'), `commander-all_calls-yesterday`)],
+                [m.callbackButton(ctx.i18n('date_calls'), `commander-all_calls-date`)],
+            ]);
+        });
     }
 
     /**
@@ -33,15 +63,8 @@ class StartScene extends BaseScene {
      */
     async onEnter(ctx) {
         try {
-            if (ctx.user.authorized) {
-                await this.sendMenu(ctx);
-            } else {
-                if (!ctx.session.greeted) {
-                    await ctx.reply(ctx.i18n('greeting', { name: ctx.from.first_name }));
-                    ctx.session.greeted = true;
-                }
+            if (!ctx.user.authorized)
                 await ctx.reply(ctx.i18n('enter_pin_code'), Markup.removeKeyboard().extra());
-            }
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'StartScene.onEnter()'));
         }
@@ -58,7 +81,7 @@ class StartScene extends BaseScene {
                 if (await ctx.commander.process(this))
                     return;
 
-                return await this.sendMenu(ctx, ctx.i18n('command_invalid'));
+                return await ctx.reply(ctx.i18n('command_invalid'), this.getBottomKeyboard(ctx));
             }
 
             let pinCode = ctx.message.text.replace(/\s+/g, '');
@@ -67,33 +90,10 @@ class StartScene extends BaseScene {
 
             ctx.session.authorized = true;
             await ctx.user.load();
-            await this.sendMenu(ctx);
+            await ctx.reply(ctx.i18n('greeting', { name: ctx.from.first_name }));
+            await ctx.reply(ctx.i18n('choose_menu'), this.getBottomKeyboard(ctx));
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'StartScene.onMessage()'));
-        }
-    }
-
-    /**
-     * Send menu
-     * @param {object} ctx                                  Context object
-     * @param {string} [message]                            Prepend message
-     * @return {Promise}
-     */
-    async sendMenu(ctx, message) {
-        try {
-            let keyboard = Markup
-                .keyboard([
-                    [ctx.i18n('missed_calls_menu')],
-                    [ctx.i18n('today_calls_menu')],
-                    [ctx.i18n('yesterday_calls_menu')],
-                    [ctx.i18n('date_calls_menu')],
-                ])
-                .resize()
-                .extra();
-
-            await ctx.reply(message || ctx.i18n('choose_menu'), keyboard);
-        } catch (error) {
-            this._logger.error(new NError(error, { ctx }, 'StartScene.sendMenu()'));
         }
     }
 }

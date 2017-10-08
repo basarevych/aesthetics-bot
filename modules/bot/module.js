@@ -47,6 +47,7 @@ class Bot {
         this._i18n.defaultLocale = 'ru';
 
         let acl = new Map();
+        acl.set('default', 1);
         acl.set('cdr', 0);
         this._app.registerInstance(acl, 'acl');
 

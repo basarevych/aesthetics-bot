@@ -34,7 +34,7 @@ class BaseScene {
     }
 
     /**
-     * Scene name
+     * Scene name [_a-z0-9]
      * @type {string}
      */
     get name() {
@@ -46,6 +46,24 @@ class BaseScene {
      * @type {string}
      */
     get acl() {
+        return 'default';
+    }
+
+    /**
+     * Bottom keyboard
+     * @param {object} ctx
+     * @return {object}
+     */
+    getBottomKeyboard(ctx) {
+        throw new Error('Not defined');
+    }
+
+    /**
+     * Inline keyboard
+     * @param {object} ctx
+     * @return {object}
+     */
+    getInlineKeyboard(ctx) {
         throw new Error('Not defined');
     }
 
@@ -57,8 +75,12 @@ class BaseScene {
     async register(server) {
         let scene = new Scene(this.name);
         scene.enter(this.onEnter.bind(this));
+        scene.leave(this.onLeave.bind(this));
         scene.on('message', this.onMessage.bind(this));
+        scene.action(/^commander-([^-]+)-(.*)$/i, this.onAction.bind(this));
         server.flow.register(scene);
+
+        server.commander.addScene(this);
     }
 
     /**
@@ -69,13 +91,21 @@ class BaseScene {
     async onEnter(ctx) {
         try {
             this._logger.debug(this.name, `Entered by ${ctx.from.id}`);
-
-            if (!ctx.user.authorized || !ctx.user.isAllowed(this._app.get('acl').get(this.acl)))
-                return await ctx.flow.enter('start');
-
-            await this.sendMenu(ctx);
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'BaseScene.onEnter()'));
+        }
+    }
+
+    /**
+     * Leaving the scene
+     * @param {object} ctx                                  Context object
+     * @return {Promise}
+     */
+    async onLeave(ctx) {
+        try {
+            this._logger.debug(this.name, `Left by ${ctx.from.id}`);
+        } catch (error) {
+            this._logger.error(new NError(error, { ctx }, 'BaseScene.onLeave()'));
         }
     }
 
@@ -88,26 +118,32 @@ class BaseScene {
         try {
             this._logger.debug(this.name, `Message from ${ctx.from.id}`);
 
-            if (!ctx.user.authorized || !ctx.user.isAllowed(this._app.get('acl').get(this.acl)))
-                return await ctx.flow.enter('start');
+            if (!ctx.user.isAllowed(this._app.get('acl').get(this.acl))) {
+                await ctx.flow.enter('start');
+                return await ctx.reply(ctx.i18n('choose_menu'), ctx.commander.getScene('start').getBottomKeyboard(ctx));
+            }
 
             if (await ctx.commander.process(this))
                 return;
 
-            await this.sendMenu(ctx, ctx.i18n('command_invalid'));
+            await ctx.reply(ctx.i18n('command_invalid'), this.getBottomKeyboard(ctx));
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'BaseScene.onMessage()'));
         }
     }
 
     /**
-     * Send menu
+     * Commander action
      * @param {object} ctx                                  Context object
-     * @param {string} [message]                            Prepend message
      * @return {Promise}
      */
-    async sendMenu(ctx, message) {
-        throw new Error('Not defined');
+    async onAction(ctx) {
+        try {
+            this._logger.debug(this.name, `Action ${ctx.match[1]} - ${ctx.match[2]} from ${ctx.from.id}`);
+            await ctx.commander.action(this);
+        } catch (error) {
+            this._logger.error(new NError(error, { ctx }, 'BaseScene.onAction()'));
+        }
     }
 }
 

@@ -41,11 +41,19 @@ class StartCommand {
     }
 
     /**
-     * Command name
+     * Command name [_a-z0-9]
      * @type {string}
      */
     get name() {
         return 'start';
+    }
+
+    /**
+     * Command priority
+     * @type {number}
+     */
+    get priority() {
+        return 0;
     }
 
     /**
@@ -61,6 +69,35 @@ class StartCommand {
     }
 
     /**
+     * Menu action
+     * @param {Commander} commander
+     * @param {object} ctx
+     * @param {object} scene
+     * @return {Promise}
+     */
+    async action(commander, ctx, scene) {
+        try {
+            let extra = ctx.match[2];
+            if (!extra)
+                return;
+
+            this._logger.debug(this.name, `Action ${extra}`);
+
+            let scene = commander.getScene(extra);
+            if (!scene)
+                return;
+
+            if (!ctx.user.isAllowed(this._app.get('acl').get(scene.acl)))
+                return;
+
+            await ctx.flow.enter(extra);
+            await ctx.editMessageText(ctx.i18n(`${scene.name}_menu`), scene.getInlineKeyboard(ctx));
+        } catch (error) {
+            this._logger.error(new NError(error, { ctx }, 'StartCommand.action()'));
+        }
+    }
+
+    /**
      * Process command
      * @param {Commander} commander
      * @param {object} ctx
@@ -72,13 +109,13 @@ class StartCommand {
             this._logger.debug(this.name, 'Processing');
 
             let match = commander.match(ctx.message.text, this.syntax);
-            if (!match && !commander.hasAll(ctx.session.locale, ctx.message.text, 'главное меню'))
+            if (!match && !commander.hasAll(ctx.session.locale, ctx.message.text, 'меню'))
                 return false;
 
-            if (scene.name !== 'start')
-                await ctx.flow.enter('start');
-            else
-                await scene.sendMenu(ctx);
+            if (!ctx.user.isAllowed(this._app.get('acl').get(scene.acl)))
+                return false;
+
+            await ctx.reply(ctx.i18n(`${scene.name}_menu`), scene.getInlineKeyboard(ctx));
             return true;
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'StartCommand.process()'));
@@ -92,7 +129,7 @@ class StartCommand {
      * @return {Promise}
      */
     async register(server) {
-        server.commander.add(this);
+        server.commander.addCommand(this);
     }
 }
 

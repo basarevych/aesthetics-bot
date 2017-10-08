@@ -1,6 +1,6 @@
 {
   "name": "aesthetics-bot",
-  "version": "0.0.18",
+  "version": "0.0.20",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -90,9 +90,9 @@
       "integrity": "sha1-7L0W+JSbFXGDcRsb2jNPN4QBhas="
     },
     "arpen": {
-      "version": "0.2.14",
-      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.14.tgz",
-      "integrity": "sha512-QnaYU66wK7E9xkRbmCFF30cTA7OrjrxE0v1kZ5Dt/q/irBQ8MOHRxgpGQqk1A9eJqLuqDDDl+fTusUZl6WaucA==",
+      "version": "0.2.16",
+      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.16.tgz",
+      "integrity": "sha512-9kys/QJzl1IHGl7OBRZdaxH087RFEf5GLGBE7sp4kKo7aaTLfdnKOD7KLjt7H90oZ7eytxP3W8rOodsMFhvIDg==",
       "requires": {
         "debug": "3.0.1",
         "fs-ext": "0.6.0",
@@ -116,12 +116,14 @@
       }
     },
     "arpen-telegram": {
-      "version": "0.0.21",
-      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.21.tgz",
-      "integrity": "sha512-y25Duoh3SqPLnS2O43yTu59SYu2+hOGlV42+TYxK+bp3JSqAKEj4IXQwpcSX1zF7VHfWtsI5cTZK11db+nYwrg==",
+      "version": "0.0.24",
+      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.24.tgz",
+      "integrity": "sha512-D4/j0rCRyWUcinfYikAMYF0EFje0ssIWAlL3axEQs30fidLJl3ZWxeyA60CBt8WWL9XL1MrOCC4QGoAOcwVz1w==",
       "requires": {
+        "argv": "0.0.2",
         "debug": "3.0.1",
         "merge": "1.2.0",
+        "moment-timezone": "0.5.13",
         "natural": "0.5.4",
         "nerror": "1.0.0",
         "telegraf-session-local": "0.0.4"

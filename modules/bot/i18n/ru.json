@@ -3,9 +3,9 @@
     "message": "В доступе отказано",
     "description": "ACL denied access"
   },
-  "choose_menu": {
-    "message": "Пожалуйста, выберите действие",
-    "description": "Ask user to choose a menu entry"
+  "cancel": {
+    "message": "Отмена",
+    "description": "Cancel"
   },
   "command_invalid": {
     "message": "Неправильная команда",
@@ -23,19 +23,35 @@
     "message": "Привет, {name}",
     "description": "Greeting message"
   },
-  "missed_calls_menu": {
-    "message": "Пропущенные сегодня звонки",
+  "choose_menu": {
+    "message": "Нажмите кнопку внизу чата, чтобы открыть текущее меню",
+    "description": "Ask user to choose a menu entry"
+  },
+  "show_menu": {
+    "message": "Меню",
+    "description": "Menu entry for menu"
+  },
+  "start_menu": {
+    "message": "Главное меню",
+    "description": "Menu entry for main menu"
+  },
+  "go_to_start_menu": {
+    "message": "В главное меню",
+    "description": "Menu entry for main menu transition"
+  },
+  "missed_calls": {
+    "message": "Пропущенные сегодня",
     "description": "Menu entry for missed calls"
   },
-  "today_calls_menu": {
+  "today_calls": {
     "message": "Все звонки за сегодня",
     "description": "Menu entry for today calls"
   },
-  "yesterday_calls_menu": {
+  "yesterday_calls": {
     "message": "Все звонки за вчера",
     "description": "Menu entry for yesterday calls"
   },
-  "date_calls_menu": {
+  "date_calls": {
     "message": "Все звонки за дату",
     "description": "Menu entry for particular date calls"
   }
