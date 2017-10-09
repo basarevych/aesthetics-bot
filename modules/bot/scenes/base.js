@@ -19,6 +19,7 @@ class BaseScene {
         this._app = app;
         this._config = config;
         this._logger = logger;
+        this._scene = null;
     }
 
     /**
@@ -31,6 +32,22 @@ class BaseScene {
             'config',
             'logger',
         ];
+    }
+
+    /**
+     * Scene setter
+     * @param {object} scene
+     */
+    set scene(scene) {
+        this._scene = scene;
+    }
+
+    /**
+     * Scene getter
+     * @type {object}
+     */
+    get scene() {
+        return this._scene;
     }
 
     /**
@@ -73,12 +90,12 @@ class BaseScene {
      * @return {Promise}
      */
     async register(server) {
-        let scene = new Scene(this.name);
-        scene.enter(this.onEnter.bind(this));
-        scene.leave(this.onLeave.bind(this));
-        scene.on('message', this.onMessage.bind(this));
-        scene.action(/^commander-([^-]+)-(.*)$/i, this.onAction.bind(this));
-        server.flow.register(scene);
+        this.scene = new Scene(this.name);
+        this.scene.enter(this.onEnter.bind(this));
+        this.scene.leave(this.onLeave.bind(this));
+        this.scene.on('message', this.onMessage.bind(this));
+        this.scene.action(/^commander-([^-]+)-(.*)$/i, this.onAction.bind(this));
+        server.flow.register(this.scene);
 
         server.commander.addScene(this);
     }

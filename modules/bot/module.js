@@ -64,21 +64,6 @@ class Bot {
         if (server.constructor.provides !== 'servers.telegram')
             return;
 
-        let missedCallsPager = this._app.get('telegram.services.pager');
-        missedCallsPager.prefix = 'missed-calls-pager';
-        missedCallsPager.install(server.bot);
-        this._app.registerInstance(missedCallsPager, 'missedCallsPager');
-
-        let allCallsCalendar = this._app.get('telegram.services.calendar');
-        allCallsCalendar.prefix = 'all-calls-calendar';
-        allCallsCalendar.install(server.bot);
-        this._app.registerInstance(allCallsCalendar, 'allCallsCalendar');
-
-        let allCallsPager = this._app.get('telegram.services.pager');
-        allCallsPager.prefix = 'all-calls-pager';
-        allCallsPager.install(server.bot);
-        this._app.registerInstance(allCallsPager, 'allCallsPager');
-
         await Array.from(this.scenes.values()).reduce(
             async (prev, cur) => {
                 await prev;
