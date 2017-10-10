@@ -1,6 +1,6 @@
 {
   "name": "aesthetics-bot",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -116,9 +116,9 @@
       }
     },
     "arpen-telegram": {
-      "version": "0.0.25",
-      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.25.tgz",
-      "integrity": "sha512-1imuWFrXY25dhiIEQ/G0Fcf7sk4RJfrxuVDl8PSBgmyICscWZkfhhX+OtmoKsTddmzaWJfAswGQC4uzGwP6TuQ==",
+      "version": "0.0.26",
+      "resolved": "https://registry.npmjs.org/arpen-telegram/-/arpen-telegram-0.0.26.tgz",
+      "integrity": "sha512-AvzvCji6rwtp3KEBhPrqJg7fYGfKBGs9NjIoyHm85FBKtGTq3hEVV/uHvibY2tA6RVui9hY2g21RydILg14new==",
       "requires": {
         "argv": "0.0.2",
         "debug": "3.0.1",
@@ -999,7 +999,7 @@
       "integrity": "sha1-6QBeW7kCXMmpvo5ErYf4rViIyB0=",
       "dev": true,
       "requires": {
-        "moment": "2.18.1",
+        "moment": "2.19.0",
         "sanitize-html": "1.14.1"
       }
     },
@@ -1325,16 +1325,16 @@
       }
     },
     "moment": {
-      "version": "2.18.1",
-      "resolved": "https://registry.npmjs.org/moment/-/moment-2.18.1.tgz",
-      "integrity": "sha1-w2GT3Tzhwu7SrbfIAtu8d6gbHA8="
+      "version": "2.19.0",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.19.0.tgz",
+      "integrity": "sha1-RPZ172uUSUJ2JYGxwXn7Z55ZnWc="
     },
     "moment-timezone": {
       "version": "0.5.13",
       "resolved": "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.5.13.tgz",
       "integrity": "sha1-mc5cfYJyYusPH3AgRBd/YHRde5A=",
       "requires": {
-        "moment": "2.18.1"
+        "moment": "2.19.0"
       }
     },
     "ms": {
