@@ -51,8 +51,8 @@ class Bot {
         acl.set('cdr', 0);
         this._app.registerInstance(acl, 'acl');
 
-        this.scenes = this._app.get(/^bot.scenes.[^.]+$/);
-        this.commands = this._app.get(/^bot.commands.[^.]+$/);
+        this.scenes = this._app.get(/^(cdr)?bot.scenes.[^.]+$/);
+        this.commands = this._app.get(/^(cdr)?bot.commands.[^.]+$/);
     }
 
     /**

@@ -15,8 +15,8 @@ module.exports = {
 
     // Loaded modules
     modules: [
-        '!arpen-i18n/src',
-        '!arpen-telegram/src',
+        '~arpen-i18n/src',
+        '~arpen-telegram/src',
         'cdrbot',
         'bot',
     ],
