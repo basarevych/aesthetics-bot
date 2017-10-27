@@ -34,7 +34,7 @@ module.exports = {
             session: {
                 bridge: 'telegramSession',
                 session_repository: 'repositories.userSession',
-                expire_timeout: 14 * 24 * 60 * 60,  // seconds, delete inactive sessions
+                expire_timeout: 30 * 24 * 60 * 60,  // seconds, delete inactive sessions
                 expire_interval: 60 * 60,           // seconds, check inactive sessions
             },
             middleware: [
