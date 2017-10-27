@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "argv": "~0.0.2",
-    "arpen": "~0.2.29",
+    "arpen": "~0.2.30",
     "arpen-i18n": "~0.0.9",
     "arpen-telegram": "~0.0.29",
     "daemon": "~1.1.0",
@@ -29,7 +29,7 @@
     "telegraf-flow": "~8.3.0"
   },
   "devDependencies": {
-    "eslint": "~4.9.0",
+    "eslint": "~4.10.0",
     "eslint-config-standard": "~10.2.1",
     "eslint-plugin-import": "~2.8.0",
     "eslint-plugin-node": "~5.2.1",
