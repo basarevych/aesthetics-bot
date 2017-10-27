@@ -49,7 +49,6 @@ module.exports = async function (model, mongo) {
 
         return model.id;
     } catch (error) {
-        console.log(client);
         if (client && typeof mongo !== 'object')
             client.done();
 
