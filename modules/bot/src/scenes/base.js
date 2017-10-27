@@ -71,7 +71,7 @@ class BaseScene {
      * @param {object} ctx
      * @return {object}
      */
-    getBottomKeyboard(ctx) {
+    async getBottomKeyboard(ctx) {
         throw new Error('Not defined');
     }
 
@@ -80,7 +80,7 @@ class BaseScene {
      * @param {object} ctx
      * @return {object}
      */
-    getInlineKeyboard(ctx) {
+    async getInlineKeyboard(ctx) {
         throw new Error('Not defined');
     }
 
@@ -137,13 +137,13 @@ class BaseScene {
 
             if (!ctx.user.isAllowed(this._app.get('acl').get(this.acl))) {
                 await ctx.flow.enter('start');
-                return await ctx.reply(ctx.i18n('choose_menu'), ctx.commander.getScene('start').getBottomKeyboard(ctx));
+                return await ctx.reply(ctx.i18n('choose_menu'), await ctx.commander.getScene('start').getBottomKeyboard(ctx));
             }
 
             if (await ctx.commander.process(this))
                 return;
 
-            await ctx.reply(ctx.i18n('command_invalid'), this.getBottomKeyboard(ctx));
+            await ctx.reply(ctx.i18n('command_invalid'), await this.getBottomKeyboard(ctx));
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'BaseScene.onMessage()'));
         }

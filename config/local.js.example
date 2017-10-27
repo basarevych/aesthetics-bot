@@ -15,8 +15,8 @@ module.exports = {
 
     // Loaded modules
     modules: [
-        '~arpen-i18n/src',
-        '~arpen-telegram/src',
+        '~arpen-i18n',
+        '~arpen-telegram',
         'cdrbot',
         'bot',
     ],
@@ -31,9 +31,14 @@ module.exports = {
                 records_path: '/var/spool/asterisk/monitor',
                 dst_limit: [],
             },
-            session_file: path.join(__dirname, '..', 'sessions', 'aesthetics.db'),
+            session: {
+                bridge: 'telegramSession',
+                session_repository: 'repositories.userSession',
+                expire_timeout: 14 * 24 * 60 * 60,  // seconds, delete inactive sessions
+                expire_interval: 60 * 60,           // seconds, check inactive sessions
+            },
             middleware: [
-                'telegram.localSession',
+                'telegram.session',
                 'telegram.init',
                 'telegram.i18n',
                 'telegram.commander',
@@ -61,6 +66,16 @@ module.exports = {
             password: 'password',
             database: 'dbname',
             connection_limit: 100,
+        },
+    },
+
+    // Mongo servers
+    mongo: {
+        main: {
+            host: 'localhost',
+            port: 27017,
+            database: 'aesthetics-bot',
+            pool_size: 100,
         },
     },
 

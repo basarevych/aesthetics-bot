@@ -31,7 +31,7 @@ class StartScene extends BaseScene {
      * @param {object} ctx
      * @return {object}
      */
-    getBottomKeyboard(ctx) {
+    async getBottomKeyboard(ctx) {
         return Markup
             .keyboard([
                 [ctx.i18n('show_menu')],
@@ -45,7 +45,7 @@ class StartScene extends BaseScene {
      * @param {object} ctx
      * @return {object}
      */
-    getInlineKeyboard(ctx) {
+    async getInlineKeyboard(ctx) {
         return Extra.HTML().markup((m) => {
             return m.inlineKeyboard([
                 [m.callbackButton(ctx.i18n('missed_calls'), `commander-missed_calls-today`)],
@@ -65,6 +65,8 @@ class StartScene extends BaseScene {
         try {
             if (!ctx.user.authorized)
                 await ctx.reply(ctx.i18n('enter_pin_code'), Markup.removeKeyboard().extra());
+            else if (ctx.message && ctx.message.text)
+                await this.onMessage(ctx);
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'StartScene.onEnter()'));
         }
@@ -81,7 +83,7 @@ class StartScene extends BaseScene {
                 if (await ctx.commander.process(this))
                     return;
 
-                return await ctx.reply(ctx.i18n('command_invalid'), this.getBottomKeyboard(ctx));
+                return await ctx.reply(ctx.i18n('command_invalid'), await this.getBottomKeyboard(ctx));
             }
 
             let pinCode = ctx.message.text.replace(/\s+/g, '');
@@ -91,7 +93,7 @@ class StartScene extends BaseScene {
             ctx.session.authorized = true;
             await ctx.user.load();
             await ctx.reply(ctx.i18n('greeting', { name: ctx.from.first_name }));
-            await ctx.reply(ctx.i18n('choose_menu'), this.getBottomKeyboard(ctx));
+            await ctx.reply(ctx.i18n('choose_menu'), await this.getBottomKeyboard(ctx));
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'StartScene.onMessage()'));
         }

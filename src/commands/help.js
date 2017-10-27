@@ -68,7 +68,8 @@ class Help {
         await this._app.info(
             'Usage:\tcmd <command> [<parameters]\n\n' +
             'Commands:\n' +
-            '\thelp\t\tPrint help about any other command\n'
+            '\thelp\t\tPrint help about any other command\n' +
+            '\tcreate-cert\tCreate SSL certificate\n'
         );
         process.exit(0);
     }
@@ -81,6 +82,18 @@ class Help {
         await this._app.info(
             'Usage:\tcmd help <command>\n\n' +
             '\tPrint help for the given command'
+        );
+        process.exit(0);
+    }
+
+    /**
+     * CreateCert help command
+     * @return {Promise}
+     */
+    async helpCreateCert(argv) {
+        await this._app.info(
+            'Usage:\tcmd create-cert <hostname|ip-address>\n\n' +
+            '\tCreate self-signed SSL certificate'
         );
         process.exit(0);
     }

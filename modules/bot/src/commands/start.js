@@ -91,7 +91,7 @@ class StartCommand {
                 return;
 
             await ctx.flow.enter(extra);
-            await ctx.editMessageText(ctx.i18n(`${scene.name}_menu`), scene.getInlineKeyboard(ctx));
+            await ctx.editMessageText(ctx.i18n(`${scene.name}_menu`), await scene.getInlineKeyboard(ctx));
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'StartCommand.action()'));
         }
@@ -115,7 +115,7 @@ class StartCommand {
             if (!ctx.user.isAllowed(this._app.get('acl').get(scene.acl)))
                 return false;
 
-            await ctx.reply(ctx.i18n(`${scene.name}_menu`), scene.getInlineKeyboard(ctx));
+            await ctx.reply(ctx.i18n(`${scene.name}_menu`), await scene.getInlineKeyboard(ctx));
             return true;
         } catch (error) {
             this._logger.error(new NError(error, { ctx }, 'StartCommand.process()'));
