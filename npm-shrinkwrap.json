@@ -90,9 +90,9 @@
       "integrity": "sha1-7L0W+JSbFXGDcRsb2jNPN4QBhas="
     },
     "arpen": {
-      "version": "0.2.30",
-      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.30.tgz",
-      "integrity": "sha512-QAO0vATkVWRuu92YwpC9eLcNunD1YZBfGRVDdH9HLmKPLxujA7KxHl7B96antMzv1ekqPayUeFFDMSTLJ0VNDg==",
+      "version": "0.2.31",
+      "resolved": "https://registry.npmjs.org/arpen/-/arpen-0.2.31.tgz",
+      "integrity": "sha512-WA5hdYtQJsMtSY6LKug70WVc1ciWcOSYwdOMqDw3uLVjCl4hW/txf3ZofanBJBttDWkAYYyvo4udBS94aR6cow==",
       "requires": {
         "debug": "3.1.0",
         "fs-ext": "1.0.0",
